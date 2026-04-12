@@ -1,0 +1,19 @@
+@import "./design-tokens.generated.css";
+@import "tailwindcss";
+
+/* Semantic Tailwind theme aliases → still backed by Figma-synced :root tokens */
+@theme inline {
+  --color-canvas: var(--color-background);
+  --color-fg: var(--color-foreground);
+  --color-muted-fg: var(--color-muted-foreground);
+  --color-line: var(--color-border);
+  --font-sans: var(--font-sans-stack);
+  --font-serif: var(--font-serif-stack);
+}
+
+@layer base {
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+}

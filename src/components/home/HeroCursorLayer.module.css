@@ -1,0 +1,37 @@
+/**
+ * Fine-pointer hero only: hides system cursor in-zone; follower is position:fixed.
+ * z-index below Nav (--z-index-nav).
+ */
+.zone {
+  cursor: none;
+}
+
+/* Rive uses <canvas>; it often swallows bubbled mouse events — cursor + follower still hide system pointer. */
+.zone canvas {
+  cursor: none;
+}
+
+.follower {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: var(--hero-cursor-width);
+  pointer-events: none;
+  z-index: var(--hero-cursor-z);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.followerVisible {
+  opacity: 1;
+}
+
+.cursorGraphic {
+  width: var(--hero-cursor-width);
+  height: auto;
+  display: block;
+  transform: translate(
+    var(--hero-cursor-hotspot-nudge-x),
+    var(--hero-cursor-hotspot-nudge-y)
+  );
+}
