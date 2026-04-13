@@ -1,23 +1,25 @@
-import Image from "next/image";
-
 import {
   homeProjects,
   type HomeProjectItem,
 } from "@/data/home-projects";
 import { GalleryRow } from "@/components/sitewide/GalleryRow";
 import { ProjectCard } from "@/components/home/ProjectCard";
+import { GalleryThumbImage } from "@/components/home/GalleryThumbImage";
 import gallerySectionStyles from "@/components/home/GallerySectionReveal.module.css";
-import { SectionHeader } from "@/components/sitewide/SectionHeader";
 
-function WorkThumb({ src, alt }: { src: string; alt: string }) {
+/** Muted + `playsInline` required for reliable autoplay; no controls. */
+function WorkVideoThumb({ src, label }: { src: string; label: string }) {
   return (
-    <Image
-      src={src}
-      alt={alt}
-      fill
-      className="object-cover"
-      sizes="(max-width: 1023px) 100vw, 60vw"
-    />
+    <video
+      className="absolute inset-0 h-full w-full object-cover"
+      autoPlay
+      muted
+      playsInline
+      loop
+      aria-label={label}
+    >
+      <source src={src} type="video/mp4" />
+    </video>
   );
 }
 
@@ -38,10 +40,16 @@ export function WorkSection() {
                   projTitle={project.heading}
                   projSub={project.subheading}
                   visual={
-                    project.img ? (
-                      <WorkThumb
+                    project.video ? (
+                      <WorkVideoThumb
+                        src={project.video}
+                        label={project.imgAlt ?? project.heading}
+                      />
+                    ) : project.img ? (
+                      <GalleryThumbImage
                         src={project.img}
                         alt={project.imgAlt ?? project.heading}
+                        sizes="(max-width: 1023px) 100vw, 60vw"
                       />
                     ) : undefined
                   }

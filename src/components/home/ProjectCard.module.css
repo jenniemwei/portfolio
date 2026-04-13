@@ -2,9 +2,11 @@
 @keyframes projectCardScrollScale {
   from {
     transform: scale(0.9);
+    opacity: 0.75;
   }
   to {
     transform: scale(1);
+    opacity: 1;
   }
 }
 
@@ -15,7 +17,7 @@
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .reveal {
-      animation: projectCardScrollScale linear both;
+      animation: projectCardScrollScale ease-in both;
       animation-timeline: view(block);
       animation-range: entry -15% cover 40%;
     }

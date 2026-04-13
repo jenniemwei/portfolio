@@ -1,8 +1,9 @@
 /* Scroll-driven fade + blur for the gallery block (Work / Visual), not per card. */
+/* Easing maps scroll progress → keyframes (ease-in). */
 @keyframes gallerySectionEnter {
   from {
-    opacity: 0;
-    filter: blur(500px);
+    opacity: .2;
+    filter: blur(400px);
   }
 
   to {
@@ -18,9 +19,9 @@
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .sectionReveal {
-      animation: gallerySectionEnter linear both;
+      animation: gallerySectionEnter ease-in-out both;
       animation-timeline: view(block);
-      animation-range: entry -55% cover 30%;
+      animation-range: entry -95% cover 30%;
     }
   }
 }

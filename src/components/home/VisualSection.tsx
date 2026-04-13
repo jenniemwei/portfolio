@@ -1,25 +1,11 @@
-import Image from "next/image";
-
 import {
   homeProjects,
   type HomeProjectItem,
 } from "@/data/home-projects";
 import { GalleryRow } from "@/components/sitewide/GalleryRow";
 import { ProjectCard } from "@/components/home/ProjectCard";
+import { GalleryThumbImage } from "@/components/home/GalleryThumbImage";
 import gallerySectionStyles from "@/components/home/GallerySectionReveal.module.css";
-import { SectionHeader } from "@/components/sitewide/SectionHeader";
-
-function VisualThumb({ src, alt }: { src: string; alt: string }) {
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      fill
-      className="object-cover"
-      sizes="(max-width: 1023px) 100vw, 50vw"
-    />
-  );
-}
 
 export function VisualSection() {
   return (
@@ -44,9 +30,10 @@ export function VisualSection() {
                   projSub={project.subheading}
                   visual={
                     project.img ? (
-                      <VisualThumb
+                      <GalleryThumbImage
                         src={project.img}
                         alt={project.imgAlt ?? project.heading}
+                        sizes="(max-width: 1023px) 100vw, 50vw"
                       />
                     ) : undefined
                   }

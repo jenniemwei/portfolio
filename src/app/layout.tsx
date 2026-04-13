@@ -42,6 +42,11 @@ const crimsonPro = Crimson_Pro({
 export const metadata: Metadata = {
   title: "Jennie Wei",
   description: "Product designer portfolio",
+  icons: {
+    icon: "/icons/favicon-1.png",
+    shortcut: "/icons/favicon-1.png",
+    apple: "/icons/favicon-1.png",
+  },
 };
 
 export default function RootLayout({

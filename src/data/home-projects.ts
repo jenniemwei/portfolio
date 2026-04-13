@@ -6,6 +6,8 @@ export type HomeProjectItem = {
   subheading: string;
   img: string | null;
   imgAlt?: string;
+  /** MP4 URL (e.g. Cloudinary). When set, used instead of `img` for the card visual. */
+  video?: string;
 };
 
 export type HomeGalleryRow = {
@@ -23,14 +25,14 @@ export const homeProjects = {
             id: "g2-search",
             heading: "G2 Search",
             subheading: "Summer 2025",
-            img: "/thumbnails/work/G2-search-home-img.png",
+            img: "/thumbnails/work/g2-search-thumb.png",
             imgAlt: "G2 Search",
           },
           {
             id: "g2-ai",
             heading: "G2 AI",
             subheading: "Fall 2025",
-            img: "/thumbnails/work/g2ai-home-img.png",
+            img: "/thumbnails/work/g2-ai-thumb.png",
             imgAlt: "G2 AI",
           },
         ],
@@ -39,19 +41,22 @@ export const homeProjects = {
         variant: "50-50",
         projects: [
           {
-            id: "intouch",
-            heading: "InTouch",
-            subheading: "Spring 2025",
-            img: "/thumbnails/work/intouch-home-img.webp",
-            imgAlt: "InTouch",
-          },
-          {
             id: "mclubs",
             heading: "Mclubs",
             subheading: "Summer 2024",
-            img: "/thumbnails/work/Mclubs-home-img.png",
+            img: "/thumbnails/work/mclubs-thumb.png",
             imgAlt: "Mclubs",
           },
+          {
+            id: "intouch",
+            heading: "InTouch",
+            subheading: "Spring 2025",
+            img: null,
+            imgAlt: "InTouch",
+            video:
+              "https://res.cloudinary.com/dlaz3infq/video/upload/v1767846803/intouch-short_bqnv1v.mp4",
+          },
+        
         ],
       },
     ],
