@@ -1,0 +1,38 @@
+/**
+ * Preset text styles — `font` + `letter-spacing` pairs for Tailwind arbitrary props.
+ * Depends on `design-tokens.css` (weights, sizes, stacks, tracking, leading).
+ */
+
+:root {
+  /* --- body --- */
+  --text-body-font: var(--regular) var(--font-m) / var(--lead-note) var(--font-sans-stack);
+  --text-body-letter-spacing: var(--letter-spacing-none);
+
+  /* --- display / section (serif) --- */
+  --text-display-title-font: var(--regular) var(--font-2xl) / var(--lead-base) var(--font-serif-stack);
+  --text-display-title-letter-spacing: var(--tracking-serif-display);
+
+  --text-section-title-font: var(--regular) var(--font-xl) / var(--lead-base) var(--font-serif-stack);
+  --text-section-title-letter-spacing: var(--tracking-serif-base);
+
+  /* --- nav --- */
+  --text-nav-link-font: var(--semibold) var(--font-sm) / var(--lead-base) var(--font-sans-stack);
+  --text-nav-link-letter-spacing: var(--letter-spacing-none);
+
+  /* --- intro / cards --- */
+  --text-intro-meta-font: var(--regular) var(--font-sm) / var(--lead-note) var(--font-sans-stack);
+  --text-intro-meta-letter-spacing: var(--letter-spacing-none);
+
+  --text-card-title-font: var(--semibold) var(--font-m) / var(--lead-base) var(--font-sans-stack);
+  --text-card-title-letter-spacing: var(--tracking-sans-bold);
+
+  --text-card-subtitle-font: var(--regular) var(--font-m) / var(--lead-base) var(--font-sans-stack);
+  --text-card-subtitle-letter-spacing: var(--letter-spacing-none);
+
+  /* --- placeholder pages --- */
+  --text-page-heading-font: var(--regular) var(--font-xl) / var(--lead-base) var(--font-serif-stack);
+  --text-page-heading-letter-spacing: var(--tracking-serif-base);
+
+  --text-link-back-font: var(--semibold) var(--font-m) / var(--lead-base) var(--font-sans-stack);
+  --text-link-back-letter-spacing: var(--letter-spacing-none);
+}

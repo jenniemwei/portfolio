@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import styles from "./ProjectCard.module.css";
+
 type ProjectCardProps = {
   id?: string;
   className?: string;
@@ -18,21 +20,21 @@ export function ProjectCard({
   return (
     <article
       id={id}
-      className={`flex min-h-0 flex-col items-start justify-end gap-[var(--space-s)] overflow-hidden ${className}`}
+      className={`${styles.reveal} flex h-full min-h-0 flex-col items-start justify-end gap-[var(--space-s)] overflow-hidden pb-[var(--space-s)] ${className}`}
     >
-      <div
-        className="relative flex w-full shrink-0 flex-col items-start justify-end overflow-hidden"
-        style={{ height: "var(--card-visual-height)" }}
-      >
+      <div className="relative min-h-0 w-full flex-1 overflow-hidden">
         {visual ?? (
-          <div className="min-h-0 w-full flex-1 bg-[var(--color-placeholder)]" aria-hidden />
+          <div
+            className="absolute inset-0 bg-[var(--fill-placeholder)]"
+            aria-hidden
+          />
         )}
       </div>
-      <div className="flex w-full shrink-0 items-end gap-[var(--space-s)] whitespace-nowrap px-[var(--space-s)] font-[family-name:var(--font-sans-stack)] text-[length:var(--font-size-m)] leading-[var(--line-height-none)]">
-        <p className="shrink-0 font-[var(--font-weight-semibold)] tracking-[var(--tracking-sans-bold)] text-fg">
+      <div className="flex w-full shrink-0 items-end gap-[var(--space-s)] whitespace-nowrap px-[var(--space-s)]">
+        <p className="shrink-0 text-text-default [font:var(--text-card-title-font)] [letter-spacing:var(--text-card-title-letter-spacing)]">
           {projTitle}
         </p>
-        <p className="shrink-0 font-[var(--font-weight-regular)] tracking-[var(--letter-spacing-none)] text-muted-fg">
+        <p className="shrink-0 text-text-subtle [font:var(--text-card-subtitle-font)] [letter-spacing:var(--text-card-subtitle-letter-spacing)]">
           {projSub}
         </p>
       </div>

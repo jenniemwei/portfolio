@@ -1,0 +1,9 @@
+/**
+ * Footer strip sizing — local to SiteFooter (not token JSON).
+ */
+.footer {
+  height: 199px;
+  max-width: 1484px;
+  margin-inline: auto;
+  width: 100%;
+}

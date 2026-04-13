@@ -1,0 +1,24 @@
+@keyframes projectCardScrollZoom {
+  from {
+    opacity: 0.9;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.reveal {
+  transform-origin: center center;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: projectCardScrollZoom linear both;
+      animation-timeline: view(block);
+      animation-range: entry -15% cover 40%;
+    }
+  }
+}

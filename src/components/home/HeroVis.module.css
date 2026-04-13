@@ -1,6 +1,6 @@
 /**
  * Fine-pointer hero only: hides system cursor in-zone; follower is position:fixed.
- * z-index below Nav (--z-index-nav).
+ * z-index below sticky nav (nav uses Tailwind z-50).
  */
 .zone {
   cursor: none;
@@ -34,4 +34,12 @@
     var(--hero-cursor-hotspot-nudge-x),
     var(--hero-cursor-hotspot-nudge-y)
   );
+}
+
+.cursorGraphicScratching {
+  transform: translate(
+      var(--hero-cursor-hotspot-nudge-x),
+      var(--hero-cursor-hotspot-nudge-y)
+    )
+    rotate(30deg);
 }

@@ -1,12 +1,35 @@
 import type { Metadata } from "next";
-import { Crimson_Pro, Manrope } from "next/font/google";
+import localFont from "next/font/local";
+import { Crimson_Pro } from "next/font/google";
+
+import { Nav } from "@/components/sitewide/Nav";
 import "./globals.css";
 
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-manrope",
+const saans = localFont({
+  src: [
+    {
+      path: "../../public/Saans/Saans-TRIAL-Light.woff2",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../../public/Saans/Saans-TRIAL-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/Saans/Saans-TRIAL-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/Saans/Saans-TRIAL-SemiBold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-saans",
   display: "swap",
-  weight: ["400", "600", "700"],
 });
 
 const crimsonPro = Crimson_Pro({
@@ -27,8 +50,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${crimsonPro.variable}`}>
-      <body className="min-h-screen bg-canvas font-sans text-fg antialiased">
+    <html lang="en" className={`${saans.variable} ${crimsonPro.variable}`}>
+      <body className="min-h-screen bg-canvas text-text-default antialiased">
+        <Nav />
         {children}
       </body>
     </html>

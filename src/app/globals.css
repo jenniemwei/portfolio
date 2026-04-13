@@ -1,19 +1,36 @@
-@import "./design-tokens.generated.css";
+@import "../styles/design-tokens.css";
+@import "../styles/text-styles.css";
 @import "tailwindcss";
 
-/* Semantic Tailwind theme aliases → still backed by Figma-synced :root tokens */
+/* Tailwind theme aliases → :root tokens in `src/styles/*.css` */
 @theme inline {
-  --color-canvas: var(--color-background);
-  --color-fg: var(--color-foreground);
-  --color-muted-fg: var(--color-muted-foreground);
-  --color-line: var(--color-border);
+  --color-canvas: var(--fill-bg-default);
+  --color-fg: var(--text-default);
+  --color-muted-fg: var(--text-subtle);
+  --color-text-default: var(--text-default);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-subtle: var(--text-subtle);
+  --color-line: var(--border-default);
+  --color-border-default: var(--border-default);
+  --color-border-dark-mode: var(--border-dark-mode);
   --font-sans: var(--font-sans-stack);
   --font-serif: var(--font-serif-stack);
 }
 
 @layer base {
+  body {
+    font: var(--text-body-font);
+    letter-spacing: var(--text-body-letter-spacing);
+  }
+
   :focus-visible {
     outline: var(--focus-ring-width) solid var(--focus-ring-color);
     outline-offset: var(--focus-ring-offset);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html:has([data-home-smooth-scroll]) {
+      scroll-behavior: smooth;
+    }
   }
 }

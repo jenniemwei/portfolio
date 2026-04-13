@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "sync:tokens": "node scripts/sync-tokens.mjs"
+    "lint": "eslint"
   },
   "dependencies": {
     "@rive-app/react-canvas": "^4.28.0",
