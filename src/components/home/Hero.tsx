@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { GalleryRow } from "@/components/sitewide/GalleryRow";
 import { HeroRiveDog } from "@/components/home/HeroRiveDog";
 
-import styles from "./HeroVis.module.css";
+import styles from "./Hero.module.css";
 
 const HERO_CURSOR_HAND_SRC = "/icons/hand-cursor.svg";
 const HERO_CURSOR_SCRATCH_SRC = "/icons/hand-scratching.gif";
@@ -15,7 +15,7 @@ const DOG_TARGET_SELECTOR = "[data-hero-dog-target]";
 /**
  * Hero band (75vh): Rive visual + intro, with optional fine-pointer custom cursor in-zone.
  */
-export function HeroVis() {
+export function Hero() {
   const zoneRef = useRef<HTMLDivElement>(null);
   const [useCustomCursor, setUseCustomCursor] = useState(false);
   const [insideHero, setInsideHero] = useState(false);
@@ -79,27 +79,27 @@ export function HeroVis() {
           cellClassName={(i) => (i === 0 ? "max-[900px]:hidden" : undefined)}
         >
           <div className="min-h-0" aria-hidden />
-          <div className="flex h-full min-h-0 flex-col items-center justify-end overflow-visible border-border-default border-l border-solid p-[var(--space-m)] max-[900px]:border-l-0">
+          <div className="flex h-full min-h-0 flex-col items-center justify-end overflow-visible border-line border-l border-solid p-[var(--space-m)] max-[900px]:border-l-0">
             <div className="relative w-full min-w-0 overflow-visible">
               <HeroRiveDog />
             </div>
           </div>
         </GalleryRow>
       </div>
-      <header className="shrink-0 border-border-default border-t border-solid pt-[var(--space-lg)] pb-[var(--space-xl)]">
+      <header className="shrink-0 border-line border-t border-solid pt-[var(--space-lg)] pb-[var(--space-xl)]">
         <GalleryRow variant="30-70" measure="content">
           <div className="flex flex-col gap-[var(--space-intro-credentials)] p-[var(--space-s)]">
-            <div className="w-full space-y-0 [font:var(--text-intro-meta-font)] [letter-spacing:var(--text-intro-meta-letter-spacing)]">
-              <p className="text-text-default">Incoming @ Superhuman </p>
+            <div className="w-full space-y-0 [font:var(--body-sm)] [letter-spacing:var(--body-sm-tracking,0)]">
+              <p className="text-default">Incoming @ Superhuman </p>
             </div>
-            <p className="w-full [font:var(--text-intro-meta-font)] [letter-spacing:var(--text-intro-meta-letter-spacing)] text-text-subtle">
+            <p className="w-full [font:var(--body-sm)] [letter-spacing:var(--body-sm-tracking,0)] text-subtle">
               Design HCI + Info Systems @ Carnegie Mellon
             </p>
           </div>
           <div>
-            <p className="leading-[var(--lead-base)] [font:var(--text-display-title-font)] [letter-spacing:var(--text-display-title-letter-spacing)]">
-              <span className="text-text-default">Jennie Wei is a product designer </span>
-              <span className="text-text-subtle">
+            <p className="leading-[var(--lead-base)] [font:var(--display)] [letter-spacing:var(--display-tracking,0)]">
+              <span className="text-default">Jennie Wei is a product designer </span>
+              <span className="text-subtle">
                 creating with intention, curiosity, and a drive to understand people.
               </span>
             </p>

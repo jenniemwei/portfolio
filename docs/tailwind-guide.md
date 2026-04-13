@@ -70,7 +70,7 @@ Sizes are usually from the theme (e.g. `4` = `1rem`). Bracket syntax `[...]` mea
 | **`font-bold`** | font **weight** |
 | **`leading-tight`** | **line** height (leading) |
 
-Colors often look like **`text-text-default`** — here `text-` sets the **foreground color** using your project’s token names.
+Colors often look like **`text-default`** — `text-` sets **foreground color**; names match `:root` semantics (`default`, `secondary`, `subtle`). Page background uses **`bg-canvas`** (`--bg-default`). Rules use **`border-line`** (`--border-default`).
 
 ---
 

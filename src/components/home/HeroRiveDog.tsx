@@ -19,7 +19,7 @@ type HeroRiveDogProps = {
 };
 
 export function HeroRiveDog({
-  className = "relative z-10 block w-full max-w-full overflow-visible border border-solid border-border-default",
+  className = "relative z-10 block w-full max-w-full overflow-visible border border-solid border-line",
   style,
 }: HeroRiveDogProps) {
   const layout = useMemo(

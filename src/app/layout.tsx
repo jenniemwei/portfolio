@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import { Crimson_Pro } from "next/font/google";
 
 import { Nav } from "@/components/sitewide/Nav";
-import "./globals.css";
+import "@/styles/globals.css";
 
 const saans = localFont({
   src: [
@@ -51,7 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${saans.variable} ${crimsonPro.variable}`}>
-      <body className="min-h-screen bg-canvas text-text-default antialiased">
+      <body className="min-h-screen bg-canvas text-default antialiased">
         <Nav />
         {children}
       </body>

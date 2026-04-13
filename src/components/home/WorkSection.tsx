@@ -6,7 +6,7 @@ import {
 } from "@/data/home-projects";
 import { GalleryRow } from "@/components/sitewide/GalleryRow";
 import { ProjectCard } from "@/components/home/ProjectCard";
-import { GalleryHeader } from "@/components/sitewide/GalleryHeader";
+import { SectionHeader } from "@/components/sitewide/SectionHeader";
 
 function WorkThumb({ src, alt }: { src: string; alt: string }) {
   return (
@@ -23,7 +23,7 @@ function WorkThumb({ src, alt }: { src: string; alt: string }) {
 export function WorkSection() {
   return (
     <>
-      <GalleryHeader title="Work" />
+      <SectionHeader title="Work" />
       <div className="flex w-full flex-col gap-[var(--space-32)] py-[var(--space-m)]">
         {homeProjects.work.rows.map((row, rowIndex) => (
           <GalleryRow key={`work-${row.variant}-${rowIndex}`} variant={row.variant}>

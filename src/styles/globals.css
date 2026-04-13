@@ -1,0 +1,42 @@
+/**
+ * Global stylesheet (lives in `src/styles/`).
+ * Import from the app shell: `import "@/styles/globals.css"` in `layout.tsx`.
+ * Token files are siblings — use `./` here, not `../app/…`.
+ */
+@import "./design-tokens.css";
+@import "./text-styles.css";
+@import "tailwindcss";
+
+/* Tailwind v4: content paths are relative to this file; include app + components */
+@source "../app";
+@source "../components";
+
+/* Tailwind theme aliases → :root tokens in `src/styles/*.css` */
+@theme inline {
+  --color-canvas: var(--bg-default);
+  --color-default: var(--default);
+  --color-secondary: var(--secondary);
+  --color-subtle: var(--subtle);
+  --color-line: var(--border-default);
+  --color-border-dark-mode: var(--border-dark-mode);
+  --font-sans: var(--font-sans-stack);
+  --font-serif: var(--font-serif-stack);
+}
+
+@layer base {
+  body {
+    font: var(--body);
+    letter-spacing: var(--body-tracking, 0);
+  }
+
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html:has([data-home-smooth-scroll]) {
+      scroll-behavior: smooth;
+    }
+  }
+}

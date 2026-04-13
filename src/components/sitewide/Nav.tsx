@@ -12,7 +12,7 @@ const navTextLinkClassName =
   "group/nav-link flex items-center py-[var(--space-8)]";
 
 const navTextLabelClassName =
-  "inline-block text-text-default [font:var(--text-nav-link-font)] [letter-spacing:var(--text-nav-link-letter-spacing)] transition-[transform,opacity] duration-300 ease-out motion-safe:group-hover/nav-link:translate-y-[calc(var(--space-4)*-1)] motion-safe:group-hover/nav-link:opacity-80 motion-safe:group-focus-visible/nav-link:translate-y-[calc(var(--space-4)*-1)] motion-safe:group-focus-visible/nav-link:opacity-80";
+  "inline-block text-default [font:var(--nav-link)] [letter-spacing:var(--nav-link-tracking,0)] transition-[transform,opacity] duration-300 ease-out motion-safe:group-hover/nav-link:translate-y-[calc(var(--space-4)*-1)] motion-safe:group-hover/nav-link:opacity-80 motion-safe:group-focus-visible/nav-link:translate-y-[calc(var(--space-4)*-1)] motion-safe:group-focus-visible/nav-link:opacity-80";
 
 export function Nav() {
   return (

@@ -35,16 +35,15 @@
   --font-xs: 0.75rem;
   --font-sm: 0.875rem;
   --font-m: 1rem;
-  --font-lg: 1.25rem;
+  --font-lg: 1.5rem;
   --font-xl: 2rem;
   --font-2xl: 2.5rem;
-  --font-3xl: 3rem;
 
   /* --- Semantic fills & ink --- */
-  --fill-bg-default: var(--g1);
-  --text-default: var(--g8);
-  --text-secondary: var(--g6);
-  --text-subtle: var(--g4);
+  --bg-default: var(--g1);
+  --default: var(--g8);
+  --secondary: var(--g6);
+  --subtle: var(--g4);
   --border-default: var(--g2);
   --border-dark-mode: var(--g6);
   --fill-placeholder: var(--placeholder);
@@ -59,7 +58,6 @@
   --bold: 600;
 
   /* --- Tracking & leading --- */
-  --letter-spacing-none: 0;
   --tracking-serif-base: -1.5px;
   --tracking-serif-display: -2.5px;
   --tracking-sans-bold: -0.5px;
@@ -79,7 +77,7 @@
   --page-gutter: clamp(1.25rem, 5.55vw, 5rem);
 
   /* --- Nav --- */
-  --nav-fill-background: color-mix(in srgb, var(--g1) 22%, transparent);
+  --nav-fill-background: color-mix(in srgb, var(--bg-default) 22%, transparent);
   --nav-fill-backdrop-blur: 12px;
   --nav-icon-size: 32px;
 
@@ -94,7 +92,7 @@
 
   /* --- Focus ring --- */
   --focus-ring-width: var(--space-2);
-  --focus-ring-color: var(--text-default);
+  --focus-ring-color: var(--default);
   --focus-ring-offset: var(--space-2);
 
   /* --- Breakpoints (reference in CSS / arbitrary variants) --- */

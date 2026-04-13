@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-import styles from "./SiteFooter.module.css";
+import styles from "./Footer.module.css";
 
-export function SiteFooter() {
+export function Footer() {
   return (
     <footer
       className={`${styles.footer} relative mt-auto shrink-0 overflow-hidden`}

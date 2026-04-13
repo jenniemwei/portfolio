@@ -7,14 +7,14 @@ export default function WorkPage() {
     >
       <Link
         href="/"
-        className="w-fit text-text-subtle underline-offset-4 [font:var(--text-link-back-font)] [letter-spacing:var(--text-link-back-letter-spacing)] hover:opacity-[var(--link-hover-opacity)]"
+        className="w-fit text-subtle underline-offset-4 [font:var(--link-back)] [letter-spacing:var(--link-back-tracking,0)] hover:opacity-[var(--link-hover-opacity)]"
       >
         ← Home
       </Link>
-      <h1 className="text-text-default [font:var(--text-page-heading-font)] [letter-spacing:var(--text-page-heading-letter-spacing)]">
+      <h1 className="text-default [font:var(--page-heading)] [letter-spacing:var(--page-heading-tracking,0)]">
         Work
       </h1>
-      <p className="text-text-subtle [font:var(--text-body-font)] [letter-spacing:var(--text-body-letter-spacing)]">
+      <p className="text-subtle [font:var(--body)] [letter-spacing:var(--body-tracking,0)]">
         Case studies and projects coming soon.
       </p>
     </div>

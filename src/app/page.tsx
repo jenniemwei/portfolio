@@ -1,8 +1,8 @@
-import { HeroVis } from "@/components/home/HeroVis";
+import { Hero } from "@/components/home/Hero";
 import { SpacerSection } from "@/components/sitewide/SpacerSection";
 import { VisualSection } from "@/components/home/VisualSection";
 import { WorkSection } from "@/components/home/WorkSection";
-import { SiteFooter } from "@/components/sitewide/SiteFooter";
+import { Footer } from "@/components/sitewide/Footer";
 
 export default function HomePage() {
   return (
@@ -11,13 +11,13 @@ export default function HomePage() {
       data-home-smooth-scroll
     >
       <main className="flex w-full max-w-[var(--content-max)] flex-col px-[var(--page-gutter)] pb-[var(--home-page-padding-bottom)]">
-        <HeroVis />
+        <Hero />
         <WorkSection />
         <SpacerSection />
         <VisualSection />
         <SpacerSection />
       </main>
-      <SiteFooter />
+      <Footer />
     </div>
   );
 }
