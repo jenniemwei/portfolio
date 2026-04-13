@@ -9,7 +9,7 @@ const saans = localFont({
   src: [
     {
       path: "../../public/Saans/Saans-TRIAL-Light.woff2",
-      weight: "200",
+      weight: "300",
       style: "normal",
     },
     {
@@ -24,7 +24,7 @@ const saans = localFont({
     },
     {
       path: "../../public/Saans/Saans-TRIAL-SemiBold.woff2",
-      weight: "700",
+      weight: "600",
       style: "normal",
     },
   ],
@@ -36,7 +36,7 @@ const crimsonPro = Crimson_Pro({
   subsets: ["latin"],
   variable: "--font-crimson",
   display: "swap",
-  weight: ["400", "600"],
+  weight: ["300", "400", "500", "600"],
 });
 
 export const metadata: Metadata = {

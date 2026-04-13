@@ -3,8 +3,8 @@
   display: grid;
   width: 100%;
   min-width: 0;
-  column-gap: var(--space-24);
-  row-gap: var(--space-32);
+  column-gap: var(--space-m);
+  row-gap: var(--space-m);
   aspect-ratio: 12 / 4;
 }
 
@@ -12,8 +12,8 @@
   display: grid;
   width: 100%;
   min-width: 0;
-  column-gap: var(--space-24);
-  row-gap: var(--space-24);
+  column-gap: var(--space-m);
+  row-gap: var(--space-m);
 }
 
 .row6040 {
@@ -44,11 +44,6 @@
 
 /* Below Tailwind `lg` (64rem): match `max-lg:` — use literal px; @see docs/tailwind-guide.md */
 @media (max-width: 64rem) {
-  .row,
-  .rowContent {
-    column-gap: var(--space-12);
-    row-gap: var(--space-12);
-  }
 
   .row {
     aspect-ratio: 12 / 5;

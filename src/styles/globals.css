@@ -16,7 +16,8 @@
  * ===================================================================== */
 :root {
   /* --- Palette (gray scale + white + placeholder) --- */
-  --g1: #f7f7f7;
+  --g0: #f7f7f7;
+  --g1: #e7e7e7;
   --white: #ffffff;
   --g2: #d7d7d9;
   --placeholder: #d9d9d9;
@@ -49,15 +50,21 @@
   --font-lg: 1.5rem;
   --font-xl: 2rem;
   --font-2xl: 2.5rem;
+  --font-3xl: 4rem;
 
   /* --- Semantic fills & ink --- */
-  --bg-default: var(--g1);
+  --bg-default: var(--g0);
   --default: var(--g8);
   --secondary: var(--g6);
   --subtle: var(--g4);
+  --border-subtle: var(--g3);
   --border-default: var(--g2);
   --border-dark-mode: var(--g6);
   --fill-placeholder: var(--placeholder);
+
+  /* --- Border width --- */
+  --border-width-default: 1px;
+  --border-width-sm: 0.5px;
 
   /* --- Font stacks (Next sets --font-saans / --font-crimson on <html>) --- */
   --font-sans-stack: var(--font-saans), ui-sans-serif, system-ui, sans-serif;
@@ -71,17 +78,17 @@
 
   /* --- Tracking & leading --- */
   --tracking-serif-base: -1.1px;
-  --tracking-serif-display: -2.25px;
+  --tracking-serif-display: -3.5px;
   --tracking-sans-bold: -0.5px;
   --lead-note: 1.3;
   --lead-base: 1;
 
-  /* --- Semantic space aliases --- */
+  /* Semantic rhythm: s/m/lg = 12/24/48px from `md` up; below `md` → 8/20/32px (@media in this file). @see docs/design-tokens.md */
+  --space-xs: var(--space-8);
   --space-s: var(--space-12);
-  --space-m: var(--space-24);
-  --space-lg: var(--space-48);
-  --space-xl: var(--space-72);
-  --space-intro-credentials: var(--space-40);
+  --space-m: var(--space-20);
+  --space-lg: var(--space-40);
+  --space-xl: var(--space-64);
 
   /* --- Layout --- */
   --content-max: 1400px;
@@ -92,11 +99,14 @@
   --nav-fill-background: color-mix(in srgb, var(--bg-default) 22%, transparent);
   --nav-fill-backdrop-blur: 12px;
   --nav-icon-size: 32px;
+  /* Sticky header clearance for in-page #work / #visual scroll */
+  --nav-scroll-margin: 4.75rem;
 
   /* --- Hero / galleries / sections --- */
-  --hero-height: 400px;
+  --hero-border-width: var(--border-width-sm);
+  --hero-height: 80vh;
   --hero-grid-gap-x: var(--space-20);
-  /* md and up; narrowed below md — see @media block after @theme */
+  /* Dog Rive: 360px from `md` up; 240px below `md` — same @media as semantic spaces */
   --hero-visual-max-width: 360px;
   /* Rive artboard & hero canvas: width 7 : height 10 */
   --hero-visual-aspect-ratio: 7 / 10;
@@ -108,23 +118,6 @@
   --focus-ring-width: var(--space-2);
   --focus-ring-color: var(--default);
   --focus-ring-offset: var(--space-2);
-
-  /*
-   * --- Breakpoints (Tailwind defaults only) ---
-   * Do not define breakpoint custom properties here. Use Tailwind responsive prefixes in TSX/CSS.
-   *
-   * Default min-width scale (mobile-first). Prefix applies at this width and up:
-   *   sm   — 40rem  (640px  @ 16px root)
-   *   md   — 48rem  (768px)
-   *   lg   — 64rem  (1024px)
-   *   xl   — 80rem  (1280px)
-   *   2xl  — 96rem  (1536px)
-   *
-   * Max-width variants stack above: max-sm, max-md, max-lg, max-xl, max-2xl
-   * (e.g. max-lg:* applies below 64rem / 1024px).
-   *
-   * @see ../../docs/tailwind-guide.md
-   */
 
   /* --- Placeholder routes / home --- */
   --placeholder-body-max-width: 42rem;
@@ -167,7 +160,7 @@
 }
 
 @utility type-display {
-  font: var(--regular) var(--font-2xl) / var(--lead-base) var(--font-serif-stack);
+  font: var(--light) var(--font-3xl) / var(--lead-base) var(--font-serif-stack);
   letter-spacing: var(--tracking-serif-display);
 }
 
@@ -202,20 +195,36 @@
 }
 
 /*
- * Same boundary as Tailwind `md` / `max-md` (theme default `--breakpoint-md: 48rem`).
- * Use a literal here: `var(--breakpoint-md)` in @media is valid in browsers but Next’s CSS
- * optimizer reports “Invalid media query” and may mishandle it. Prefer `max-md:` in TSX when possible.
+xl 1280px
+lg 1024px
+md 768px
+sm 640px
  */
-@media (max-width: 48rem) {
+
+ @media (max-width: 768px) {
   :root {
-    --hero-visual-max-width: 240px;
+    --hero-visual-max-width: 300px;
   }
 }
+
+ @media (max-width: 1024px) {
+  :root {
+    --space-s: var(--space-8);
+    --space-m: var(--space-12);
+    --space-lg: var(--space-32);
+  }
+}
+
 
 @layer base {
   body {
     font: var(--regular) var(--font-m) / var(--lead-note) var(--font-sans-stack);
     letter-spacing: 0;
+  }
+
+  #work,
+  #visual {
+    scroll-margin-top: var(--nav-scroll-margin);
   }
 
   :focus-visible {

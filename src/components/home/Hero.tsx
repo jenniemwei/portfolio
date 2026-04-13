@@ -13,7 +13,7 @@ const HERO_CURSOR_SCRATCH_SRC = "/icons/hand-scratching.gif";
 const DOG_TARGET_SELECTOR = "[data-hero-dog-target]";
 
 /**
- * Hero band (75vh): Rive visual + intro, with optional fine-pointer custom cursor in-zone.
+ * Hero band: block size from `--hero-height` (`60vh` in `globals.css`); Rive + intro; optional custom cursor.
  */
 export function Hero() {
   const zoneRef = useRef<HTMLDivElement>(null);
@@ -68,7 +68,7 @@ export function Hero() {
 
   const heroSection = (
     <section
-      className="flex h-[75vh] min-h-0 w-full flex-col overflow-visible"
+      className="flex h-[var(--hero-height)] min-h-0 w-full flex-col overflow-visible"
       aria-label="Hero"
     >
       <div className="relative z-[1] flex min-h-0 flex-1 flex-col overflow-visible">
@@ -76,17 +76,17 @@ export function Hero() {
           variant="60-40"
           measure="content"
           className="h-full min-h-0 overflow-visible"
-          cellClassName={(i) => (i === 0 ? "max-lg:hidden" : undefined)}
+          cellClassName={(i) => (i === 0 ? "max-md:hidden" : undefined)}
         >
           <div className="min-h-0" aria-hidden />
-          <div className="flex h-full min-h-0 w-full min-w-0 flex-col items-end justify-end overflow-visible border-line border-l border-solid p-[var(--space-m)] max-lg:border-l-0">
+          <div className="flex h-full min-h-0 w-full min-w-0 flex-col items-end justify-end overflow-visible  p-[var(--space-lg)] max-md:border-l-0">
             <HeroRiveDog />
           </div>
         </GalleryRow>
       </div>
-      <header className="relative z-0 shrink-0 border-line border-t border-solid pt-[var(--space-lg)] pb-[var(--space-xl)]">
+      <header className="relative z-0 shrink-0 border-solid border-line border-y-[length:var(--hero-border-width)] pt-[var(--space-lg)] pb-[var(--space-xl)]">
         <GalleryRow variant="30-70" measure="content">
-          <div className="flex flex-col gap-[var(--space-intro-credentials)] p-[var(--space-s)]">
+          <div className="flex flex-col gap-[var(--space-s)] w-[50%]">
             <div className="type-body-sm w-full space-y-0">
               <p className="text-default">Incoming @ Superhuman </p>
             </div>

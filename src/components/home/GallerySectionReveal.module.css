@@ -1,0 +1,26 @@
+/* Scroll-driven fade + blur for the gallery block (Work / Visual), not per card. */
+@keyframes gallerySectionEnter {
+  from {
+    opacity: 0;
+    filter: blur(500px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.sectionReveal {
+  min-width: 0;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sectionReveal {
+      animation: gallerySectionEnter linear both;
+      animation-timeline: view(block);
+      animation-range: entry -55% cover 30%;
+    }
+  }
+}

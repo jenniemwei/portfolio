@@ -43,16 +43,15 @@ export function HeroRiveDog() {
 
   /**
    * Layout contract:
-   * - `#dog-container`: width = 90% of parent cell (capped), `aspect-square`; height follows width.
-   *   Border on this box only. `overflow-visible` so `#dog-wrapper` (taller 7:10) can extend below.
+   * - `#dog-container`: width = 90% of parent cell (capped); aspect **width:height = 3:4** (i.e. height:width 4:3). Border on hero cell in `Hero.tsx`. `overflow-visible` so `#dog-wrapper` (taller 7:10) can extend below.
    * - `#dog-wrapper`: `w-full`, `aspect-ratio` = artboard 7:10; top + horizontal center within `#dog-container` (hero cell uses `items-end justify-end` for bottom-right placement).
    * - Rive: `Fit.Contain` + full-size canvas in wrapper → artboard always fully visible, letterboxed if needed.
-   * `min-h-0` avoids flex `min-height:auto` inflating the square past `aspect-square`.
+   * `min-h-0` avoids flex `min-height:auto` inflating past the container aspect.
    */
   return (
     <div
       id="dog-container"
-      className="relative z-20 flex aspect-square w-[90%] max-w-[var(--hero-visual-max-width)] min-h-0 shrink-0 flex-col items-center justify-start overflow-visible border border-solid border-line"
+      className="relative z-20 flex aspect-square w-[90%] max-w-[var(--hero-visual-max-width)] min-h-0 shrink-0 flex-col items-center justify-start overflow-visible"
     >
       <div
         id="dog-wrapper"

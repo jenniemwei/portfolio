@@ -8,7 +8,7 @@ Hand-edited CSS lives next to this file:
 
 | Variable        | Role                          |
 |----------------|-------------------------------|
-| `--g1` … `--g10`, `--white`, `--placeholder` | Raw fills; semantic tokens reference these |
+| `--g0` (canvas `#f7f7f7`), `--g1` (`#e7e7e7`), `--g2` … `--g10`, `--white`, `--placeholder` | Raw fills; semantic tokens reference these |
 
 ## Space (`:root`)
 
@@ -16,6 +16,19 @@ Hand-edited CSS lives next to this file:
 |------------|------|
 | `--space-{n}` | Pixel steps (`2` … `72`) |
 | `--space-s`, `--space-m`, `--space-lg`, `--space-xl`, `--space-intro-credentials` | Named rhythm |
+
+### Below `md` (`max-width: 48rem`, Tailwind `max-md`)
+
+[`globals.css`](../src/styles/globals.css) redefines these on `:root` under that single `@media` (literal `48rem`; no `var()` in the query — see [tailwind-guide.md](./tailwind-guide.md)):
+
+| Token | From `md` up (default) | Below `md` |
+|-------|-------------------------|------------|
+| `--space-s` | `12px` (`--space-12`) | `8px` (`--space-8`) |
+| `--space-m` | `24px` (`--space-24`) | `20px` (`--space-20`) |
+| `--space-lg` | `48px` (`--space-48`) | `32px` (`--space-32`) |
+| `--hero-visual-max-width` | `360px` | `240px` |
+
+`--space-xl` and other tokens are unchanged by that block.
 
 ## Type scale (`:root`)
 
@@ -30,10 +43,13 @@ Hand-edited CSS lives next to this file:
 
 | Variable | Role |
 |----------|------|
-| `--bg-default` | Page / canvas background |
+| `--bg-default` | Page / canvas background (`--g0`) |
 | `--default`, `--secondary`, `--subtle` | Body ink hierarchy |
 | `--border-default`, `--border-dark-mode` | Strokes |
+| `--border-width-default` (`1px`), `--border-width-sm` (`0.5px`) | Hairline vs default rule |
 | `--fill-placeholder` | Image / card placeholder surface |
+
+Hero borders use `--hero-border-width` (`var(--border-width-sm)`) in `Hero.tsx` and `HeroRiveDog.tsx`.
 
 ## Typography roles (`type-*` utilities)
 

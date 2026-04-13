@@ -1,9 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { SectionScrollLink } from "@/components/sitewide/SectionScrollLink";
+
 const links = [
-  { href: "/#work", label: "WORK", containerId: "work-button" },
-  { href: "/#visual", label: "VISUAL", containerId: "visual-button" },
+  {
+    href: "/#work",
+    label: "WORK",
+    containerId: "work-button",
+    sectionId: "work" as const,
+  },
+  {
+    href: "/#visual",
+    label: "VISUAL",
+    containerId: "visual-button",
+    sectionId: "visual" as const,
+  },
   { href: "/else", label: "ELSE", containerId: "else-button" },
 ] as const;
 
@@ -29,7 +41,7 @@ export function Nav() {
           className="flex w-full px-[var(--space-m)] pt-[var(--space-4)]"
           aria-label="Primary"
         >
-          <div className="group/nav-pill relative w-full overflow-hidden rounded-full px-[var(--space-8)]">
+          <div className="group/nav-pill relative w-full overflow-hidden rounded-full p-[var(--space-4)]">
             <div
               className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] opacity-0 transition-opacity duration-300 ease-out group-hover/nav-pill:opacity-[0.6] group-focus-within/nav-pill:opacity-[0.75]"
               aria-hidden
@@ -66,16 +78,32 @@ export function Nav() {
                 </Link>
               </div>
               <div className="flex items-stretch justify-center gap-[var(--space-64)] justify-self-center self-stretch">
-                {links.map(({ href, label, containerId }) => (
-                  <Link
-                    key={href}
-                    id={containerId}
-                    href={href}
-                    className={navTextLinkClassName}
-                  >
-                    <span className={navTextLabelClassName}>{label}</span>
-                  </Link>
-                ))}
+                {links.map((item) => {
+                  const { href, label, containerId } = item;
+                  if ("sectionId" in item) {
+                    return (
+                      <SectionScrollLink
+                        key={href}
+                        href={href}
+                        sectionId={item.sectionId}
+                        id={containerId}
+                        className={navTextLinkClassName}
+                      >
+                        <span className={navTextLabelClassName}>{label}</span>
+                      </SectionScrollLink>
+                    );
+                  }
+                  return (
+                    <Link
+                      key={href}
+                      id={containerId}
+                      href={href}
+                      className={navTextLinkClassName}
+                    >
+                      <span className={navTextLabelClassName}>{label}</span>
+                    </Link>
+                  );
+                })}
               </div>
               <Link
                 id="info-button"
