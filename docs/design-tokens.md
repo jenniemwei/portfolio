@@ -37,7 +37,7 @@ Hand-edited CSS lives next to this file:
 
 ## Typography roles (`type-*` utilities)
 
-Composites are defined only in `@utility` (they use `--font-*`, `--lead-*`, `--tracking-*`, stacks). Optional overrides: set e.g. `--display-tracking` on a scope to replace the default `var(--tracking-serif-display)`.
+Composites are defined only in `@utility` (they use `--font-*`, `--lead-*`, primitive `--tracking-*` or `0`, and stacks).
 
 | Class | Use |
 |-------|-----|
