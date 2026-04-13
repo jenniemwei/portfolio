@@ -15,12 +15,46 @@
   .slideLayer {
     transition-duration: 0.01ms;
   }
+
+  .navBackdropPlate {
+    transition-duration: 0.01ms;
+  }
 }
 
-.pillFill {
+/* Frost plate: sibling of `.slideLayer` (no transform) so `backdrop-filter` can sample the page. */
+.navBackdropPlate {
   background-color: var(--nav-fill-background);
-  backdrop-filter: blur(var(--nav-fill-backdrop-blur));
-  -webkit-backdrop-filter: blur(var(--nav-fill-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--nav-fill-backdrop-blur)) saturate(1.2);
+  backdrop-filter: blur(var(--nav-fill-backdrop-blur)) saturate(1.2);
+  /* Hide with clip-path — `opacity` on the same layer often kills backdrop blur in WebKit. */
+  transition: clip-path 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  clip-path: inset(0 round 9999px);
+  -webkit-clip-path: inset(0 round 9999px);
+}
+
+.navBackdropPlateHidden {
+  clip-path: inset(0 0 100% 0 round 9999px);
+  -webkit-clip-path: inset(0 0 100% 0 round 9999px);
+}
+
+/* Logo: CCW 270° on hover/focus; springy ease-out-back on both directions. */
+.logoButton {
+  transform: rotate(0deg);
+  transform-origin: center center;
+  /* easeOutBack–style overshoot (see easings.net) */
+  transition: transform 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logoButton:hover,
+.logoButton:focus-visible {
+  transform: rotate(-270deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoButton {
+    transition-duration: 0.15s;
+    transition-timing-function: ease-out;
+  }
 }
 
 /* Nav text links: keyframe hover (plays full curve each time; smoother than mid-transition reversals). */
@@ -30,7 +64,7 @@
     opacity: 1;
   }
   55% {
-    transform: translate3d(0, calc(var(--space-8) * -1.12), 0);
+    transform: translate3d(0, calc(var(--space-8) * -1), 0);
     opacity: 0.6;
   }
   100% {

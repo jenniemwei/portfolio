@@ -1,27 +1,14 @@
+"use client";
+
 import {
   homeProjects,
   type HomeProjectItem,
 } from "@/data/home-projects";
 import { GalleryRow } from "@/components/sitewide/GalleryRow";
-import { ProjectCard } from "@/components/home/ProjectCard";
+import { ProjectCardWithPreview } from "@/components/projects/ProjectCardWithPreview";
 import { GalleryThumbImage } from "@/components/home/GalleryThumbImage";
+import { GalleryVideoThumb } from "@/components/home/GalleryVideoThumb";
 import gallerySectionStyles from "@/components/home/GallerySectionReveal.module.css";
-
-/** Muted + `playsInline` required for reliable autoplay; no controls. */
-function WorkVideoThumb({ src, label }: { src: string; label: string }) {
-  return (
-    <video
-      className="absolute inset-0 h-full w-full object-cover"
-      autoPlay
-      muted
-      playsInline
-      loop
-      aria-label={label}
-    >
-      <source src={src} type="video/mp4" />
-    </video>
-  );
-}
 
 export function WorkSection() {
   return (
@@ -34,16 +21,16 @@ export function WorkSection() {
           <GalleryRow key={`work-${row.variant}-${rowIndex}`} variant={row.variant}>
             {(row.projects as readonly HomeProjectItem[]).map(
               (project, i) => (
-                <ProjectCard
+                <ProjectCardWithPreview
                   key={project.id ?? `work-${rowIndex}-${i}`}
-                  id={project.id}
-                  projTitle={project.heading}
-                  projSub={project.subheading}
+                  project={project}
                   visual={
                     project.video ? (
-                      <WorkVideoThumb
+                      <GalleryVideoThumb
                         src={project.video}
                         label={project.imgAlt ?? project.heading}
+                        fill={project.videoThumbBg}
+                        fit={project.videoThumbFit}
                       />
                     ) : project.img ? (
                       <GalleryThumbImage

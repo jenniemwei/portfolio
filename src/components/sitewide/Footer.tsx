@@ -5,15 +5,24 @@ import styles from "./Footer.module.css";
 export function Footer() {
   return (
     <footer
-      className={`${styles.footer} relative mt-auto w-full shrink-0 self-stretch overflow-hidden`}
+      className={`${styles.footer} mt-auto w-full shrink-0 self-stretch`}
     >
-      <Image
-        src="/windows-wp.gif"
+      <div className={styles.bgWrap} aria-hidden>
+        <Image
+          src="/footer-bg.gif"
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+          unoptimized
+        />
+      </div>
+      {/* Native img so height % + width:auto track footer without Next/Image intrinsic box fighting layout */}
+      <img
+        src="/dog-laying.png"
         alt=""
-        fill
-        className="object-cover object-center"
-        sizes="100vw"
-        unoptimized
+        className={styles.dog}
+        decoding="async"
       />
     </footer>
   );

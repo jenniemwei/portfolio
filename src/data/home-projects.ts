@@ -8,6 +8,12 @@ export type HomeProjectItem = {
   imgAlt?: string;
   /** MP4 URL (e.g. Cloudinary). When set, used instead of `img` for the card visual. */
   video?: string;
+  /** Solid fill behind video (e.g. letterboxing). */
+  videoThumbBg?: "white";
+  /** `cover` = fill card, may crop; `contain` = full width, letterbox (default). */
+  videoThumbFit?: "contain" | "cover";
+  /** App route for full case study; first card click opens preview modal. */
+  projectHref?: string;
 };
 
 export type HomeGalleryRow = {
@@ -27,6 +33,7 @@ export const homeProjects = {
             subheading: "Summer 2025",
             img: "/thumbnails/work/g2-search-thumb.png",
             imgAlt: "G2 Search",
+            projectHref: "/work/g2-search",
           },
           {
             id: "g2-ai",
@@ -34,6 +41,7 @@ export const homeProjects = {
             subheading: "Fall 2025",
             img: "/thumbnails/work/g2-ai-thumb.png",
             imgAlt: "G2 AI",
+            projectHref: "/work/g2-ai",
           },
         ],
       },
@@ -46,6 +54,7 @@ export const homeProjects = {
             subheading: "Summer 2024",
             img: "/thumbnails/work/mclubs-thumb.png",
             imgAlt: "Mclubs",
+            projectHref: "/work/mclubs",
           },
           {
             id: "intouch",
@@ -55,8 +64,9 @@ export const homeProjects = {
             imgAlt: "InTouch",
             video:
               "https://res.cloudinary.com/dlaz3infq/video/upload/v1767846803/intouch-short_bqnv1v.mp4",
+            videoThumbFit: "cover",
+            projectHref: "/work/intouch",
           },
-        
         ],
       },
     ],
@@ -68,15 +78,22 @@ export const homeProjects = {
         projects: [
           {
             id: "dhero",
-            heading: "Dhero",
-            subheading: "Visual",
-            img: "/thumbnails/visual/dhero-home-img.webp",
-            imgAlt: "Dhero",
+            heading: "The Designers Republic",
+            subheading: "Spring 2025",
+            img: null,
+            imgAlt: "The Designers Republic",
+            video:
+              "https://res.cloudinary.com/dlaz3infq/video/upload/v1767847688/ian_anderson_video_nzysfl.mp4",
           },
           {
-            heading: "Meeting of the Minds",
-            subheading: "Subhead",
+            id: "folding-at-home",
+            heading: "Folding@Home",
+            subheading: "Spring 2026",
             img: null,
+            imgAlt: "Folding@Home",
+            video:
+              "https://res.cloudinary.com/dlaz3infq/video/upload/v1776101730/logoanilight_rklxrq.mp4",
+            videoThumbBg: "white",
           },
         ],
       },
@@ -84,28 +101,28 @@ export const homeProjects = {
         variant: "50-50",
         projects: [
           {
-            heading: "HCII",
-            subheading: "Research",
+            heading: "HCII 30",
+            subheading: "Summer 2024",
             img: "/thumbnails/visual/HCII-thumb.jpeg",
             imgAlt: "HCII",
           },
           {
-            heading: "Project Headline",
-            subheading: "Subhead",
+            heading: "From the Negatives",
+            subheading: "Fall 2025",
             img: null,
           },
         ],
       },
-      {
-        variant: "100",
-        projects: [
-          {
-            heading: "Project Headline",
-            subheading: "Subhead",
-            img: null,
-          },
-        ],
-      },
+      // {
+      //   variant: "100",
+      //   projects: [
+      //     {
+      //       heading: "Project Headline",
+      //       subheading: "Subhead",
+      //       img: null,
+      //     },
+      //   ],
+      // },
     ],
   },
 } as const satisfies {

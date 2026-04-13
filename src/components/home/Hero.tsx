@@ -66,6 +66,30 @@ export function Hero() {
     return () => document.removeEventListener("mousemove", handleMove, true);
   }, [useCustomCursor]);
 
+  /**
+   * Scroll does not emit mousemove — if the pointer stays fixed while the hero scrolls away,
+   * `insideHero` would stay true and the hand follower would remain visible. Clear when the
+   * hero zone is not intersecting the viewport (any amount hidden = treat as out of view for
+   * the cursor chrome; pointer target checks still gate showing it again).
+   */
+  useEffect(() => {
+    if (!useCustomCursor) return;
+    const el = zoneRef.current;
+    if (!el) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          setInsideHero(false);
+          setScratching(false);
+        }
+      },
+      { threshold: 0 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [useCustomCursor]);
+
   const heroSection = (
     <section
       className="flex h-[var(--hero-height)] min-h-0 w-full flex-col overflow-visible"

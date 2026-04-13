@@ -95,36 +95,35 @@ export function Nav() {
         <Link
           id="logo-button"
           href="/"
-          className="relative z-[2] block shrink-0 transition-opacity hover:opacity-[var(--link-hover-opacity)] focus-visible:opacity-[var(--link-hover-opacity)]"
-          style={{
-            width: "var(--nav-icon-size)",
-            height: "var(--nav-icon-size)",
-          }}
+          className={`${styles.logoButton} relative z-[2] inline-flex items-center justify-center p-[var(--space-4)]`}
         >
           <Image
             src="/icons/favicon-1.png"
             alt="Home"
             width={32}
             height={32}
-            className="size-[var(--nav-icon-size)]"
+            className="size-[var(--nav-icon-size)] shrink-0"
             sizes="32px"
             priority
           />
         </Link>
 
         <div className="min-h-[var(--nav-icon-size)] min-w-0 flex-1 overflow-hidden">
-          <div
-            className={`${styles.slideLayer} ${slideHidden ? styles.slideLayerHidden : ""}`}
-          >
+          <div className="relative w-full overflow-hidden rounded-full">
             <div
-              className={`group/nav-pill relative w-full overflow-hidden rounded-full p-[var(--space-4)] ${styles.pillFill}`}
+              className={`pointer-events-none absolute inset-0 z-0 rounded-full ${styles.navBackdropPlate} ${slideHidden ? styles.navBackdropPlateHidden : ""}`}
+              aria-hidden
+            />
+            <div
+              className={`relative z-[1] rounded-full  ${styles.slideLayer} ${slideHidden ? styles.slideLayerHidden : ""}`}
             >
-              <div
-                className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] opacity-0 transition-opacity duration-300 ease-out group-hover/nav-pill:opacity-[0.6] group-focus-within/nav-pill:opacity-[0.75]"
+              <div id="nav-pill" className="group/nav-pill relative w-full overflow-hidden rounded-full py-[var(--space-2)]">
+              <div id="nav-pill-fill"
+                className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] opacity-0 transition-opacity duration-300 ease-out group-hover/nav-pill:opacity-[0.5] group-focus-within/nav-pill:opacity-[0.75]"
                 aria-hidden
               >
                 <Image
-                  src="/clouds-bg.gif"
+                  src="/clouds-bg-thin.gif"
                   alt=""
                   fill
                   className="object-cover object-center"
@@ -174,6 +173,7 @@ export function Nav() {
                 >
                   <span className={navLinkLabelClassName}>INFO</span>
                 </Link>
+              </div>
               </div>
             </div>
           </div>

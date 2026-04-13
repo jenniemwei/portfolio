@@ -4,9 +4,11 @@ import { SpacerSection } from "@/components/sitewide/SpacerSection";
 import { VisualSection } from "@/components/home/VisualSection";
 import { WorkSection } from "@/components/home/WorkSection";
 import { Footer } from "@/components/sitewide/Footer";
+import { ProjectPreviewProvider } from "@/components/projects/ProjectPreviewProvider";
 
 export default function HomePage() {
   return (
+    <ProjectPreviewProvider>
     <div
       className="flex min-h-screen flex-col items-center"
       data-home-smooth-scroll
@@ -21,5 +23,6 @@ export default function HomePage() {
       </main>
       <Footer />
     </div>
+    </ProjectPreviewProvider>
   );
 }

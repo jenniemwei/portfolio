@@ -2,6 +2,28 @@
  * Footer strip sizing — local to Footer (not token JSON).
  */
 .footer {
-  height: 199px;
+  position: relative;
+  height: 10vh;
   width: 100%;
+  overflow: visible;
+}
+
+.bgWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.dog {
+  position: absolute;
+  left: 5%;
+  bottom: 0;
+  z-index: 1;
+  height: 150%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: bottom left;
+  pointer-events: none;
 }

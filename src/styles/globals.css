@@ -96,8 +96,8 @@
   --page-gutter: clamp(1.25rem, 5.55vw, 5rem);
 
   /* --- Nav --- */
-  --nav-fill-background: color-mix(in srgb, var(--bg-default) 22%, transparent);
-  --nav-fill-backdrop-blur: 12px;
+  --nav-fill-background: color-mix(in srgb, var(--bg-default) 30%, transparent);
+  --nav-fill-backdrop-blur: 16px;
   --nav-icon-size: 32px;
   /* Sticky header clearance for in-page #work / #visual scroll */
   --nav-scroll-margin: 4.75rem;

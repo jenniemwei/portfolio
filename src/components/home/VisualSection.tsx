@@ -5,6 +5,7 @@ import {
 import { GalleryRow } from "@/components/sitewide/GalleryRow";
 import { ProjectCard } from "@/components/home/ProjectCard";
 import { GalleryThumbImage } from "@/components/home/GalleryThumbImage";
+import { GalleryVideoThumb } from "@/components/home/GalleryVideoThumb";
 import gallerySectionStyles from "@/components/home/GallerySectionReveal.module.css";
 
 export function VisualSection() {
@@ -29,7 +30,14 @@ export function VisualSection() {
                   projTitle={project.heading}
                   projSub={project.subheading}
                   visual={
-                    project.img ? (
+                    project.video ? (
+                      <GalleryVideoThumb
+                        src={project.video}
+                        label={project.imgAlt ?? project.heading}
+                        fill={project.videoThumbBg}
+                        fit={project.videoThumbFit}
+                      />
+                    ) : project.img ? (
                       <GalleryThumbImage
                         src={project.img}
                         alt={project.imgAlt ?? project.heading}

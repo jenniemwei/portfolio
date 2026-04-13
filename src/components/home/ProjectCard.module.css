@@ -17,7 +17,7 @@
     .reveal {
       animation: projectCardScrollScale ease-in both;
       animation-timeline: view(block);
-      animation-range: entry -15% cover 50%;
+      animation-range: entry -15% cover 30%;
     }
   }
 }

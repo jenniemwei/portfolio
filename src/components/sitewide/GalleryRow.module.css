@@ -1,4 +1,14 @@
-/* Card-row grid: gaps from space scale + ratio; tighter gaps below `lg`; stack below `md`. */
+/*
+ * GalleryRow — shared grid for home project rows + hero bands.
+ * Picked in TSX via `measure`: `gallery` (default) → `.row`, `content` → `.rowContent`.
+ * Responsive: tighter row aspect below `lg`; single column below `md` — @see docs/tailwind-guide.md
+ */
+
+/*
+ * `.row` — `measure="gallery"` (Work / Visual card rows).
+ * Purpose: fixed `aspect-ratio` so thumbnail rows share a consistent band height vs width.
+ * Use case: any `GalleryRow` that should size like a gallery strip, not shrink-wrap to copy.
+ */
 .row {
   display: grid;
   width: 100%;
@@ -8,6 +18,11 @@
   aspect-ratio: 10/ 3.5;
 }
 
+/*
+ * `.rowContent` — `measure="content"` (e.g. Hero dog + intro).
+ * Purpose: same column gaps as gallery rows, but no fixed aspect — height follows children.
+ * Use case: layouts where Rive/text dictate height; aspect-ratio would fight intrinsic content.
+ */
 .rowContent {
   display: grid;
   width: 100%;
@@ -16,6 +31,7 @@
   row-gap: var(--space-m);
 }
 
+/* Column splits for `variant` prop (60/40, 50/50, full width, 70/30, 30/70). */
 .row6040 {
   grid-template-columns: 6fr 4fr;
 }
@@ -36,6 +52,10 @@
   grid-template-columns: 3fr 7fr;
 }
 
+/*
+ * `.cell` — wrapper around each child from `GalleryRow` (one grid item per column).
+ * Purpose: `min-*: 0` + `height: 100%` so nested flex/cards can shrink inside the grid track.
+ */
 .cell {
   min-height: 0;
   min-width: 0;
@@ -61,7 +81,10 @@
     aspect-ratio: 12 / 6;
   }
 
-  /* Each cell is full-width (whole row) on mobile; ratio sets that row’s height. */
+  /*
+   * `.cellAspectMobile` — only when `measure="gallery"` (see GalleryRow.tsx).
+   * Purpose: each stacked card is full-width; aspect sets thumb row height on narrow viewports.
+   */
   .cellAspectMobile {
     aspect-ratio: 12 / 8;
     height: auto;
