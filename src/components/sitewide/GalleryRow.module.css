@@ -1,4 +1,4 @@
-/* Card-row grid: gaps from space scale + literal ratio; stack at 900px. */
+/* Card-row grid: gaps from space scale + literal ratio; stack below Tailwind default `lg` (64rem). */
 .row {
   display: grid;
   width: 100%;
@@ -42,7 +42,8 @@
   height: 100%;
 }
 
-@media (max-width: 900px) {
+/* Matches max-lg:* (viewport < 1024px at 16px root). @see docs/tailwind-guide.md */
+@media (max-width: 1023px) {
   .row,
   .rowContent {
     grid-template-columns: 1fr;

@@ -1,17 +1,148 @@
 /**
  * Global stylesheet (lives in `src/styles/`).
  * Import from the app shell: `import "@/styles/globals.css"` in `layout.tsx`.
- * Token files are siblings — use `./` here, not `../app/…`.
+ * Use `./` for sibling imports under `src/styles/`.
  */
-@import "./design-tokens.css";
-@import "./text-styles.css";
 @import "tailwindcss";
 
 /* Tailwind v4: content paths are relative to this file; include app + components */
 @source "../app";
 @source "../components";
 
-/* Tailwind theme aliases → :root tokens in `src/styles/*.css` */
+/* =====================================================================
+ * Design tokens: palette, space, type scale, semantics, layout; composites live in @utility type-* only, @theme
+ * @see ../../docs/design-tokens.md
+ * @see ../../docs/tailwind-guide.md
+ * ===================================================================== */
+:root {
+  /* --- Palette (gray scale + white + placeholder) --- */
+  --g1: #f7f7f7;
+  --white: #ffffff;
+  --g2: #d7d7d9;
+  --placeholder: #d9d9d9;
+  --g4: #86868a;
+  --g5: #363636;
+  --g6: #1c1c1c;
+  --g8: #121212;
+  --g10: #000000;
+
+  /* --- Space scale (px) --- */
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-41: 41px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-72: 72px;
+
+  /* --- Type scale (rem) --- */
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-m: 1rem;
+  --font-lg: 1.5rem;
+  --font-xl: 2rem;
+  --font-2xl: 2.5rem;
+
+  /* --- Semantic fills & ink --- */
+  --bg-default: var(--g1);
+  --default: var(--g8);
+  --secondary: var(--g6);
+  --subtle: var(--g4);
+  --border-default: var(--g2);
+  --border-dark-mode: var(--g6);
+  --fill-placeholder: var(--placeholder);
+
+  /* --- Font stacks (Next sets --font-saans / --font-crimson on <html>) --- */
+  --font-sans-stack: var(--font-saans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif-stack: var(--font-crimson), ui-serif, Georgia, serif;
+
+  /* --- Weights --- */
+  --regular: 400;
+  --semibold: 500;
+  --bold: 600;
+
+  /* --- Tracking & leading --- */
+  --tracking-serif-base: -1.5px;
+  --tracking-serif-display: -2.5px;
+  --tracking-sans-bold: -0.5px;
+  --lead-note: 1.3;
+  --lead-base: 1;
+
+  /* --- Semantic space aliases --- */
+  --space-s: var(--space-12);
+  --space-m: var(--space-24);
+  --space-lg: var(--space-48);
+  --space-xl: var(--space-72);
+  --space-intro-credentials: var(--space-40);
+
+  /* --- Layout --- */
+  --content-max: 1400px;
+  --shell-max-width: 1440px;
+  --page-gutter: clamp(1.25rem, 5.55vw, 5rem);
+
+  /* --- Nav --- */
+  --nav-fill-background: color-mix(in srgb, var(--bg-default) 22%, transparent);
+  --nav-fill-backdrop-blur: 12px;
+  --nav-icon-size: 32px;
+
+  /* --- Hero / galleries / sections --- */
+  --hero-height: 400px;
+  --hero-grid-gap-x: var(--space-20);
+  /* md and up; narrowed below md — see @media block after @theme */
+  --hero-visual-max-width: 360px;
+  /* Rive artboard & hero canvas: width 7 : height 10 */
+  --hero-visual-aspect-ratio: 7 / 10;
+  --spacer-section-height: 200px;
+  --spacer-inner-gap: var(--space-41);
+  --intro-grid-gap: var(--space-12);
+
+  /* --- Focus ring --- */
+  --focus-ring-width: var(--space-2);
+  --focus-ring-color: var(--default);
+  --focus-ring-offset: var(--space-2);
+
+  /*
+   * --- Breakpoints (Tailwind defaults only) ---
+   * Do not define breakpoint custom properties here. Use Tailwind responsive prefixes in TSX/CSS.
+   *
+   * Default min-width scale (mobile-first). Prefix applies at this width and up:
+   *   sm   — 40rem  (640px  @ 16px root)
+   *   md   — 48rem  (768px)
+   *   lg   — 64rem  (1024px)
+   *   xl   — 80rem  (1280px)
+   *   2xl  — 96rem  (1536px)
+   *
+   * Max-width variants stack above: max-sm, max-md, max-lg, max-xl, max-2xl
+   * (e.g. max-lg:* applies below 64rem / 1024px).
+   *
+   * @see ../../docs/tailwind-guide.md
+   */
+
+  /* --- Placeholder routes / home --- */
+  --placeholder-body-max-width: 42rem;
+  --secondary-intro-max-width: 56rem;
+  --home-page-padding-bottom: var(--space-48);
+
+  /* --- Motion & interaction --- */
+  --image-hover-opacity: 0.95;
+  --link-hover-opacity: 0.7;
+  --transition-fast: 150ms ease;
+
+  /* --- Hero custom cursor --- */
+  --hero-cursor-width: 5rem;
+  --hero-cursor-z: 45;
+  --hero-cursor-hotspot-nudge-x: calc(var(--space-s) * -1);
+  --hero-cursor-hotspot-nudge-y: calc(var(--space-s) * -1);
+}
+
+/* Tailwind theme aliases → :root tokens above */
 @theme inline {
   --color-canvas: var(--bg-default);
   --color-default: var(--default);
@@ -23,9 +154,66 @@
   --font-serif: var(--font-serif-stack);
 }
 
+/* Typography roles: composites use primitive tokens only (`type-*` avoids clashing with `text-*` sizes) */
+@utility type-body {
+  font: var(--regular) var(--font-m) / var(--lead-note) var(--font-sans-stack);
+  letter-spacing: var(--body-tracking, 0);
+}
+
+@utility type-body-sm {
+  font: var(--regular) var(--font-sm) / var(--lead-note) var(--font-sans-stack);
+  letter-spacing: var(--body-sm-tracking, 0);
+}
+
+@utility type-display {
+  font: var(--regular) var(--font-2xl) / var(--lead-base) var(--font-serif-stack);
+  letter-spacing: var(--display-tracking, var(--tracking-serif-display));
+}
+
+@utility type-section-h2 {
+  font: var(--regular) var(--font-lg) / var(--lead-base) var(--font-serif-stack);
+  letter-spacing: var(--section-h2-tracking, var(--tracking-serif-base));
+}
+
+@utility type-nav-link {
+  font: var(--semibold) var(--font-sm) / var(--lead-base) var(--font-sans-stack);
+  letter-spacing: var(--nav-link-tracking, 0);
+}
+
+@utility type-card-title {
+  font: var(--semibold) var(--font-m) / var(--lead-base) var(--font-sans-stack);
+  letter-spacing: var(--card-title-tracking, var(--tracking-sans-bold));
+}
+
+@utility type-card-subtitle {
+  font: var(--regular) var(--font-m) / var(--lead-base) var(--font-sans-stack);
+  letter-spacing: var(--card-subtitle-tracking, 0);
+}
+
+@utility type-page-heading {
+  font: var(--regular) var(--font-xl) / var(--lead-base) var(--font-serif-stack);
+  letter-spacing: var(--page-heading-tracking, var(--tracking-serif-base));
+}
+
+@utility type-link-back {
+  font: var(--semibold) var(--font-m) / var(--lead-base) var(--font-sans-stack);
+  letter-spacing: var(--link-back-tracking, 0);
+}
+
+/*
+ * Same boundary as Tailwind `md` / `max-md` (theme default `--breakpoint-md: 48rem`).
+ * Use a literal here: `var(--breakpoint-md)` in @media is valid in browsers but Next’s CSS
+ * optimizer reports “Invalid media query” and may mishandle it. Prefer `max-md:` in TSX when possible.
+ */
+@media (max-width: 48rem) {
+  :root {
+    --hero-visual-max-width: 240px;
+  }
+}
+
 @layer base {
   body {
-    font: var(--body);
+    font: var(--regular) var(--font-m) / var(--lead-note) var(--font-sans-stack);
     letter-spacing: var(--body-tracking, 0);
   }
 

@@ -5,7 +5,7 @@ import styles from "./Footer.module.css";
 export function Footer() {
   return (
     <footer
-      className={`${styles.footer} relative mt-auto shrink-0 overflow-hidden`}
+      className={`${styles.footer} relative mt-auto w-full shrink-0 self-stretch overflow-hidden`}
     >
       <Image
         src="/windows-wp.gif"

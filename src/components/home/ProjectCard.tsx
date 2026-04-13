@@ -31,10 +31,10 @@ export function ProjectCard({
         )}
       </div>
       <div className="flex w-full shrink-0 items-end gap-[var(--space-s)] whitespace-nowrap px-[var(--space-s)]">
-        <p className="shrink-0 text-default [font:var(--card-title)] [letter-spacing:var(--card-title-tracking,0)]">
+        <p className="type-card-title shrink-0 text-default">
           {projTitle}
         </p>
-        <p className="shrink-0 text-subtle [font:var(--card-subtitle)] [letter-spacing:var(--card-subtitle-tracking,0)]">
+        <p className="type-card-subtitle shrink-0 text-subtle">
           {projSub}
         </p>
       </div>

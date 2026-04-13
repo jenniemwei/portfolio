@@ -15,7 +15,7 @@ function WorkThumb({ src, alt }: { src: string; alt: string }) {
       alt={alt}
       fill
       className="object-cover"
-      sizes="(max-width: 900px) 100vw, 60vw"
+      sizes="(max-width: 1023px) 100vw, 60vw"
     />
   );
 }

@@ -1,116 +1,64 @@
-# Tailwind shorthand cheat sheet
+# Tailwind breakpoints (defaults)
 
-Tailwind builds class names from **pieces**. Once you see the pattern, most utilities read left-to-right: *what* → *where* (optional) → *size*.
+This project uses **Tailwind’s default breakpoints** only. Do not add custom `--breakpoint-*` tokens in the design-tokens section of `globals.css` for layout; use responsive prefixes in components instead.
 
----
+Official reference: [Tailwind CSS — breakpoints](https://tailwindcss.com/docs/responsive-design) (v4 defaults match the table below unless you override `@theme`).
 
-## Spacing: `p` and `m` (padding and margin)
+## Min-width (mobile-first)
 
-| Prefix | Meaning |
-|--------|---------|
-| **`p`** | **p**adding on all sides |
-| **`px`** | padding **x** (left **and** right) |
-| **`py`** | padding **y** (top **and** bottom) |
-| **`pt`** | padding **t**op |
-| **`pr`** | padding **r**ight |
-| **`pb`** | padding **b**ottom |
-| **`pl`** | padding **l**eft |
+Each prefix applies from that width **up** (`min-width`).
 
-Same letters work for **margin**: **`m`**, **`mx`**, **`my`**, **`mt`**, **`mr`**, **`mb`**, **`ml`**.
+| Prefix | Theme variable | Default | Typical px (16px root) |
+| --- | --- | --- | --- |
+| _(none)_ | — | `0` | Base / small screens |
+| `sm:` | `--breakpoint-sm` | `40rem` | 640px |
+| `md:` | `--breakpoint-md` | `48rem` | 768px |
+| `lg:` | `--breakpoint-lg` | `64rem` | 1024px |
+| `xl:` | `--breakpoint-xl` | `80rem` | 1280px |
+| `2xl:` | `--breakpoint-2xl` | `96rem` | 1536px |
 
-**Examples**
+Example: `md:col-span-4` → from 768px up, use four columns.
 
-- `px-4` — horizontal padding (left + right), size `4` in Tailwind’s scale  
-- `pt-[var(--space-4)]` — top padding using a CSS variable (arbitrary value)
+## Max-width variants
 
-Sizes are usually from the theme (e.g. `4` = `1rem`). Bracket syntax `[...]` means a **custom** value.
+`max-sm:`, `max-md:`, `max-lg:`, `max-xl:`, `max-2xl:` apply **below** the matching breakpoint (Tailwind generates a `max-width` media query one step below the next tier).
 
----
+Example: `max-lg:hidden` → hidden when viewport is **under** `lg` (under 64rem / 1024px with default theme).
 
-## Size: width and height
+## Plain CSS next to Tailwind
 
-| Prefix | Meaning |
-|--------|---------|
-| **`w`** | **w**idth |
-| **`h`** | **h**eight |
-| **`min-w`** | minimum width |
-| **`max-w`** | maximum width |
-| **`min-h`** | minimum height |
-| **`max-h`** | maximum height |
+When a CSS Module cannot use Tailwind variants (e.g. shared `@media` for a grid), mirror the same boundary as the Tailwind class you would use:
 
-**Examples**
+- To match **`max-lg:`** (stack / single column below `lg`), use  
+  `@media (max-width: 1023px)`  
+  (1024px − 1px, i.e. just below Tailwind’s default `64rem` at a 16px root).
 
-- `w-full` — width 100% of the parent  
-- `min-h-0` — lets flex/grid children shrink instead of overflowing  
-- `max-w-[var(--content-max)]` — cap width with a design token  
+If you change Tailwind’s `--breakpoint-lg` in `@theme`, update any such raw media queries to stay in sync.
 
----
+## `next/image` `sizes`
 
-## Layout: flex and grid
+The `sizes` attribute cannot read CSS variables. Use a **literal width** that matches the breakpoint you care about, and keep it aligned with this doc (e.g. `(max-width: 1023px)` pairs with `max-lg` / default `lg`).
 
-| Fragment | Meaning |
-|----------|---------|
-| **`flex`** | CSS `display: flex` |
-| **`grid`** | `display: grid` |
-| **`flex-col`** | stack children vertically (column direction) |
-| **`items-center`** | align items on the **cross** axis (often vertical in a row) |
-| **`items-stretch`** | stretch items to fill the cross axis |
-| **`justify-center`** | align on the **main** axis (often horizontal in a row) |
-| **`justify-between`** | space between items on the main axis |
-| **`gap-4`** | gap between flex/grid children |
+## Responsive token overrides
 
----
+### Referencing Tailwind breakpoints inside plain `@media`
 
-## Typography
+Tailwind’s theme defines `--breakpoint-md: 48rem` (and similar for `sm`, `lg`, …) in its bundled CSS. **Browsers** can evaluate `@media (max-width: var(--breakpoint-md))`, but **Next.js’ CSS pipeline (Lightning CSS)** often flags `var()` inside `@media` as an invalid media query and may not optimize it reliably.
 
-| Prefix | Typical meaning |
-|--------|------------------|
-| **`text-sm`**, **`text-base`** | font **size** (from theme) |
-| **`text-center`** | text **align** center (not color) |
-| **`font-bold`** | font **weight** |
-| **`leading-tight`** | **line** height (leading) |
+So in raw CSS for this project we **repeat the literal** that matches the theme default, with a comment:
 
-Colors often look like **`text-default`** — `text-` sets **foreground color**; names match `:root` semantics (`default`, `secondary`, `subtle`). Page background uses **`bg-canvas`** (`--bg-default`). Rules use **`border-line`** (`--border-default`).
+```css
+/* = Tailwind default --breakpoint-md (48rem). If you override md in @theme, update this. */
+@media (max-width: 48rem) { ... }
+```
 
----
+### Avoiding `@media` entirely
 
-## Borders and radius
+When the target element is in TSX, prefer Tailwind’s **`max-md:`** / **`md:``** prefixes so breakpoints stay 100% on the Tailwind theme with no duplication in CSS files.
 
-| Prefix | Meaning |
-|--------|---------|
-| **`border`** | default border width + style |
-| **`border-t`** | border on **t**op only (also `r`, `b`, `l`) |
-| **`rounded`** | border **radius** (corners) |
-| **`rounded-full`** | pill / circle (large radius) |
+Example in this repo: [`globals.css`](../src/styles/globals.css) narrows `--hero-visual-max-width` below `md` with `@media (max-width: 48rem)`; the value is documented to match [`--breakpoint-md` in Tailwind’s theme](https://tailwindcss.com/docs/theme).
 
----
+## Related files
 
-## Position and stacking
-
-| Prefix | Meaning |
-|--------|---------|
-| **`relative`** / **`absolute`** / **`fixed`** / **`sticky`** | CSS `position` |
-| **`inset-0`** | top/right/bottom/left all `0` (with absolute/fixed) |
-| **`z-10`**, **`z-[1]`** | **z**-index (stacking order) |
-
----
-
-## State prefixes (go *in front* of another utility)
-
-| Prefix | When it applies |
-|--------|------------------|
-| **`hover:`** | pointer is over the element |
-| **`focus:`** | element is focused |
-| **`focus-visible:`** | keyboard-style focus (good for a11y) |
-| **`motion-safe:`** | only if the user allows animation |
-
-**Example:** `hover:opacity-80` — apply opacity when hovered.
-
----
-
-## Where to learn more
-
-- [Tailwind docs — spacing](https://tailwindcss.com/docs/padding)  
-- [Tailwind docs — layout](https://tailwindcss.com/docs/display)  
-
-Design tokens and text presets live in **`src/styles/design-tokens.css`** and **`src/styles/text-styles.css`**; see [design-tokens.md](../src/styles/design-tokens.md).
+- [`src/styles/globals.css`](../src/styles/globals.css) — design tokens (`:root`), `@import "tailwindcss"`, `@theme` aliases, responsive token overrides, `@layer base`.
+- [`docs/tailwind-guide.md`](./tailwind-guide.md) — this file; breakpoint tables and plain-CSS notes.

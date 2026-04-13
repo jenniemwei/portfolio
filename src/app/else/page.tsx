@@ -5,14 +5,14 @@ export default function ElsePage() {
     <div className="mx-auto flex min-h-screen max-w-[var(--placeholder-body-max-width)] flex-col gap-[var(--space-m)] px-[var(--page-gutter)] py-[var(--space-64)]">
       <Link
         href="/"
-        className="w-fit text-subtle underline-offset-4 [font:var(--link-back)] [letter-spacing:var(--link-back-tracking,0)] hover:opacity-[var(--link-hover-opacity)]"
+        className="type-link-back w-fit text-subtle underline-offset-4 hover:opacity-[var(--link-hover-opacity)]"
       >
         ← Home
       </Link>
-      <h1 className="text-default [font:var(--page-heading)] [letter-spacing:var(--page-heading-tracking,0)]">
+      <h1 className="type-page-heading text-default">
         Else
       </h1>
-      <p className="text-subtle [font:var(--body)] [letter-spacing:var(--body-tracking,0)]">
+      <p className="type-body text-subtle">
         More soon.
       </p>
     </div>

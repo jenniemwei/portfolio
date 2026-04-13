@@ -15,7 +15,7 @@ function VisualThumb({ src, alt }: { src: string; alt: string }) {
       alt={alt}
       fill
       className="object-cover"
-      sizes="(max-width: 900px) 100vw, 50vw"
+      sizes="(max-width: 1023px) 100vw, 50vw"
     />
   );
 }
@@ -24,7 +24,7 @@ export function VisualSection() {
   return (
     <>
       <div className="grid w-full grid-cols-6 gap-x-[var(--intro-grid-gap)] gap-y-[var(--intro-grid-gap)] border-line border-t border-solid pt-[var(--space-lg)] pb-[var(--space-xl)]">
-        <p className="col-span-6 text-default [font:var(--display)] [letter-spacing:var(--display-tracking,0)] md:col-span-4">
+        <p className="type-display col-span-6 text-default md:col-span-4">
           who also loves visual design...
         </p>
       </div>

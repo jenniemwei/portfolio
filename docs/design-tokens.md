@@ -2,8 +2,7 @@
 
 Hand-edited CSS lives next to this file:
 
-- **`design-tokens.css`** — palette, space, type scale, semantic fills/ink/borders, layout, motion, component-specific sizes.
-- **`text-styles.css`** — preset `--body`, `--display`, `--section-h2`, etc.; optional `--*-tracking` only when ≠ 0 (use `var(--token, 0)` at call sites).
+- **`globals.css`** — design tokens in [`src/styles/globals.css`](../src/styles/globals.css): primitives and semantics on `:root`, then `@theme`, **`@utility type-*`** (typography composites reference primitives only; no duplicate `--body` / `--display` variables), then base layers.
 
 ## Palette (`:root`)
 
@@ -36,14 +35,16 @@ Hand-edited CSS lives next to this file:
 | `--border-default`, `--border-dark-mode` | Strokes |
 | `--fill-placeholder` | Image / card placeholder surface |
 
-## Text presets (`text-styles.css`)
+## Typography roles (`type-*` utilities)
 
-| Variables | Use |
-|-----------|-----|
-| `--body`, optional `--body-tracking`; `--body-sm`, optional `--body-sm-tracking` | Body copy (base and small) |
-| `--display` + `--display-tracking`, `--section-h2` + `--section-h2-tracking` | Serif headings |
-| `--nav-link`, optional `--nav-link-tracking` | Nav labels |
-| `--card-title` + `--card-title-tracking`, `--card-subtitle` | Home cards |
-| `--page-heading` + `--page-heading-tracking`, `--link-back` | Placeholder routes |
+Composites are defined only in `@utility` (they use `--font-*`, `--lead-*`, `--tracking-*`, stacks). Optional overrides: set e.g. `--display-tracking` on a scope to replace the default `var(--tracking-serif-display)`.
 
-Tailwind bridges these in `globals.css` `@theme inline` (e.g. `bg-canvas` → `--bg-default`, `text-default` / `text-secondary` / `text-subtle` → `--default` / `--secondary` / `--subtle`, `border-line` → `--border-default`).
+| Class | Use |
+|-------|-----|
+| `type-body`, `type-body-sm` | Body copy (`<body>` matches `type-body` via `@layer base`) |
+| `type-display`, `type-section-h2` | Serif headings |
+| `type-nav-link` | Nav labels |
+| `type-card-title`, `type-card-subtitle` | Home cards |
+| `type-page-heading`, `type-link-back` | Placeholder routes |
+
+Colors and font families: `globals.css` `@theme inline` (e.g. `bg-canvas`, `text-default` / `text-secondary` / `text-subtle`, `border-line`).
