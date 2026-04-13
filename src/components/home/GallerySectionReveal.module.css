@@ -2,7 +2,6 @@
 /* Easing maps scroll progress → keyframes (ease-in). */
 @keyframes gallerySectionEnter {
   from {
-    opacity: .2;
     filter: blur(400px);
   }
 

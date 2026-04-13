@@ -2,11 +2,9 @@
 @keyframes projectCardScrollScale {
   from {
     transform: scale(0.9);
-    opacity: 0.75;
   }
   to {
     transform: scale(1);
-    opacity: 1;
   }
 }
 
@@ -19,7 +17,7 @@
     .reveal {
       animation: projectCardScrollScale ease-in both;
       animation-timeline: view(block);
-      animation-range: entry -15% cover 40%;
+      animation-range: entry -15% cover 50%;
     }
   }
 }

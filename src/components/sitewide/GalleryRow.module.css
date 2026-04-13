@@ -5,7 +5,7 @@
   min-width: 0;
   column-gap: var(--space-m);
   row-gap: var(--space-m);
-  aspect-ratio: 10 / 4;
+  aspect-ratio: 10/ 3.5;
 }
 
 .rowContent {
