@@ -30,7 +30,7 @@ export function ProjectCard({
           />
         )}
       </div>
-      <div className="flex w-full shrink-0 items-end gap-[var(--space-s)] whitespace-nowrap px-[var(--space-s)]">
+      <div className="flex w-full shrink-0 items-end gap-[var(--space-s)] whitespace-nowrap ">
         <p className="type-card-title shrink-0 text-default">
           {projTitle}
         </p>

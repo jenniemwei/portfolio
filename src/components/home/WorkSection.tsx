@@ -22,7 +22,7 @@ function WorkThumb({ src, alt }: { src: string; alt: string }) {
 
 export function WorkSection() {
   return (
-    <>
+    <section id="work" className="w-full">
       <SectionHeader title="Work" />
       <div className="flex w-full flex-col gap-[var(--space-32)] py-[var(--space-m)]">
         {homeProjects.work.rows.map((row, rowIndex) => (
@@ -48,6 +48,6 @@ export function WorkSection() {
           </GalleryRow>
         ))}
       </div>
-    </>
+    </section>
   );
 }

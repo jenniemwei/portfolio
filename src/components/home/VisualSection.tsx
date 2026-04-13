@@ -22,7 +22,7 @@ function VisualThumb({ src, alt }: { src: string; alt: string }) {
 
 export function VisualSection() {
   return (
-    <>
+    <section id="visual" className="w-full">
       <div className="grid w-full grid-cols-6 gap-x-[var(--intro-grid-gap)] gap-y-[var(--intro-grid-gap)] border-line border-t border-solid pt-[var(--space-lg)] pb-[var(--space-xl)]">
         <p className="type-display col-span-6 text-default md:col-span-4">
           who also loves visual design...
@@ -53,6 +53,6 @@ export function VisualSection() {
           </GalleryRow>
         ))}
       </div>
-    </>
+    </section>
   );
 }

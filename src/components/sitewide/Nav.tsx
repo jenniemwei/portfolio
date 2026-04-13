@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 const links = [
-  { href: "/work", label: "WORK", containerId: "work-button" },
-  { href: "/visual", label: "VISUAL", containerId: "visual-button" },
+  { href: "/#work", label: "WORK", containerId: "work-button" },
+  { href: "/#visual", label: "VISUAL", containerId: "visual-button" },
   { href: "/else", label: "ELSE", containerId: "else-button" },
 ] as const;
 
