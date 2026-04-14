@@ -15,7 +15,10 @@ export function PreviewEmbedSection() {
   const [visible, setVisible] = useState(false);
 
   useLayoutEffect(() => {
-    setVisible(isPreviewOrEmbedFrame());
+    const id = requestAnimationFrame(() => {
+      setVisible(isPreviewOrEmbedFrame());
+    });
+    return () => cancelAnimationFrame(id);
   }, [pathname]);
 
   useLayoutEffect(() => {

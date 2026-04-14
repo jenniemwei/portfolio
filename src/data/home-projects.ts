@@ -33,27 +33,6 @@ export const homeProjects = {
   work: {
     rows: [
       {
-        variant: "60-40",
-        projects: [
-          {
-            id: "g2-search",
-            heading: "G2 Search",
-            subheading: "Summer 2025",
-            img: "/thumbnails/g2-search-thumb.png",
-            imgAlt: "G2 Search",
-            projectHref: "/work/g2-search",
-          },
-          {
-            id: "g2-ai",
-            heading: "G2 AI",
-            subheading: "Fall 2025",
-            img: "/thumbnails/g2-ai-thumb.png",
-            imgAlt: "G2 AI",
-            projectHref: "/work/g2-ai",
-          },
-        ],
-      },
-      {
         variant: "fill-fit",
         projects: [
           {
@@ -78,13 +57,44 @@ export const homeProjects = {
           },
         ],
       },
+      {
+        variant: "60-40",
+        projects: [
+          {
+            id: "g2-search",
+            heading: "G2 Search",
+            subheading: "Summer 2025",
+            img: "/thumbnails/g2-search-thumb.png",
+            imgAlt: "G2 Search",
+            projectHref: "/work/g2-search",
+          },
+          {
+            id: "g2-ai",
+            heading: "G2 AI",
+            subheading: "Fall 2025",
+            img: "/thumbnails/g2-ai-thumb.png",
+            imgAlt: "G2 AI",
+            projectHref: "/work/g2-ai",
+          },
+        ],
+      },
     ],
   },
   visual: {
     rows: [
       {
-        variant: "40-60",
+        variant: "60-40",
         projects: [
+          {
+            id: "dhero",
+            heading: "The Designers Republic",
+            subheading: "Spring 2025",
+            img: null,
+            imgAlt: "The Designers Republic",
+            video:
+              "https://res.cloudinary.com/dlaz3infq/video/upload/v1767847688/ian_anderson_video_nzysfl.mp4",
+          },
+         
           {
             id: "intouch",
             heading: "InTouch",
@@ -96,16 +106,6 @@ export const homeProjects = {
             videoThumbFit: "cover",
             projectHref: "/work/intouch",
           },
-          {
-            id: "dhero",
-            heading: "The Designers Republic",
-            subheading: "Spring 2025",
-            img: null,
-            imgAlt: "The Designers Republic",
-            video:
-              "https://res.cloudinary.com/dlaz3infq/video/upload/v1767847688/ian_anderson_video_nzysfl.mp4",
-          },
-         
         ],
       },
       {
@@ -118,9 +118,9 @@ export const homeProjects = {
             imgAlt: "HCII",
           },
           {
-            heading: "From the Negatives",
-            subheading: "Fall 2025",
-            img: null,
+            heading: "Meeting of the Minds",
+            subheading: "Spring 2025",
+            img: "/thumbnails/MOM-thumb.png",
           },
         ],
       },

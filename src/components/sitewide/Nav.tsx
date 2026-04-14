@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { isPreviewOrEmbedFrame } from "@/lib/embedChrome";
 import { SectionScrollLink } from "@/components/sitewide/SectionScrollLink";
 
 import styles from "./Nav.module.css";
@@ -33,6 +35,9 @@ const navTextLinkClassName = `${styles.navTextLink} group/nav-link flex items-ce
 const navLinkLabelClassName = `${styles.navLinkLabel} type-nav-link text-default`;
 
 export function Nav() {
+  const pathname = usePathname();
+  const [embeddedInFrame, setEmbeddedInFrame] = useState(false);
+  const isWorkPage = pathname.startsWith("/work/");
   const lastScrollY = useRef(0);
   const [atTop, setAtTop] = useState(true);
   const [hiddenByScroll, setHiddenByScroll] = useState(false);
@@ -45,6 +50,14 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
+    const id = requestAnimationFrame(() => {
+      setEmbeddedInFrame(isPreviewOrEmbedFrame());
+    });
+    return () => cancelAnimationFrame(id);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (embeddedInFrame) return;
     lastScrollY.current = window.scrollY;
     let ticking = false;
     const onScroll = () => {
@@ -70,7 +83,7 @@ export function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     queueMicrotask(onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [embeddedInFrame]);
 
   const onBlurCapture = useCallback((e: React.FocusEvent<HTMLElement>) => {
     const next = e.relatedTarget;
@@ -81,6 +94,10 @@ export function Nav() {
   const expanded =
     atTop || !hiddenByScroll || pointerHover || focusWithin;
   const slideHidden = !expanded;
+
+  if (isWorkPage || embeddedInFrame) {
+    return null;
+  }
 
   return (
     <header

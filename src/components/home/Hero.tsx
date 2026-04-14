@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 import { GalleryRow } from "@/components/sitewide/GalleryRow";
 import { HeroRiveDog } from "@/components/home/HeroRiveDog";
@@ -102,13 +102,53 @@ export function Hero() {
           className="h-full min-h-0 overflow-visible"
           cellClassName={(i) => (i === 0 ? "max-md:hidden" : undefined)}
         >
-          <div className="min-h-0" aria-hidden />
+          <div className="relative min-h-0 h-full w-full">
+            <div className={styles.heroIconRow}>
+              <a
+                href="https://www.linkedin.com/in/jenniewei/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn profile"
+                className={styles.heroIconLink}
+              >
+                <span
+                  aria-hidden
+                  className={styles.heroIconMask}
+                  style={{ "--hero-icon-url": "url('/icons/linkedin.svg')" } as CSSProperties}
+                />
+              </a>
+              <a
+                href="mailto:jenniew@andrew.cmu.edu"
+                aria-label="Send email to Jennie Wei"
+                className={styles.heroIconLink}
+              >
+                <span
+                  aria-hidden
+                  className={styles.heroIconMask}
+                  style={{ "--hero-icon-url": "url('/icons/email.svg')" } as CSSProperties}
+                />
+              </a>
+              <a
+                href="https://drive.google.com/drive/folders/19OuC2GBTdKbCcStpXL2HzcYGEMkKCDvW"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open dog assets folder"
+                className={styles.heroIconLink}
+              >
+                <span
+                  aria-hidden
+                  className={styles.heroIconMask}
+                  style={{ "--hero-icon-url": "url('/icons/dog.svg')" } as CSSProperties}
+                />
+              </a>
+            </div>
+          </div>
           <div className="flex h-full min-h-0 w-full min-w-0 flex-col items-end justify-end overflow-visible  p-[var(--space-lg)] max-md:border-l-0">
             <HeroRiveDog />
           </div>
         </GalleryRow>
       </div>
-      <header className="relative z-0 shrink-0 border-solid border-line border-y-[length:var(--hero-border-width)] pt-[var(--space-lg)] pb-[var(--space-xl)]">
+      <header className=" min-h-[30vh] relative z-0 shrink-0 border-solid border-line border-y-[length:var(--hero-border-width)] pt-[var(--space-lg)] pb-[var(--space-xl)]">
         <GalleryRow variant="30-70" measure="content">
           <div className="flex flex-col gap-[var(--space-s)] w-[50%]">
             <div className="type-body-sm w-full space-y-0">

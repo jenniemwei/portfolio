@@ -11,6 +11,7 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 
+import { getProjectPageByHref } from "@/data/project-pages";
 import { PreviewHeader } from "./PreviewHeader";
 import styles from "./ProjectPreviewModal.module.css";
 
@@ -58,6 +59,7 @@ export function ProjectPreviewProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [previewHref, setPreviewHref] = useState<string | null>(null);
   const [isExiting, setIsExiting] = useState(false);
+  const [fullscreenDisabled, setFullscreenDisabled] = useState(false);
   const shellRef = useRef<HTMLDivElement>(null);
   const previewHrefRef = useRef<string | null>(null);
   const pendingNavigationRef = useRef<string | null>(null);
@@ -103,6 +105,7 @@ export function ProjectPreviewProvider({ children }: { children: ReactNode }) {
   const openPreview = useCallback((href: string) => {
     exitAnimStartedRef.current = false;
     pendingNavigationRef.current = null;
+    setFullscreenDisabled(getProjectPageByHref(href)?.disableFullscreen ?? false);
     setPreviewHref(href);
     setIsExiting(false);
   }, []);
@@ -113,10 +116,11 @@ export function ProjectPreviewProvider({ children }: { children: ReactNode }) {
   }, [requestClose]);
 
   const goFullPage = useCallback(() => {
+    if (fullscreenDisabled) return;
     const href = previewHrefRef.current;
     if (!href) return;
     requestClose({ navigateTo: href });
-  }, [requestClose]);
+  }, [requestClose, fullscreenDisabled]);
 
   useEffect(() => {
     if (!previewHref) return;
@@ -178,16 +182,19 @@ export function ProjectPreviewProvider({ children }: { children: ReactNode }) {
             onAnimationEnd={onShellAnimationEnd}
             onClick={(e) => {
               e.stopPropagation();
-              if (!isExiting) goFullPage();
+              if (!isExiting && !fullscreenDisabled) goFullPage();
             }}
           >
             <PreviewHeader
               onFullScreen={() => {
-                if (!isExiting) goFullPage();
+                if (!isExiting && !fullscreenDisabled) goFullPage();
               }}
               onClose={closePreview}
+              fullscreenDisabled={fullscreenDisabled}
             />
-            <div className={styles.frameWrap}>
+            <div
+              className={`${styles.frameWrap} ${fullscreenDisabled ? styles.frameWrapDisabled : ""}`}
+            >
               <iframe
                 className={styles.frame}
                 src={previewIframeSrc(previewHref)}
@@ -196,7 +203,9 @@ export function ProjectPreviewProvider({ children }: { children: ReactNode }) {
               />
             </div>
             <p className={`${styles.hint} type-body-sm text-subtle`}>
-              Click anywhere to open the full project page
+              {fullscreenDisabled
+                ? "Case study still in progress"
+                : "Click anywhere to open the full project page"}
             </p>
           </div>
         </div>

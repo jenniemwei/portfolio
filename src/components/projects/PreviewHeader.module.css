@@ -29,6 +29,11 @@
   outline-offset: var(--space-2);
 }
 
+.fullscreen:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
 .close {
   display: inline-flex;
   align-items: center;

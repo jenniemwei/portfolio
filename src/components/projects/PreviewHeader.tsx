@@ -5,9 +5,14 @@ import styles from "./PreviewHeader.module.css";
 export type PreviewHeaderProps = {
   onFullScreen: () => void;
   onClose: () => void;
+  fullscreenDisabled?: boolean;
 };
 
-export function PreviewHeader({ onFullScreen, onClose }: PreviewHeaderProps) {
+export function PreviewHeader({
+  onFullScreen,
+  onClose,
+  fullscreenDisabled = false,
+}: PreviewHeaderProps) {
   return (
     <header
       className={styles.root}
@@ -17,6 +22,8 @@ export function PreviewHeader({ onFullScreen, onClose }: PreviewHeaderProps) {
         type="button"
         className={styles.fullscreen}
         aria-label="Open full project page"
+        aria-disabled={fullscreenDisabled}
+        disabled={fullscreenDisabled}
         onClick={onFullScreen}
       />
       <button
