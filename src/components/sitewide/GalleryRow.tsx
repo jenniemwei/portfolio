@@ -4,6 +4,7 @@ import styles from "./GalleryRow.module.css";
 
 export type GalleryRowVariant =
   | "60-40"
+  | "40-60"
   | "50-50"
   | "100"
   | "70-30"
@@ -25,6 +26,8 @@ function variantClassName(variant: GalleryRowVariant): string {
   switch (variant) {
     case "60-40":
       return styles.row6040;
+    case "40-60":
+      return styles.row4060;
     case "50-50":
       return styles.row5050;
     case "100":

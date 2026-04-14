@@ -21,6 +21,7 @@ export type HomeProjectItem = {
 export type HomeGalleryRow = {
   variant:
     | "60-40"
+    | "40-60"
     | "50-50"
     | "100"
     | "70-30"
@@ -40,7 +41,7 @@ export const homeProjects = {
             id: "g2-search",
             heading: "G2 Search",
             subheading: "Summer 2025",
-            img: "/thumbnails/work/g2-search-thumb.png",
+            img: "/thumbnails/g2-search-thumb.png",
             imgAlt: "G2 Search",
             projectHref: "/work/g2-search",
           },
@@ -48,7 +49,7 @@ export const homeProjects = {
             id: "g2-ai",
             heading: "G2 AI",
             subheading: "Fall 2025",
-            img: "/thumbnails/work/g2-ai-thumb.png",
+            img: "/thumbnails/g2-ai-thumb.png",
             imgAlt: "G2 AI",
             projectHref: "/work/g2-ai",
           },
@@ -61,7 +62,7 @@ export const homeProjects = {
             id: "mclubs",
             heading: "Mclubs",
             subheading: "Summer 2024",
-            img: "/thumbnails/work/mclubs-thumb.png",
+            img: "/thumbnails/mclubs-thumb.png",
             imgAlt: "Mclubs",
             projectHref: "/work/mclubs",
           },
@@ -72,7 +73,7 @@ export const homeProjects = {
             img: null,
             imgAlt: "Folding@Home",
             lottie:
-              "https://res.cloudinary.com/dlaz3infq/raw/upload/v1776151405/short-lottie_1_c0fllq.json",
+              "/thumbnails/fah-thumb.json",
             videoThumbBg: "white",
           },
         ],
@@ -82,7 +83,7 @@ export const homeProjects = {
   visual: {
     rows: [
       {
-        variant: "fit-fill",
+        variant: "40-60",
         projects: [
           {
             id: "intouch",
@@ -113,7 +114,7 @@ export const homeProjects = {
           {
             heading: "HCII 30",
             subheading: "Summer 2024",
-            img: "/thumbnails/visual/HCII-thumb.jpeg",
+            img: "/thumbnails/HCII-thumb.jpeg",
             imgAlt: "HCII",
           },
           {

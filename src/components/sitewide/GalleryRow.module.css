@@ -36,6 +36,10 @@
   grid-template-columns: 6fr 4fr;
 }
 
+.row4060 {
+  grid-template-columns: 4fr 6fr;
+}
+
 .row5050 {
   grid-template-columns: 1fr 1fr;
 }
@@ -130,5 +134,10 @@
   .cellFill {
     aspect-ratio: 12 / 8;
     height: auto;
+  }
+
+  .cellFit {
+    width: 100%;
+    justify-self: stretch;
   }
 }
