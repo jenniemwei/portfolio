@@ -91,7 +91,7 @@
  */
 .cellFit {
   height: 100%;
-  aspect-ratio: 12 / 8;
+  aspect-ratio: 16 / 9;
   align-self: start;
   width: auto;
   justify-self: start;
@@ -132,7 +132,7 @@
 
   .cellFit,
   .cellFill {
-    aspect-ratio: 12 / 8;
+    aspect-ratio: 16 / 9;
     height: auto;
   }
 

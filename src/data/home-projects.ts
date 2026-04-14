@@ -8,8 +8,6 @@ export type HomeProjectItem = {
   imgAlt?: string;
   /** MP4 URL (e.g. Cloudinary). When set, used instead of `img` for the card visual. */
   video?: string;
-  /** Lottie JSON URL for animated thumbnail. Rendered before `video` when present. */
-  lottie?: string;
   /** Solid fill behind video (e.g. letterboxing). */
   videoThumbBg?: "white";
   /** `cover` = fill card, may crop; `contain` = full width, letterbox (default). */
@@ -72,8 +70,8 @@ export const homeProjects = {
             subheading: "Spring 2026",
             img: null,
             imgAlt: "Folding@Home",
-            lottie:
-              "/thumbnails/fah-thumb.json",
+            video:
+              "https://res.cloudinary.com/dlaz3infq/video/upload/v1776159585/logoanilight_rklxrq.mp4",
             videoThumbBg: "white",
           },
         ],
