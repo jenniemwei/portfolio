@@ -1,7 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 
 function sourceTypeForVideoUrl(src: string): string {
   const lower = src.split("?")[0]?.toLowerCase() ?? "";
@@ -12,7 +18,8 @@ function sourceTypeForVideoUrl(src: string): string {
 type GalleryVideoThumbProps = {
   src: string;
   label: string;
-  fill?: "white";
+  /** Background behind letterboxing; `white` maps to `var(--white)`, or pass any CSS color. */
+  fill?: string;
   /** `cover` = fill card (both axes), classic crop. Otherwise width-first smart fit. */
   fit?: "contain" | "cover";
   /** Optional image fallback if video fails to load/decode. */
@@ -27,12 +34,12 @@ type GalleryVideoThumbProps = {
 function WidthFirstVideoThumb({
   src,
   label,
-  bgClass,
+  fillStyle,
   onError,
 }: {
   src: string;
   label: string;
-  bgClass: string;
+  fillStyle?: CSSProperties;
   onError: () => void;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -86,7 +93,8 @@ function WidthFirstVideoThumb({
   return (
     <div
       ref={containerRef}
-      className={`absolute inset-0 flex min-h-0 items-center justify-center overflow-hidden ${bgClass}`}
+      className="absolute inset-0 flex min-h-0 items-center justify-center overflow-hidden"
+      style={fillStyle}
     >
       <video
         ref={videoRef}
@@ -113,11 +121,18 @@ export function GalleryVideoThumb({
   fallbackSrc,
 }: GalleryVideoThumbProps) {
   const [videoFailed, setVideoFailed] = useState(false);
-  const bgClass = fill === "white" ? "bg-[var(--white)]" : "";
+  const fillStyle: CSSProperties | undefined = fill
+    ? {
+        backgroundColor: fill === "white" ? "var(--white)" : fill,
+      }
+    : undefined;
 
   if (videoFailed && fallbackSrc) {
     return (
-      <div className={`absolute inset-0 overflow-hidden ${bgClass}`}>
+      <div
+        className="absolute inset-0 overflow-hidden"
+        style={fillStyle}
+      >
         <Image
           src={fallbackSrc}
           alt={label}
@@ -131,7 +146,7 @@ export function GalleryVideoThumb({
 
   if (fit === "cover") {
     return (
-      <div className={`absolute inset-0 overflow-hidden ${bgClass}`}>
+      <div className="absolute inset-0 overflow-hidden" style={fillStyle}>
         <video
           className="absolute inset-0 h-full w-full object-cover"
           autoPlay
@@ -151,7 +166,7 @@ export function GalleryVideoThumb({
     <WidthFirstVideoThumb
       src={src}
       label={label}
-      bgClass={bgClass}
+      fillStyle={fillStyle}
       onError={() => setVideoFailed(true)}
     />
   );

@@ -8,8 +8,8 @@ export type HomeProjectItem = {
   imgAlt?: string;
   /** MP4 URL (e.g. Cloudinary). When set, used instead of `img` for the card visual. */
   video?: string;
-  /** Solid fill behind video (e.g. letterboxing). */
-  videoThumbBg?: "white";
+  /** Solid fill behind video (e.g. letterboxing). Use token vars like `var(--g0)` or `white`. */
+  videoThumbBg?: string;
   /** `cover` = fill card, may crop; `contain` = full width, letterbox (default). */
   videoThumbFit?: "contain" | "cover";
   /** App route for full case study; first card click opens preview modal. */
@@ -52,8 +52,8 @@ export const homeProjects = {
             img: null,
             imgAlt: "Folding@Home",
             video:
-              "https://res.cloudinary.com/dlaz3infq/video/upload/v1776204467/logoanilight_rklxrq.webm",
-            videoThumbBg: "white",
+              "https://res.cloudinary.com/dlaz3infq/video/upload/v1776208966/logoanilight_rklxrq.webm",
+            videoThumbBg: "var(--g0)",
           },
         ],
       },
