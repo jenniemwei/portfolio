@@ -52,7 +52,7 @@ export const homeProjects = {
             img: null,
             imgAlt: "Folding@Home",
             video:
-              "https://res.cloudinary.com/dlaz3infq/video/upload/v1776162903/logoanilight_rklxrq.webm",
+              "https://res.cloudinary.com/dlaz3infq/video/upload/v1776204467/logoanilight_rklxrq.webm",
             videoThumbBg: "white",
           },
         ],
