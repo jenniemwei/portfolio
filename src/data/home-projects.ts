@@ -62,7 +62,9 @@ export const homeProjects = {
             subheading: "Summer 2024",
             img: "/thumbnails/mclubs-thumb.png",
             imgAlt: "Mclubs",
-            projectHref: "/work/mclubs",
+            video:
+            "https://res.cloudinary.com/dlaz3infq/video/upload/v1776166382/Mobile-Screens-Grid-remix_1_flex5t.webm",
+          videoThumbBg: "white",
           },
           {
             id: "folding-at-home",
@@ -71,7 +73,7 @@ export const homeProjects = {
             img: null,
             imgAlt: "Folding@Home",
             video:
-              "https://res.cloudinary.com/dlaz3infq/video/upload/v1776159585/logoanilight_rklxrq.mp4",
+              "https://res.cloudinary.com/dlaz3infq/video/upload/v1776162903/logoanilight_rklxrq.webm",
             videoThumbBg: "white",
           },
         ],

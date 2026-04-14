@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 function sourceTypeForVideoUrl(src: string): string {
   const lower = src.split("?")[0]?.toLowerCase() ?? "";
@@ -14,6 +15,8 @@ type GalleryVideoThumbProps = {
   fill?: "white";
   /** `cover` = fill card (both axes), classic crop. Otherwise width-first smart fit. */
   fit?: "contain" | "cover";
+  /** Optional image fallback if video fails to load/decode. */
+  fallbackSrc?: string;
 };
 
 /**
@@ -25,10 +28,12 @@ function WidthFirstVideoThumb({
   src,
   label,
   bgClass,
+  onError,
 }: {
   src: string;
   label: string;
   bgClass: string;
+  onError: () => void;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -90,6 +95,7 @@ function WidthFirstVideoThumb({
         muted
         playsInline
         loop
+        onError={onError}
         aria-label={label}
       >
         <source src={src} type={sourceTypeForVideoUrl(src)} />
@@ -104,8 +110,24 @@ export function GalleryVideoThumb({
   label,
   fill,
   fit = "contain",
+  fallbackSrc,
 }: GalleryVideoThumbProps) {
+  const [videoFailed, setVideoFailed] = useState(false);
   const bgClass = fill === "white" ? "bg-[var(--white)]" : "";
+
+  if (videoFailed && fallbackSrc) {
+    return (
+      <div className={`absolute inset-0 overflow-hidden ${bgClass}`}>
+        <Image
+          src={fallbackSrc}
+          alt={label}
+          fill
+          className="object-cover"
+          sizes="(max-width: 1023px) 100vw, 60vw"
+        />
+      </div>
+    );
+  }
 
   if (fit === "cover") {
     return (
@@ -116,6 +138,7 @@ export function GalleryVideoThumb({
           muted
           playsInline
           loop
+          onError={() => setVideoFailed(true)}
           aria-label={label}
         >
           <source src={src} type={sourceTypeForVideoUrl(src)} />
@@ -125,6 +148,11 @@ export function GalleryVideoThumb({
   }
 
   return (
-    <WidthFirstVideoThumb src={src} label={label} bgClass={bgClass} />
+    <WidthFirstVideoThumb
+      src={src}
+      label={label}
+      bgClass={bgClass}
+      onError={() => setVideoFailed(true)}
+    />
   );
 }

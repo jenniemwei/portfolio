@@ -8,6 +8,13 @@ import { GalleryThumbImage } from "@/components/home/GalleryThumbImage";
 import { GalleryVideoThumb } from "@/components/home/GalleryVideoThumb";
 import gallerySectionStyles from "@/components/home/GallerySectionReveal.module.css";
 
+function isFillSlot(variant: string, index: number): boolean {
+  return (
+    (variant === "fit-fill" && index === 1) ||
+    (variant === "fill-fit" && index === 0)
+  );
+}
+
 export function VisualSection() {
   return (
     <section id="visual" className="w-full">
@@ -35,7 +42,8 @@ export function VisualSection() {
                         src={project.video}
                         label={project.imgAlt ?? project.heading}
                         fill={project.videoThumbBg}
-                        fit={project.videoThumbFit}
+                        fit={isFillSlot(row.variant, i) ? "cover" : project.videoThumbFit}
+                        fallbackSrc={project.img ?? undefined}
                       />
                     ) : project.img ? (
                       <GalleryThumbImage
