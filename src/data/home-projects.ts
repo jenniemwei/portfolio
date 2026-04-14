@@ -8,6 +8,8 @@ export type HomeProjectItem = {
   imgAlt?: string;
   /** MP4 URL (e.g. Cloudinary). When set, used instead of `img` for the card visual. */
   video?: string;
+  /** Lottie JSON URL for animated thumbnail. Rendered before `video` when present. */
+  lottie?: string;
   /** Solid fill behind video (e.g. letterboxing). */
   videoThumbBg?: "white";
   /** `cover` = fill card, may crop; `contain` = full width, letterbox (default). */
@@ -17,7 +19,14 @@ export type HomeProjectItem = {
 };
 
 export type HomeGalleryRow = {
-  variant: "60-40" | "50-50" | "100";
+  variant:
+    | "60-40"
+    | "50-50"
+    | "100"
+    | "70-30"
+    | "30-70"
+    | "fit-fill"
+    | "fill-fit";
   projects: readonly HomeProjectItem[];
 };
 
@@ -46,7 +55,7 @@ export const homeProjects = {
         ],
       },
       {
-        variant: "50-50",
+        variant: "fill-fit",
         projects: [
           {
             id: "mclubs",
@@ -56,6 +65,25 @@ export const homeProjects = {
             imgAlt: "Mclubs",
             projectHref: "/work/mclubs",
           },
+          {
+            id: "folding-at-home",
+            heading: "Folding@Home",
+            subheading: "Spring 2026",
+            img: null,
+            imgAlt: "Folding@Home",
+            lottie:
+              "https://res.cloudinary.com/dlaz3infq/raw/upload/v1776151405/short-lottie_1_c0fllq.json",
+            videoThumbBg: "white",
+          },
+        ],
+      },
+    ],
+  },
+  visual: {
+    rows: [
+      {
+        variant: "fit-fill",
+        projects: [
           {
             id: "intouch",
             heading: "InTouch",
@@ -67,15 +95,6 @@ export const homeProjects = {
             videoThumbFit: "cover",
             projectHref: "/work/intouch",
           },
-        ],
-      },
-    ],
-  },
-  visual: {
-    rows: [
-      {
-        variant: "60-40",
-        projects: [
           {
             id: "dhero",
             heading: "The Designers Republic",
@@ -85,16 +104,7 @@ export const homeProjects = {
             video:
               "https://res.cloudinary.com/dlaz3infq/video/upload/v1767847688/ian_anderson_video_nzysfl.mp4",
           },
-          {
-            id: "folding-at-home",
-            heading: "Folding@Home",
-            subheading: "Spring 2026",
-            img: null,
-            imgAlt: "Folding@Home",
-            video:
-              "https://res.cloudinary.com/dlaz3infq/video/upload/v1776101730/logoanilight_rklxrq.mp4",
-            videoThumbBg: "white",
-          },
+         
         ],
       },
       {

@@ -53,6 +53,24 @@
 }
 
 /*
+ * Fit/fill row tracks:
+ * - fit-fill: first column sizes to fit card width from row height + aspect ratio; second fills rest.
+ * - fill-fit: inverse.
+ */
+.rowFitFill,
+.rowFillFit {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.rowFitFill {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.rowFillFit {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+/*
  * `.cell` — wrapper around each child from `GalleryRow` (one grid item per column).
  * Purpose: `min-*: 0` + `height: 100%` so nested flex/cards can shrink inside the grid track.
  */
@@ -60,6 +78,24 @@
   min-height: 0;
   min-width: 0;
   height: 100%;
+}
+
+/*
+ * Fit/fill row helpers (`variant="fit-fill"` / `"fill-fit"`):
+ * - `.cellFit` keeps a fixed card aspect ratio (does not stretch to full row height).
+ * - `.cellFill` stretches to the row height.
+ */
+.cellFit {
+  height: 100%;
+  aspect-ratio: 12 / 8;
+  align-self: start;
+  width: auto;
+  justify-self: start;
+}
+
+.cellFill {
+  height: 100%;
+  width: 100%;
 }
 
 /* Below Tailwind `lg` (64rem): match `max-lg:` — use literal px; @see docs/tailwind-guide.md */
@@ -86,6 +122,12 @@
    * Purpose: each stacked card is full-width; aspect sets thumb row height on narrow viewports.
    */
   .cellAspectMobile {
+    aspect-ratio: 12 / 8;
+    height: auto;
+  }
+
+  .cellFit,
+  .cellFill {
     aspect-ratio: 12 / 8;
     height: auto;
   }

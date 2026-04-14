@@ -6,6 +6,7 @@ import {
 } from "@/data/home-projects";
 import { GalleryRow } from "@/components/sitewide/GalleryRow";
 import { ProjectCardWithPreview } from "@/components/projects/ProjectCardWithPreview";
+import { GalleryLottieThumb } from "@/components/home/GalleryLottieThumb";
 import { GalleryThumbImage } from "@/components/home/GalleryThumbImage";
 import { GalleryVideoThumb } from "@/components/home/GalleryVideoThumb";
 import gallerySectionStyles from "@/components/home/GallerySectionReveal.module.css";
@@ -25,7 +26,14 @@ export function WorkSection() {
                   key={project.id ?? `work-${rowIndex}-${i}`}
                   project={project}
                   visual={
-                    project.video ? (
+                    project.lottie ? (
+                      <GalleryLottieThumb
+                        src={project.lottie}
+                        label={project.imgAlt ?? project.heading}
+                        fill={project.videoThumbBg}
+                        fit={project.videoThumbFit}
+                      />
+                    ) : project.video ? (
                       <GalleryVideoThumb
                         src={project.video}
                         label={project.imgAlt ?? project.heading}

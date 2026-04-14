@@ -2,7 +2,14 @@ import { Children, type ReactNode } from "react";
 
 import styles from "./GalleryRow.module.css";
 
-export type GalleryRowVariant = "60-40" | "50-50" | "100" | "70-30" | "30-70";
+export type GalleryRowVariant =
+  | "60-40"
+  | "50-50"
+  | "100"
+  | "70-30"
+  | "30-70"
+  | "fit-fill"
+  | "fill-fit";
 
 type GalleryRowProps = {
   variant: GalleryRowVariant;
@@ -26,6 +33,10 @@ function variantClassName(variant: GalleryRowVariant): string {
       return styles.row7030;
     case "30-70":
       return styles.row3070;
+    case "fit-fill":
+      return styles.rowFitFill;
+    case "fill-fit":
+      return styles.rowFillFit;
     default: {
       const _exhaustive: never = variant;
       return _exhaustive;
@@ -42,16 +53,28 @@ export function GalleryRow({
 }: GalleryRowProps) {
   const rowClass = measure === "gallery" ? styles.row : styles.rowContent;
   const vClass = variantClassName(variant);
+  const isFitFill = variant === "fit-fill";
+  const isFillFit = variant === "fill-fit";
 
   return (
     <div className={`${rowClass} ${vClass} ${className}`.trim()}>
       {Children.map(children, (child, index) => {
         const extra = cellClassName?.(index);
+        const fitFillClass =
+          measure === "gallery" && (isFitFill || isFillFit)
+            ? isFitFill
+              ? index === 0
+                ? styles.cellFit
+                : styles.cellFill
+              : index === 0
+                ? styles.cellFill
+                : styles.cellFit
+            : "";
         return (
           <div
             key={index}
             className={
-              `${styles.cell} ${measure === "gallery" ? styles.cellAspectMobile : ""} ${extra ?? ""}`.trim()
+              `${styles.cell} ${measure === "gallery" ? styles.cellAspectMobile : ""} ${fitFillClass} ${extra ?? ""}`.trim()
             }
           >
             {child}

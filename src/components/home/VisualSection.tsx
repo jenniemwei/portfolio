@@ -5,6 +5,7 @@ import {
 import { GalleryRow } from "@/components/sitewide/GalleryRow";
 import { ProjectCard } from "@/components/home/ProjectCard";
 import { GalleryThumbImage } from "@/components/home/GalleryThumbImage";
+import { GalleryLottieThumb } from "@/components/home/GalleryLottieThumb";
 import { GalleryVideoThumb } from "@/components/home/GalleryVideoThumb";
 import gallerySectionStyles from "@/components/home/GallerySectionReveal.module.css";
 
@@ -30,7 +31,14 @@ export function VisualSection() {
                   projTitle={project.heading}
                   projSub={project.subheading}
                   visual={
-                    project.video ? (
+                    project.lottie ? (
+                      <GalleryLottieThumb
+                        src={project.lottie}
+                        label={project.imgAlt ?? project.heading}
+                        fill={project.videoThumbBg}
+                        fit={project.videoThumbFit}
+                      />
+                    ) : project.video ? (
                       <GalleryVideoThumb
                         src={project.video}
                         label={project.imgAlt ?? project.heading}
