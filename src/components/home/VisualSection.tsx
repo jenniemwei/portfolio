@@ -2,11 +2,11 @@ import {
   homeProjects,
   type HomeProjectItem,
 } from "@/data/home-projects";
-import { GalleryRow } from "@/components/sitewide/GalleryRow";
-import { ProjectCard } from "@/components/home/ProjectCard";
-import { GalleryThumbImage } from "@/components/home/GalleryThumbImage";
-import { GalleryVideoThumb } from "@/components/home/GalleryVideoThumb";
-import gallerySectionStyles from "@/components/home/GallerySectionReveal.module.css";
+import { GalleryRow } from "@/components/gallery/GalleryRow";
+import { GalleryThumbImage } from "@/components/gallery/GalleryThumbImage";
+import { GalleryVideoThumb } from "@/components/gallery/GalleryVideoThumb";
+import gallerySectionStyles from "@/components/gallery/GallerySectionReveal.module.css";
+import { ProjectCard } from "@/components/cards/ProjectCard";
 
 function isFillSlot(variant: string, index: number): boolean {
   return (

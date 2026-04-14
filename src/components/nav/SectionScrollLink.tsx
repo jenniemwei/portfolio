@@ -4,11 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ComponentProps, ReactNode } from "react";
 
-import { getScrollIntoViewBehavior } from "@/lib/scroll-behavior";
+import {
+  type HomePageSectionId,
+  scrollHomePageSection,
+} from "@/lib/home-section-scroll";
 
 type SectionScrollLinkProps = {
   href: string;
-  sectionId: "work" | "visual";
+  sectionId: HomePageSectionId;
   id?: string;
   className?: string;
   children: ReactNode;
@@ -37,10 +40,7 @@ export function SectionScrollLink({
         const el = document.getElementById(sectionId);
         if (!el) return;
         e.preventDefault();
-        el.scrollIntoView({
-          behavior: getScrollIntoViewBehavior(),
-          block: "start",
-        });
+        scrollHomePageSection(sectionId);
         window.history.replaceState(null, "", href);
       }}
     >

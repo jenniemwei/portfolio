@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 
-import { ProjectCard } from "@/components/home/ProjectCard";
+import { ProjectCard } from "@/components/cards/ProjectCard";
 import type { HomeProjectItem } from "@/data/home-projects";
 
 import { useProjectPreview } from "./ProjectPreviewProvider";

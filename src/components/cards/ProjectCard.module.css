@@ -1,4 +1,4 @@
-/* Per-card scale only; opacity/blur live on gallery section wrapper — GallerySectionReveal.module.css */
+/* Per-card scale only; opacity/blur live on gallery section wrapper — components/gallery/GallerySectionReveal.module.css */
 @keyframes projectCardScrollScale {
   from {
     transform: scale(0.9);

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { isPreviewOrEmbedFrame } from "@/lib/embedChrome";
-import { SectionScrollLink } from "@/components/sitewide/SectionScrollLink";
+import { SectionScrollLink } from "@/components/nav/SectionScrollLink";
 
 import styles from "./Nav.module.css";
 
@@ -14,33 +14,35 @@ const links = [
   {
     href: "/#work",
     label: "WORK",
-    containerId: "subnav-work-button",
+    containerId: "work-button",
     sectionId: "work" as const,
   },
   {
     href: "/#visual",
     label: "VISUAL",
-    containerId: "subnav-visual-button",
+    containerId: "visual-button",
     sectionId: "visual" as const,
   },
-  { href: "/else", label: "ELSE", containerId: "subnav-else-button" },
+  { href: "/else", label: "ELSE", containerId: "else-button" },
 ] as const;
 
 const SCROLL_TOP_SHOW_PX = 56;
 const SCROLL_DELTA_PX = 6;
 
+/** Link is the interactive surface; label animates via `Nav.module.css` keyframes. */
 const navTextLinkClassName = `${styles.navTextLink} group/nav-link flex items-center py-[var(--space-12)]`;
+
 const navLinkLabelClassName = `${styles.navLinkLabel} type-nav-link text-default`;
 
-export function SubNav() {
+export function Nav() {
   const pathname = usePathname();
   const [embeddedInFrame, setEmbeddedInFrame] = useState(false);
+  const isWorkPage = pathname.startsWith("/work/");
   const lastScrollY = useRef(0);
   const [atTop, setAtTop] = useState(true);
   const [hiddenByScroll, setHiddenByScroll] = useState(false);
   const [pointerHover, setPointerHover] = useState(false);
   const [focusWithin, setFocusWithin] = useState(false);
-  const [hasActivated, setHasActivated] = useState(false);
   const [navLabelLeaveEnabled, setNavLabelLeaveEnabled] = useState(false);
 
   const enableNavLabelLeaveAnim = useCallback(() => {
@@ -68,10 +70,6 @@ export function SubNav() {
         const dy = y - prev;
         lastScrollY.current = y;
 
-        if (Math.abs(dy) > 0) {
-          setHasActivated(true);
-        }
-
         setAtTop(y < SCROLL_TOP_SHOW_PX);
         if (y < SCROLL_TOP_SHOW_PX) {
           setHiddenByScroll(false);
@@ -93,12 +91,11 @@ export function SubNav() {
     setFocusWithin(false);
   }, []);
 
-  const expandedByDefault =
+  const expanded =
     atTop || !hiddenByScroll || pointerHover || focusWithin;
-  const expanded = hasActivated ? expandedByDefault : pointerHover || focusWithin;
   const slideHidden = !expanded;
 
-  if (embeddedInFrame) {
+  if (isWorkPage || embeddedInFrame) {
     return null;
   }
 
@@ -106,20 +103,14 @@ export function SubNav() {
     <header
       className="sticky top-0 z-50 w-full pt-[var(--space-4)] pb-[var(--space-2)]"
       data-nav-label-leave={navLabelLeaveEnabled ? "true" : undefined}
-      onMouseEnter={() => {
-        setPointerHover(true);
-        setHasActivated(true);
-      }}
+      onMouseEnter={() => setPointerHover(true)}
       onMouseLeave={() => setPointerHover(false)}
-      onFocusCapture={() => {
-        setFocusWithin(true);
-        setHasActivated(true);
-      }}
+      onFocusCapture={() => setFocusWithin(true)}
       onBlurCapture={onBlurCapture}
     >
       <div className="mx-auto flex w-full max-w-[var(--shell-max-width)] items-center gap-[var(--space-m)] px-[var(--space-m)]">
         <Link
-          id="subnav-logo-button"
+          id="logo-button"
           href="/"
           className={`${styles.logoButton} relative z-[2] inline-flex items-center justify-center p-[var(--space-4)]`}
         >
@@ -141,14 +132,10 @@ export function SubNav() {
               aria-hidden
             />
             <div
-              className={`relative z-[1] rounded-full ${styles.slideLayer} ${slideHidden ? styles.slideLayerHidden : ""}`}
+              className={`relative z-[1] rounded-full  ${styles.slideLayer} ${slideHidden ? styles.slideLayerHidden : ""}`}
             >
-              <div
-                id="subnav-pill"
-                className="group/nav-pill relative w-full overflow-hidden rounded-full py-[var(--space-2)]"
-              >
-                <div
-                  id="subnav-pill-fill"
+              <div id="nav-pill" className="group/nav-pill relative w-full overflow-hidden rounded-full py-[var(--space-2)]">
+                <div id="nav-pill-fill"
                   className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] opacity-0 transition-opacity duration-300 ease-out group-hover/nav-pill:opacity-[0.5] group-focus-within/nav-pill:opacity-[0.75]"
                   aria-hidden
                 >
@@ -195,7 +182,7 @@ export function SubNav() {
                     })}
                   </div>
                   <Link
-                    id="subnav-info-button"
+                    id="info-button"
                     href="/info"
                     className={`${navTextLinkClassName} shrink-0 px-[var(--space-8)]`}
                     onMouseEnter={enableNavLabelLeaveAnim}

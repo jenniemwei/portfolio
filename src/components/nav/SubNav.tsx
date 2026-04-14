@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { isPreviewOrEmbedFrame } from "@/lib/embedChrome";
-import { SectionScrollLink } from "@/components/sitewide/SectionScrollLink";
+import { SectionScrollLink } from "@/components/nav/SectionScrollLink";
 
 import styles from "./Nav.module.css";
 
@@ -14,35 +14,33 @@ const links = [
   {
     href: "/#work",
     label: "WORK",
-    containerId: "work-button",
+    containerId: "subnav-work-button",
     sectionId: "work" as const,
   },
   {
     href: "/#visual",
     label: "VISUAL",
-    containerId: "visual-button",
+    containerId: "subnav-visual-button",
     sectionId: "visual" as const,
   },
-  { href: "/else", label: "ELSE", containerId: "else-button" },
+  { href: "/else", label: "ELSE", containerId: "subnav-else-button" },
 ] as const;
 
 const SCROLL_TOP_SHOW_PX = 56;
 const SCROLL_DELTA_PX = 6;
 
-/** Link is the interactive surface; label animates via `Nav.module.css` keyframes. */
 const navTextLinkClassName = `${styles.navTextLink} group/nav-link flex items-center py-[var(--space-12)]`;
-
 const navLinkLabelClassName = `${styles.navLinkLabel} type-nav-link text-default`;
 
-export function Nav() {
+export function SubNav() {
   const pathname = usePathname();
   const [embeddedInFrame, setEmbeddedInFrame] = useState(false);
-  const isWorkPage = pathname.startsWith("/work/");
   const lastScrollY = useRef(0);
   const [atTop, setAtTop] = useState(true);
   const [hiddenByScroll, setHiddenByScroll] = useState(false);
   const [pointerHover, setPointerHover] = useState(false);
   const [focusWithin, setFocusWithin] = useState(false);
+  const [hasActivated, setHasActivated] = useState(false);
   const [navLabelLeaveEnabled, setNavLabelLeaveEnabled] = useState(false);
 
   const enableNavLabelLeaveAnim = useCallback(() => {
@@ -70,6 +68,10 @@ export function Nav() {
         const dy = y - prev;
         lastScrollY.current = y;
 
+        if (Math.abs(dy) > 0) {
+          setHasActivated(true);
+        }
+
         setAtTop(y < SCROLL_TOP_SHOW_PX);
         if (y < SCROLL_TOP_SHOW_PX) {
           setHiddenByScroll(false);
@@ -91,11 +93,12 @@ export function Nav() {
     setFocusWithin(false);
   }, []);
 
-  const expanded =
+  const expandedByDefault =
     atTop || !hiddenByScroll || pointerHover || focusWithin;
+  const expanded = hasActivated ? expandedByDefault : pointerHover || focusWithin;
   const slideHidden = !expanded;
 
-  if (isWorkPage || embeddedInFrame) {
+  if (embeddedInFrame) {
     return null;
   }
 
@@ -103,14 +106,20 @@ export function Nav() {
     <header
       className="sticky top-0 z-50 w-full pt-[var(--space-4)] pb-[var(--space-2)]"
       data-nav-label-leave={navLabelLeaveEnabled ? "true" : undefined}
-      onMouseEnter={() => setPointerHover(true)}
+      onMouseEnter={() => {
+        setPointerHover(true);
+        setHasActivated(true);
+      }}
       onMouseLeave={() => setPointerHover(false)}
-      onFocusCapture={() => setFocusWithin(true)}
+      onFocusCapture={() => {
+        setFocusWithin(true);
+        setHasActivated(true);
+      }}
       onBlurCapture={onBlurCapture}
     >
       <div className="mx-auto flex w-full max-w-[var(--shell-max-width)] items-center gap-[var(--space-m)] px-[var(--space-m)]">
         <Link
-          id="logo-button"
+          id="subnav-logo-button"
           href="/"
           className={`${styles.logoButton} relative z-[2] inline-flex items-center justify-center p-[var(--space-4)]`}
         >
@@ -132,65 +141,69 @@ export function Nav() {
               aria-hidden
             />
             <div
-              className={`relative z-[1] rounded-full  ${styles.slideLayer} ${slideHidden ? styles.slideLayerHidden : ""}`}
+              className={`relative z-[1] rounded-full ${styles.slideLayer} ${slideHidden ? styles.slideLayerHidden : ""}`}
             >
-              <div id="nav-pill" className="group/nav-pill relative w-full overflow-hidden rounded-full py-[var(--space-2)]">
-              <div id="nav-pill-fill"
-                className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] opacity-0 transition-opacity duration-300 ease-out group-hover/nav-pill:opacity-[0.5] group-focus-within/nav-pill:opacity-[0.75]"
-                aria-hidden
+              <div
+                id="subnav-pill"
+                className="group/nav-pill relative w-full overflow-hidden rounded-full py-[var(--space-2)]"
               >
-                <Image
-                  src="/clouds-bg-thin.gif"
-                  alt=""
-                  fill
-                  className="object-cover object-center"
-                  sizes="(max-width: 1440px) 100vw, 1440px"
-                  unoptimized
-                />
-              </div>
-              <div className="relative z-[1] grid min-h-[var(--nav-icon-size)] w-full grid-cols-[1fr_auto] items-center gap-x-[var(--space-m)]">
-                <div className="flex min-w-0 items-stretch justify-center gap-[var(--space-64)]">
-                  {links.map((item) => {
-                    const { href, label, containerId } = item;
-                    if ("sectionId" in item) {
+                <div
+                  id="subnav-pill-fill"
+                  className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] opacity-0 transition-opacity duration-300 ease-out group-hover/nav-pill:opacity-[0.5] group-focus-within/nav-pill:opacity-[0.75]"
+                  aria-hidden
+                >
+                  <Image
+                    src="/clouds-bg-thin.gif"
+                    alt=""
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 1440px) 100vw, 1440px"
+                    unoptimized
+                  />
+                </div>
+                <div className="relative z-[1] grid min-h-[var(--nav-icon-size)] w-full grid-cols-[1fr_auto] items-center gap-x-[var(--space-m)]">
+                  <div className="flex min-w-0 items-stretch justify-center gap-[var(--space-64)]">
+                    {links.map((item) => {
+                      const { href, label, containerId } = item;
+                      if ("sectionId" in item) {
+                        return (
+                          <SectionScrollLink
+                            key={href}
+                            href={href}
+                            sectionId={item.sectionId}
+                            id={containerId}
+                            className={navTextLinkClassName}
+                            onMouseEnter={enableNavLabelLeaveAnim}
+                            onFocus={enableNavLabelLeaveAnim}
+                          >
+                            <span className={navLinkLabelClassName}>{label}</span>
+                          </SectionScrollLink>
+                        );
+                      }
                       return (
-                        <SectionScrollLink
+                        <Link
                           key={href}
-                          href={href}
-                          sectionId={item.sectionId}
                           id={containerId}
+                          href={href}
                           className={navTextLinkClassName}
                           onMouseEnter={enableNavLabelLeaveAnim}
                           onFocus={enableNavLabelLeaveAnim}
                         >
                           <span className={navLinkLabelClassName}>{label}</span>
-                        </SectionScrollLink>
+                        </Link>
                       );
-                    }
-                    return (
-                      <Link
-                        key={href}
-                        id={containerId}
-                        href={href}
-                        className={navTextLinkClassName}
-                        onMouseEnter={enableNavLabelLeaveAnim}
-                        onFocus={enableNavLabelLeaveAnim}
-                      >
-                        <span className={navLinkLabelClassName}>{label}</span>
-                      </Link>
-                    );
-                  })}
+                    })}
+                  </div>
+                  <Link
+                    id="subnav-info-button"
+                    href="/info"
+                    className={`${navTextLinkClassName} shrink-0 px-[var(--space-8)]`}
+                    onMouseEnter={enableNavLabelLeaveAnim}
+                    onFocus={enableNavLabelLeaveAnim}
+                  >
+                    <span className={navLinkLabelClassName}>INFO</span>
+                  </Link>
                 </div>
-                <Link
-                  id="info-button"
-                  href="/info"
-                  className={`${navTextLinkClassName} shrink-0 px-[var(--space-8)]`}
-                  onMouseEnter={enableNavLabelLeaveAnim}
-                  onFocus={enableNavLabelLeaveAnim}
-                >
-                  <span className={navLinkLabelClassName}>INFO</span>
-                </Link>
-              </div>
               </div>
             </div>
           </div>

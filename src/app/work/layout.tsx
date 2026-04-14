@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { SubNav } from "@/components/sitewide/SubNav";
+import { SubNav } from "@/components/nav/SubNav";
 
 type WorkLayoutProps = {
   children: ReactNode;

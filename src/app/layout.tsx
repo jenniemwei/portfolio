@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Crimson_Pro } from "next/font/google";
 
-import { Nav } from "@/components/sitewide/Nav";
-import { PreviewEmbedSection } from "@/components/sitewide/PreviewEmbedSection";
+import { Nav } from "@/components/nav/Nav";
+import { PreviewEmbedSection } from "@/components/cards/PreviewEmbedSection";
 import "@/styles/globals.css";
 
 const saans = localFont({

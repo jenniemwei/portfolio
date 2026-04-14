@@ -3,20 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-import { getScrollIntoViewBehavior } from "@/lib/scroll-behavior";
-
-const SECTION_IDS = new Set(["work", "visual"]);
-
-function scrollToHashIfSection() {
-  const id = window.location.hash.slice(1);
-  if (!SECTION_IDS.has(id)) return;
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.scrollIntoView({
-    behavior: getScrollIntoViewBehavior(),
-    block: "start",
-  });
-}
+import { scrollHomePageSectionFromHash } from "@/lib/home-section-scroll";
 
 /**
  * When landing on `/` with `#work` / `#visual` (or client-navigating from another route),
@@ -28,9 +15,9 @@ export function HomeScrollToSection() {
   useEffect(() => {
     if (pathname !== "/") return;
 
-    scrollToHashIfSection();
-    const t0 = window.setTimeout(scrollToHashIfSection, 0);
-    const t1 = window.setTimeout(scrollToHashIfSection, 120);
+    scrollHomePageSectionFromHash();
+    const t0 = window.setTimeout(scrollHomePageSectionFromHash, 0);
+    const t1 = window.setTimeout(scrollHomePageSectionFromHash, 120);
 
     return () => {
       window.clearTimeout(t0);

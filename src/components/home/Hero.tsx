@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-import { GalleryRow } from "@/components/sitewide/GalleryRow";
+import { GalleryRow } from "@/components/gallery/GalleryRow";
 import { HeroRiveDog } from "@/components/home/HeroRiveDog";
 
 import styles from "./Hero.module.css";
