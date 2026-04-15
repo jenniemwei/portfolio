@@ -117,8 +117,14 @@
     grid-template-columns: 1fr;
   }
 
+  /*
+   * Drop the strip `aspect-ratio` on `.row` when stacked: it sizes the grid as one short band
+   * (meant for 2 columns in one row), then splits that height across stacked rows — cards look
+   * collapsed (Safari + flex/`fill` media make it especially obvious). Height comes from each
+   * `.cellAspectMobile` / fit-fill cell instead.
+   */
   .row {
-    aspect-ratio: 12 / 6;
+    aspect-ratio: unset;
   }
 
   /*
