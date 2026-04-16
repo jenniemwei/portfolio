@@ -8,13 +8,6 @@ import { GalleryVideoThumb } from "@/components/gallery/GalleryVideoThumb";
 import gallerySectionStyles from "@/components/gallery/GallerySectionReveal.module.css";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 
-function isFillSlot(variant: string, index: number): boolean {
-  return (
-    (variant === "fit-fill" && index === 1) ||
-    (variant === "fill-fit" && index === 0)
-  );
-}
-
 export function VisualSection() {
   return (
     <section id="visual" className="w-full">
@@ -36,13 +29,14 @@ export function VisualSection() {
                   id={project.id}
                   projTitle={project.heading}
                   projSub={project.subheading}
+                  projSubDesc={project.subheadDesc}
                   visual={
                     project.video ? (
                       <GalleryVideoThumb
                         src={project.video}
                         label={project.imgAlt ?? project.heading}
                         fill={project.videoThumbBg}
-                        fit={isFillSlot(row.variant, i) ? "cover" : project.videoThumbFit}
+                        fit={project.videoThumbFit ?? "cover"}
                         fallbackSrc={project.img ?? undefined}
                       />
                     ) : project.img ? (

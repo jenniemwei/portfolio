@@ -7,12 +7,14 @@ export type GalleryThumbImageProps = Pick<ImageProps, "src" | "alt"> & {
 
 export function GalleryThumbImage({ src, alt, sizes }: GalleryThumbImageProps) {
   return (
-    <Image
-      src={src}
-      alt={alt}
-      fill
-      className="object-cover"
-      sizes={sizes}
-    />
+    <div className="absolute inset-0 min-h-0 min-w-0">
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover"
+        sizes={sizes}
+      />
+    </div>
   );
 }

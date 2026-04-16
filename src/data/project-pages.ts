@@ -39,8 +39,8 @@ const projectPages: readonly ProjectPage[] = [
     href: "/work/intouch",
     pageTitle: "InTouch",
     altText: "InTouch case study",
-    previewImage: "/thumbnails/intouch-home-img.webp",
-    heroImage: "/thumbnails/intouch-home-img.webp",
+    previewImage: "/thumbnails/intouch-thumb-backup.png",
+    heroImage: "/thumbnails/intouch-thumb-backup.png",
     disableFullscreen: true,
   },
 ];

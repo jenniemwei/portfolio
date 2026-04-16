@@ -12,6 +12,33 @@
   transform-origin: center center;
 }
 
+.visualShell {
+  position: relative;
+  transform-origin: center center;
+  min-height: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  opacity: 1;
+  transition:
+    transform 200ms ease,
+    border-radius 200ms ease,
+    opacity 200ms ease;
+}
+
+.visualShellHovered {
+  transform: scale(0.98);
+  border-radius: 12px;
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visualShell {
+    transition: none;
+  }
+}
+
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .reveal {

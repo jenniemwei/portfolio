@@ -4,13 +4,15 @@ export type HomeProjectItem = {
   id?: string;
   heading: string;
   subheading: string;
+  /** Shown on card hover (subtitle scrambles from `subheading` → this, then back). */
+  subheadDesc?: string;
   img: string | null;
   imgAlt?: string;
   /** MP4 URL (e.g. Cloudinary). When set, used instead of `img` for the card visual. */
   video?: string;
   /** Solid fill behind video (e.g. letterboxing). Use token vars like `var(--g0)` or `white`. */
   videoThumbBg?: string;
-  /** `cover` = fill card, may crop; `contain` = full width, letterbox (default). */
+  /** Default is cover (like images). Set `contain` for letterboxed / width-first video. */
   videoThumbFit?: "contain" | "cover";
   /** App route for full case study; first card click opens preview modal. */
   projectHref?: string;
@@ -33,22 +35,23 @@ export const homeProjects = {
   work: {
     rows: [
       {
-        variant: "fill-fit",
+        variant: "40-60",
         projects: [
           {
-            id: "mclubs",
-            heading: "Mclubs",
-            subheading: "Summer 2024",
-            img: "/thumbnails/mclubs-thumb-backup.png",
-            imgAlt: "Mclubs",
-            video:
-            "https://res.cloudinary.com/dlaz3infq/video/upload/v1776166382/Mobile-Screens-Grid-remix_1_flex5t.webm",
-          videoThumbBg: "white",
+            id: "g2-ai",
+            heading: "G2 AI",
+            subheading: "Fall 2025",
+            subheadDesc: "Conversational software search",
+            img: "/thumbnails/g2-ai-thumb.png",
+            imgAlt: "G2 AI",
+            projectHref: "/work/g2-ai",
+      
           },
           {
             id: "folding-at-home",
             heading: "Folding@Home",
             subheading: "Spring 2026",
+            subheadDesc: "Dynamic brand for a citizen science supercomputer",
             img: "/thumbnails/fah-thumb-backup.jpg",
             imgAlt: "Folding@Home",
             video:
@@ -64,17 +67,21 @@ export const homeProjects = {
             id: "g2-search",
             heading: "G2 Search",
             subheading: "Summer 2025",
+            subheadDesc: "Smart search AI interaction patterns",
             img: "/thumbnails/g2-search-thumb.png",
             imgAlt: "G2 Search",
             projectHref: "/work/g2-search",
           },
-          {
-            id: "g2-ai",
-            heading: "G2 AI",
-            subheading: "Fall 2025",
-            img: "/thumbnails/g2-ai-thumb.png",
-            imgAlt: "G2 AI",
-            projectHref: "/work/g2-ai",
+          { id: "mclubs",
+            heading: "Mclubs",
+            subheading: "Summer 2024",
+            subheadDesc: "Club discovery and engagement platform",
+            img: "/thumbnails/mclubs-thumb-backup.png",
+            imgAlt: "Mclubs",
+            video:
+            "https://res.cloudinary.com/dlaz3infq/video/upload/v1776166382/Mobile-Screens-Grid-remix_1_flex5t.webm",
+          videoThumbBg: "var(--g0)",
+            
           },
         ],
       },
@@ -89,6 +96,7 @@ export const homeProjects = {
             id: "dhero",
             heading: "The Designers Republic",
             subheading: "Spring 2025",
+            subheadDesc: "Multimedia tribute to my design hero",
             img: "/thumbnails/dhero-thumb-backup.webp",
             imgAlt: "The Designers Republic",
             video:
@@ -99,11 +107,11 @@ export const homeProjects = {
             id: "intouch",
             heading: "InTouch",
             subheading: "Spring 2025",
-            img: null,
+            subheadDesc: "Voted winning product pitch by real investors",
+            img: "/thumbnails/intouch-thumb-backup.png",
             imgAlt: "InTouch",
             video:
               "https://res.cloudinary.com/dlaz3infq/video/upload/v1767846803/intouch-short_bqnv1v.mp4",
-            videoThumbFit: "cover",
             projectHref: "/work/intouch",
           },
         ],
@@ -114,12 +122,14 @@ export const homeProjects = {
           {
             heading: "HCII 30",
             subheading: "Summer 2024",
+            subheadDesc: "Celebrating 30 years of HCII",
             img: "/thumbnails/HCII-thumb.jpeg",
             imgAlt: "HCII",
           },
           {
             heading: "Meeting of the Minds",
             subheading: "Spring 2025",
+            subheadDesc: "Event identity & collateral",
             img: "/thumbnails/MOM-thumb.png",
           },
         ],

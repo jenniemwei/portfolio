@@ -10,13 +10,6 @@ import { GalleryVideoThumb } from "@/components/gallery/GalleryVideoThumb";
 import gallerySectionStyles from "@/components/gallery/GallerySectionReveal.module.css";
 import { ProjectCardWithPreview } from "@/components/cards/ProjectCardWithPreview";
 
-function isFillSlot(variant: string, index: number): boolean {
-  return (
-    (variant === "fit-fill" && index === 1) ||
-    (variant === "fill-fit" && index === 0)
-  );
-}
-
 export function WorkSection() {
   return (
     <section id="work" className="w-full py-[var(--space-xl)]">
@@ -37,7 +30,7 @@ export function WorkSection() {
                         src={project.video}
                         label={project.imgAlt ?? project.heading}
                         fill={project.videoThumbBg}
-                        fit={isFillSlot(row.variant, i) ? "cover" : project.videoThumbFit}
+                        fit={project.videoThumbFit ?? "cover"}
                         fallbackSrc={project.img ?? undefined}
                       />
                     ) : project.img ? (

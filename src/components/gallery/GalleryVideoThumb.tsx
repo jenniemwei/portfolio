@@ -1,13 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type CSSProperties,
-} from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 
 function sourceTypeForVideoUrl(src: string): string {
   const lower = src.split("?")[0]?.toLowerCase() ?? "";
@@ -20,7 +14,7 @@ type GalleryVideoThumbProps = {
   label: string;
   /** Background behind letterboxing; `white` maps to `var(--white)`, or pass any CSS color. */
   fill?: string;
-  /** `cover` = fill card (both axes), classic crop. Otherwise width-first smart fit. */
+  /** `cover` = same as thumb images (fill + crop). `contain` = letterbox / width-first fit. */
   fit?: "contain" | "cover";
   /** Optional image fallback if video fails to load/decode. */
   fallbackSrc?: string;
@@ -117,7 +111,7 @@ export function GalleryVideoThumb({
   src,
   label,
   fill,
-  fit = "contain",
+  fit = "cover",
   fallbackSrc,
 }: GalleryVideoThumbProps) {
   const [videoFailed, setVideoFailed] = useState(false);

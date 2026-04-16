@@ -24,6 +24,7 @@ export function ProjectCardWithPreview({
       id={project.id}
       projTitle={project.heading}
       projSub={project.subheading}
+      projSubDesc={project.subheadDesc}
       visual={visual}
     />
   );
