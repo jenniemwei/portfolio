@@ -13,7 +13,7 @@ const HERO_CURSOR_SCRATCH_SRC = "/icons/hand-scratching.gif";
 const DOG_TARGET_SELECTOR = "[data-hero-dog-target]";
 
 /**
- * Hero band: block size from `--hero-height` (`60vh` in `globals.css`); Rive + intro; optional custom cursor.
+ * Hero band: fixed block size from `--hero-height` (`80vh` in `globals.css`) from `md` up; below `md`, height follows content.
  */
 export function Hero() {
   const zoneRef = useRef<HTMLDivElement>(null);
@@ -92,17 +92,17 @@ export function Hero() {
 
   const heroSection = (
     <section
-      className="flex h-[var(--hero-height)] min-h-0 w-full flex-col overflow-visible"
+      className="flex h-auto min-h-0 w-full flex-col overflow-visible md:h-[var(--hero-height)]"
       aria-label="Hero"
     >
-      <div className="relative z-[1] flex min-h-0 flex-1 flex-col overflow-visible">
+      <div className="relative z-[1] flex max-md:flex-none flex-col overflow-visible md:min-h-0 md:flex-1">
         <GalleryRow
           variant="60-40"
           measure="content"
-          className="h-full min-h-0 overflow-visible"
+          className="min-h-0 overflow-visible max-md:h-auto md:h-full"
           cellClassName={(i) => (i === 0 ? "max-md:hidden" : undefined)}
         >
-          <div className="relative min-h-0 h-full w-full">
+          <div className="relative min-h-0 w-full max-md:h-auto md:h-full">
             <div className={styles.heroIconRow}>
               <a
                 href="https://www.linkedin.com/in/jenniewei/"
@@ -143,12 +143,12 @@ export function Hero() {
               </a>
             </div>
           </div>
-          <div className="flex h-full min-h-0 w-full min-w-0 flex-col items-end justify-end overflow-visible  p-[var(--space-lg)] max-md:border-l-0">
+          <div className="flex min-h-0 w-full min-w-0 flex-col items-end justify-end overflow-visible p-[var(--space-lg)] max-md:h-auto max-md:border-l-0 md:h-full">
             <HeroRiveDog />
           </div>
         </GalleryRow>
       </div>
-      <header className=" min-h-[30vh] relative z-0 shrink-0 border-solid border-line border-y-[length:var(--hero-border-width)] pt-[var(--space-lg)] pb-[var(--space-xl)]">
+      <header className="relative z-0 shrink-0 border-solid border-line border-y-[length:var(--hero-border-width)] pt-[var(--space-lg)] pb-[var(--space-xl)] md:min-h-[30vh]">
         <GalleryRow variant="30-70" measure="content">
           <div className="flex flex-col gap-[var(--space-s)] w-[50%]">
             <div className="type-body-sm w-full space-y-0">
