@@ -39,7 +39,7 @@ export const homeProjects = {
             id: "mclubs",
             heading: "Mclubs",
             subheading: "Summer 2024",
-            img: "/thumbnails/mclubs-thumb.png",
+            img: "/thumbnails/mclubs-thumb-backup.png",
             imgAlt: "Mclubs",
             video:
             "https://res.cloudinary.com/dlaz3infq/video/upload/v1776166382/Mobile-Screens-Grid-remix_1_flex5t.webm",
@@ -49,7 +49,7 @@ export const homeProjects = {
             id: "folding-at-home",
             heading: "Folding@Home",
             subheading: "Spring 2026",
-            img: null,
+            img: "/thumbnails/fah-thumb-backup.jpg",
             imgAlt: "Folding@Home",
             video:
               "https://res.cloudinary.com/dlaz3infq/video/upload/v1776208966/logoanilight_rklxrq.webm",
@@ -89,7 +89,7 @@ export const homeProjects = {
             id: "dhero",
             heading: "The Designers Republic",
             subheading: "Spring 2025",
-            img: null,
+            img: "/thumbnails/dhero-thumb-backup.webp",
             imgAlt: "The Designers Republic",
             video:
               "https://res.cloudinary.com/dlaz3infq/video/upload/v1767847688/ian_anderson_video_nzysfl.mp4",

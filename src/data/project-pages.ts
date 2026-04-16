@@ -31,7 +31,7 @@ const projectPages: readonly ProjectPage[] = [
     href: "/work/mclubs",
     pageTitle: "Mclubs",
     altText: "Mclubs case study",
-    previewImage: "/thumbnails/mclubs-thumb.png",
+    previewImage: "/thumbnails/mclubs-thumb-backup.png",
     heroImage: "/thumbnails/Mclubs-home-img.png",
     disableFullscreen: true,
   },

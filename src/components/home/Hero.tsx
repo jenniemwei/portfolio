@@ -151,9 +151,9 @@ export function Hero() {
       <header className="relative z-0 shrink-0 border-solid border-line border-y-[length:var(--hero-border-width)] pt-[var(--space-lg)] pb-[var(--space-xl)] md:min-h-[30vh]">
         <GalleryRow variant="30-70" measure="content">
           <div className="flex flex-col gap-[var(--space-s)] w-[50%]">
-            <div className="type-body-sm w-full space-y-0">
+            {/* <div className="type-body-sm w-full space-y-0">
               <p className="text-default">Incoming @ Superhuman </p>
-            </div>
+            </div> */}
             <p className="type-body-sm w-full text-subtle">
               Design HCI + Info Systems @ Carnegie Mellon
             </p>
