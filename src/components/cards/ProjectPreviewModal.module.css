@@ -71,7 +71,7 @@
   height: min(78vh, 720px);
   overflow: hidden;
   border-radius: var(--space-12);
-  background: var(--bg-default);
+  background: transparent;
   transform-origin: 50% 100%;
   box-shadow:
     0 var(--space-24) var(--space-64)
@@ -96,12 +96,13 @@
 }
 
 .frameWrap {
+  position: relative;
+  z-index: 0;
   flex: 1;
   min-height: 0;
   width: 100%;
-  cursor:
-    url("/icons/fullscreen-cursor.svg") 12 12,
-    zoom-in;
+  cursor: default;
+  background: var(--bg-default);
 }
 
 .frameWrapDisabled {
@@ -112,17 +113,6 @@
   width: 100%;
   height: 100%;
   border: 0;
-  /* Pass clicks to the shell so "click to open full page" works when `disableFullscreen` is false. */
-  pointer-events: none;
-}
-
-/* WIP previews (`disableFullscreen: true`): interact + scroll inside the iframe. */
-.frameScrollable {
+  /* Must receive pointer events so wheel/trackpad scrolling works inside the embedded page. */
   pointer-events: auto;
-}
-
-.hint {
-  flex-shrink: 0;
-  padding: var(--space-8) var(--space-m);
-  text-align: center;
 }

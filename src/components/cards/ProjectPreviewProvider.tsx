@@ -179,15 +179,12 @@ export function ProjectPreviewProvider({ children }: { children: ReactNode }) {
             aria-label={
               fullscreenDisabled
                 ? "Project preview — scroll to read the work in progress"
-                : "Project preview — click to open the full case study, or use the full-screen control"
+                : "Project preview — scroll to read the case study, or use expand in the bar above to open the full page"
             }
             tabIndex={-1}
             className={`${styles.previewShell} ${isExiting ? styles.shellExit : styles.shellEnter}`}
             onAnimationEnd={onShellAnimationEnd}
-            onClick={(e) => {
-              e.stopPropagation();
-              if (!isExiting && !fullscreenDisabled) goFullPage();
-            }}
+            onClick={(e) => e.stopPropagation()}
           >
             <PreviewHeader
               onFullScreen={() => {
@@ -200,17 +197,12 @@ export function ProjectPreviewProvider({ children }: { children: ReactNode }) {
               className={`${styles.frameWrap} ${fullscreenDisabled ? styles.frameWrapDisabled : ""}`}
             >
               <iframe
-                className={`${styles.frame}${fullscreenDisabled ? ` ${styles.frameScrollable}` : ""}`}
+                className={styles.frame}
                 src={previewIframeSrc(previewHref)}
                 title="Project preview"
                 sandbox="allow-scripts allow-same-origin"
               />
             </div>
-            <p className={`${styles.hint} type-body-sm text-subtle`}>
-              {fullscreenDisabled
-                ? "Case study still in progress — scroll inside the preview"
-                : "Click the preview or full-screen button above to open the full case study"}
-            </p>
           </div>
         </div>
       ) : null}

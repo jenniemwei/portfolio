@@ -100,7 +100,14 @@ export function Hero() {
           tracks={[6, 4]}
           measure="content"
           className="min-h-0 overflow-visible max-md:h-auto md:h-full"
-          cellClassName={(i) => (i === 0 ? "max-md:hidden" : undefined)}
+          cellClassName={(i) =>
+            [
+              "w-full min-w-0 justify-self-stretch",
+              i === 0 ? "max-md:hidden" : "",
+            ]
+              .filter(Boolean)
+              .join(" ")
+          }
         >
           <div className="relative min-h-0 w-full max-md:h-auto md:h-full">
             <div className={styles.heroIconRow}>

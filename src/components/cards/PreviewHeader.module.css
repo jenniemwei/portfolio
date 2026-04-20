@@ -1,65 +1,162 @@
+/*
+ * Floated over the iframe (sibling `.frameWrap` in `ProjectPreviewProvider`).
+ * `pointer-events: none` on the bar lets wheel / clicks pass through to the iframe
+ * except on the frosted pill, which re-enables hits for Back / expand.
+ */
 .root {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
   width: 100%;
-  padding: var(--space-8) var(--space-12);
-  border-bottom: var(--border-width-default) solid var(--border-default);
+  padding: var(--space-12) var(--space-m) var(--space-8);
+  background: transparent;
+  pointer-events: none;
 }
 
-.fullscreen {
+.pill {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9999px;
+  pointer-events: auto;
+}
+
+.pillBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background-color: color-mix(in srgb, var(--white) 22%, transparent);
+  -webkit-backdrop-filter: blur(var(--nav-fill-backdrop-blur)) saturate(1.2);
+  backdrop-filter: blur(var(--nav-fill-backdrop-blur)) saturate(1.2);
+}
+
+.pillRow {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-m);
+  min-height: var(--nav-icon-size);
+  width: 100%;
+}
+
+.spacer {
+  min-width: 0;
+}
+
+.rightCluster {
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-8);
+  min-width: 0;
+}
+
+.expandHelper {
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--subtle);
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.rightCluster:hover .expandHelper,
+.rightCluster:focus-within .expandHelper {
+  color: var(--default);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expandHelper {
+    transition-duration: 0.01ms;
+  }
+}
+
+/* Hitboxes aligned with nav text links (`Nav.tsx`: `py-[var(--space-12)]`). */
+.hitbox {
+  -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
-  width: var(--space-32);
-  height: var(--space-32);
-  padding: 0;
-  border-radius: 50%;
-  border: var(--border-width-default) solid var(--border-default);
-  background: var(--bg-default);
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.fullscreen:hover {
-  opacity: var(--link-hover-opacity);
-}
-
-.fullscreen:focus-visible {
-  outline: var(--focus-ring-width) solid var(--focus-ring-color);
-  outline-offset: var(--space-2);
-}
-
-.fullscreen:disabled {
-  opacity: 0.4;
-  cursor: default;
-}
-
-.close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--space-32);
-  height: var(--space-32);
-  padding: 0;
+  gap: var(--space-8);
+  margin: 0;
+  padding: var(--space-12) var(--space-16);
   border: none;
-  border-radius: 50%;
+  border-radius: 9999px;
   background: transparent;
   color: var(--default);
   cursor: pointer;
   flex-shrink: 0;
 }
 
-.close:hover {
+.hitbox:hover:not(:disabled),
+.hitbox:focus-visible:not(:disabled) {
   opacity: var(--link-hover-opacity);
 }
 
-.close:focus-visible {
+/* Expand: keep hit target solid opacity; icon mask still lifts on hover below. */
+.hitboxExpand:hover:not(:disabled),
+.hitboxExpand:focus-visible:not(:disabled) {
+  opacity: 1;
+}
+
+.hitbox:focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring-color);
   outline-offset: var(--space-2);
 }
 
-.closeIcon {
+.hitbox:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.hitboxIcon {
   display: block;
-  width: var(--space-16);
-  height: var(--space-16);
+  width: var(--space-24);
+  height: var(--space-24);
+  flex-shrink: 0;
+  color: var(--default);
+}
+
+.hitboxLabel {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Matches home hero social icons (`Hero.module.css` `.heroIconMask`). */
+.expandIconMask {
+  display: block;
+  width: var(--space-24);
+  height: var(--space-24);
+  aspect-ratio: 1 / 1;
+  background-color: var(--secondary);
+  opacity: 0.8;
+  transition: opacity 0.25s ease;
+  -webkit-mask-image: var(--hero-icon-url);
+  mask-image: var(--hero-icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.hitboxExpand:hover:not(:disabled) .expandIconMask,
+.hitboxExpand:focus-visible:not(:disabled) .expandIconMask {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expandIconMask {
+    transition-duration: 0.01ms;
+  }
 }
