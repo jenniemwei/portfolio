@@ -26,6 +26,7 @@
  * `.rowContent` — `measure="content"` (e.g. Hero dog + intro).
  * Purpose: same column gaps as gallery rows, but no fixed aspect — height follows children.
  * Use case: layouts where Rive/text dictate height; aspect-ratio would fight intrinsic content.
+ * `justify-items: center` — each cell’s box is centered on the inline axis within its track.
  */
 .rowContent {
   display: grid;
@@ -34,6 +35,12 @@
   column-gap: var(--space-m);
   row-gap: var(--space-m);
   grid-template-columns: var(--gallery-tracks, 1fr);
+  justify-items: center;
+}
+
+/* Case-study split rows: columns keep intrinsic height so images are not squished by a shorter sibling. */
+.rowAlignStart {
+  align-items: start;
 }
 
 /*
@@ -53,6 +60,11 @@
   min-height: 0;
   min-width: 0;
   height: 100%;
+}
+
+/* Must follow `.cell` so `height: auto` wins — otherwise `height: 100%` fills the row and copy sits at the top. */
+.cellIntrinsic {
+  height: auto;
 }
 
 /* Below Tailwind `lg` (64rem): match `max-lg:` — use literal px; @see docs/tailwind-guide.md */

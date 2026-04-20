@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "update-type-styles": "node scripts/update-type-styles.mjs"
   },
   "dependencies": {
     "@rive-app/react-canvas": "^4.28.0",

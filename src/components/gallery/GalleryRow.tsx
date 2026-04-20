@@ -15,6 +15,11 @@ type GalleryRowProps = {
   /** `gallery` = card row aspect ratio; `content` = hero / intro (height from content) */
   measure?: "gallery" | "content";
   /**
+   * `start` = grid items use intrinsic cross-size (pair with non-`fill` media for natural image height).
+   * Default stretch keeps card / `fill` columns equal height.
+   */
+  alignItems?: "stretch" | "start";
+  /**
    * Column + row gutter. Omitted or `"media"` → `--space-m` from row classes; `"large"` → `--space-lg`.
    * Any other string is applied as both `column-gap` and `row-gap` (e.g. `var(--space-xl)`, `1.5rem`).
    */
@@ -32,11 +37,14 @@ export function GalleryRow({
   tracks,
   children,
   measure = "gallery",
+  alignItems = "stretch",
   gap,
   className = "",
   cellClassName,
 }: GalleryRowProps) {
   const rowClass = measure === "gallery" ? styles.row : styles.rowContent;
+  const alignClass =
+    alignItems === "start" ? styles.rowAlignStart : "";
   const gapRaw = gap?.trim();
   const gapIsMedia = !gapRaw || gapRaw === "media";
   const gapIsLarge = gapRaw === "large";
@@ -50,17 +58,19 @@ export function GalleryRow({
 
   return (
     <div
-      className={`${rowClass} ${gapClass} ${className}`.trim()}
+      className={`${rowClass} ${gapClass} ${alignClass} ${className}`.trim()}
       style={rowStyle}
     >
       {Children.map(children, (child, index) => {
         const extra = cellClassName?.(index);
+        const cellIntrinsic =
+          alignItems === "start" ? styles.cellIntrinsic : "";
 
         return (
           <div
             key={index}
             className={
-              `${styles.cell} ${measure === "gallery" ? styles.cellAspectMobile : ""} ${extra ?? ""}`.trim()
+              `${styles.cell} ${cellIntrinsic} ${measure === "gallery" ? styles.cellAspectMobile : ""} ${extra ?? ""}`.trim()
             }
           >
             {child}

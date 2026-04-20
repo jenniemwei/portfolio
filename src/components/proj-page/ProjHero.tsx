@@ -13,14 +13,14 @@ export type ProjHeroProps = {
  */
 export function ProjHero({ hero }: ProjHeroProps) {
   return (
-    <header className="flex w-full flex-col gap-[var(--space-xl)]">
+    <header className="flex w-full flex-col gap-[var(--space-24)]">
       <ProjHeroGallery heroGallery={hero.heroGallery} />
 
       <div className="flex w-full flex-col gap-[var(--space-m)]">
-        <hr className="m-0 w-full border-0 border-t border-[var(--g2)]" />
         <h1 className="type-proj-title whitespace-pre-line text-pretty text-default">
           {hero.title}
         </h1>
+        <hr className="m-0 w-full border-0 border-t border-[var(--g2)]" />
       </div>
 
       <ProjOverview intro={hero.intro} />

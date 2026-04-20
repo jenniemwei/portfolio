@@ -1,13 +1,16 @@
 export {
+  assertSplitContentCells,
   assertSplitSpacerPositions,
   SPLIT_ROW_TYPE_STYLES,
   type SplitCell,
-  type SplitImageCell,
+  type SplitContentCell,
+  type SplitContentPart,
+  type SplitContentTextPart,
+  type SplitContentVisualPart,
   type SplitImageFit,
   type SplitRowData,
   type SplitRowMeasure,
   type SplitSpacerCell,
-  type SplitTextCell,
   type TextboxSegment,
   type TypeStyle,
 } from "./splitRowTypes";

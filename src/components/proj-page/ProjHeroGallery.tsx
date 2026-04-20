@@ -37,7 +37,7 @@ export function ProjHeroGallery({ heroGallery }: ProjHeroGalleryProps) {
     const { image } = heroGallery;
     return (
       <GalleryRow tracks={[1]} measure="gallery">
-        <div className="relative h-full min-h-0 min-w-0 w-full overflow-hidden bg-[var(--g1)]">
+        <div className="relative h-full min-h-0 min-w-0 w-full overflow-hidden">
           <Image
             src={image.src}
             alt={image.alt}
@@ -54,7 +54,7 @@ export function ProjHeroGallery({ heroGallery }: ProjHeroGalleryProps) {
   if (heroGallery.kind === "composition") {
     return (
       <GalleryRow tracks={[1]} measure="gallery">
-        <div className="relative h-full min-h-0 min-w-0 w-full overflow-hidden bg-[var(--g1)]">
+        <div className="relative h-full min-h-0 min-w-0 w-full overflow-hidden">
           {heroGallery.layers.map((layer, index) => (
             <div
               key={`${index}-${layer.alt}`}

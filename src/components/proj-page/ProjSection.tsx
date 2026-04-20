@@ -4,6 +4,8 @@ import type {
 } from "@/data/case-studies/types";
 
 import { SplitRow } from "@/components/content-row/SplitRow";
+import { CalloutHeader } from "@/components/proj-page/CalloutHeader";
+import { SectionHeader } from "@/components/proj-page/SectionHeader";
 
 type ProjSectionRowProps = {
   row: CaseStudySectionRow;
@@ -19,11 +21,19 @@ function ProjSectionRow({ row }: ProjSectionRowProps) {
     );
   }
 
+  if (row.rowKind === "callout") {
+    return (
+      <div className="flex w-full justify-center py-[var(--space-64)]">
+        <CalloutHeader as="h3">{row.heading}</CalloutHeader>
+      </div>
+    );
+  }
+
   return (
     <SplitRow
       tracks={row.tracks}
       cells={row.cells}
-      measure={row.measure ?? "gallery"}
+      measure={row.measure ?? "content"}
     />
   );
 }
@@ -34,23 +44,21 @@ type ProjSectionProps = {
 
 /**
  * Case-study body section: optional intro `body`, then optional vertical `rows`
- * (prose and/or split image rows).
+ * (prose, callout headings, and/or split image rows).
  */
 export function ProjSection({ section }: ProjSectionProps) {
-  const { sectionId, heading, body, rows } = section;
+  const { sectionId, sectionHeader, body, rows } = section;
 
   return (
     <section
       id={sectionId}
-      className="flex w-full flex-col gap-[var(--space-m)] py-[var(--space-48)]"
+      className="flex w-full flex-col gap-[var(--space-lg)] py-[var(--space-48)]"
       aria-labelledby={`${sectionId}-heading`}
     >
-      <h2
+      <SectionHeader
         id={`${sectionId}-heading`}
-        className="type-section-h2 text-default"
-      >
-        {heading}
-      </h2>
+        sectionHeader={sectionHeader}
+      />
       {body ? (
         <p className="type-body max-w-[var(--secondary-intro-max-width)] whitespace-pre-line text-pretty text-default">
           {body}

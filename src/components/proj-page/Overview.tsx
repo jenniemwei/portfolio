@@ -1,36 +1,12 @@
 import { GalleryRow } from "@/components/gallery/GalleryRow";
 import type { CaseStudyHeroBlock } from "@/data/case-studies/types";
-import type { CSSProperties } from "react";
 
 type ProjOverviewProps = {
   intro: CaseStudyHeroBlock["intro"];
 };
 
-const introOuterCellClassName =
+const introCellClassName =
   "flex min-h-0 min-w-0 flex-col gap-[var(--space-s)]";
-
-const introSpecsCellClassName =
-  "flex min-h-0 min-w-0 flex-col gap-[var(--space-s)]";
-
-/** Specs column: max 80% of each 50–50 track, centered; inner 1fr 1fr grid with copy spanning both (inline styles below). */
-const introSpecsInnerShellStyle: CSSProperties = {
-  boxSizing: "border-box",
-  width: "100%",
-  maxWidth: "80%",
-  marginInline: "auto",
-  minHeight: 0,
-  minWidth: 0,
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr",
-  columnGap: "var(--space-s)",
-  rowGap: "var(--space-s)",
-};
-
-const introSpecsInnerSpanStyle: CSSProperties = {
-  gridColumn: "1 / -1",
-  minWidth: 0,
-  minHeight: 0,
-};
 
 function SpecBlock({ label, body }: { label: string; body: string }) {
   return (
@@ -51,42 +27,34 @@ function DescriptionBlock({ label, body }: { label: string; body: string }) {
           {label}
         </p>
       ) : null}
-      <p className="type-proj-subtitle whitespace-pre-line text-pretty text-default">
+      <p className="type-proj-subtitle whitespace-pre-line text-pretty">
         {body}
       </p>
     </div>
   );
 }
 
-/** Hero intro: specs (50–50) with local 80% / 1fr–1fr shell per cell; description (`type-proj-subtitle`). Outer row `gap="large"`. */
+/** Hero intro: `3:2:5` row — specs | spacer (middle) | description. `gap="large"`. */
 export function ProjOverview({ intro }: ProjOverviewProps) {
   const { timeline, contributors, description } = intro;
 
   return (
     <section className="w-full" aria-label="Project intro">
       <GalleryRow
-        tracks={[1, 1]}
+        tracks={[2, 1, 1]}
         measure="content"
         gap="large"
-        cellClassName={() => introOuterCellClassName}
+        cellClassName={(i) =>
+          i === 1 ? "min-h-0 min-w-0" : introCellClassName
+        }
       >
-        <GalleryRow
-          tracks={[1, 1]}
-          measure="content"
-          cellClassName={() => introSpecsCellClassName}
-        >
-          <div style={introSpecsInnerShellStyle}>
-            <div style={introSpecsInnerSpanStyle}>
-              <SpecBlock label={timeline.label} body={timeline.body} />
-            </div>
-          </div>
-          <div style={introSpecsInnerShellStyle}>
-            <div style={introSpecsInnerSpanStyle}>
-              <SpecBlock label={contributors.label} body={contributors.body} />
-            </div>
-          </div>
-        </GalleryRow>
         <DescriptionBlock label={description.label} body={description.body} />
+        {/* spacer cell */}
+        <div aria-hidden className="min-h-0 min-w-0" />
+        <>
+          <SpecBlock label={timeline.label} body={timeline.body} />
+          <SpecBlock label={contributors.label} body={contributors.body} />
+        </>
       </GalleryRow>
     </section>
   );

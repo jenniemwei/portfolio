@@ -64,6 +64,7 @@ export type CaseStudyHeroBlock = {
 /** One horizontal band inside a case-study body section. */
 export type CaseStudySectionRow =
   | { rowKind: "prose"; body: string }
+  | { rowKind: "callout"; heading: string }
   | ({ rowKind: "split-row" } & SplitRowData);
 
 /**
@@ -71,7 +72,7 @@ export type CaseStudySectionRow =
  */
 export type CaseStudySection = {
   sectionId: string;
-  heading: string;
+  sectionHeader: string;
   body?: string;
   rows?: readonly CaseStudySectionRow[];
 };

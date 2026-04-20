@@ -3,8 +3,33 @@ import type {
   CaseStudySection,
 } from "@/data/case-studies/types";
 
-/** Temporary: one asset in both cells until distinct hero frames exist. */
-const G2_HERO_FRAME = "/thumbnails/g2-search-thumb.png";
+/**
+ * Cheatsheet — case study content (`/work/g2-search`)
+ *
+ * Sections (`sections[]`): each needs `sectionId` (page anchor), `sectionHeader` (title + underline).
+ * Optional `body` (intro blurb). Optional `rows` (stacked bands below).
+ *
+ * Row types (`rows[]`):
+ * - Prose: `{ rowKind: "prose", body: "..." }` — one paragraph block; use `\n` in the string for line breaks.
+ * - Callout: `{ rowKind: "callout", heading: "..." }` — short interstitial heading (`type-h2-special`).
+ * - Split grid: `{ rowKind: "split-row", tracks, cells, measure? }` — same grid model as the hero `split-row`.
+ *
+ * `tracks`: one positive number per column → CSS `fr` ratios (not percentages). Examples: `[1, 1]` = 50/50,
+ * `[7, 3]` ≈ 70/30, `[2, 1, 1]` = three columns with weights 2:1:1. `cells.length` must match `tracks.length`.
+ *
+ * `cells` in a split-row:
+ * - `{ kind: "content", parts: [...], cellClassNames? }` — each column is an ordered `parts` list:
+ *   `{ part: "visual", src, alt, intrinsicWidth?, intrinsicHeight?, fit? }` and/or
+ *   `{ part: "text", textbox: [{ text, utility }, ...] }`. Order = top-to-bottom in the column.
+ *   Optional `cellClassNames` (Tailwind) merge onto the inner wrapper when any `text` part exists, or
+ *   onto a simple visual stack for visual-only columns. See `docs/layout-guide.md`.
+ * - `{ kind: "spacer", position: "start" | "middle" }` — empty column. `"start"` only in column 0;
+ *   `"middle"` only as the center cell of a 3-column row (`SplitRow` dev warnings).
+ *
+ * `measure`: optional. Body `split-row`s default to `"content"` (row height = max of columns; images
+ *   scale `w-full` with natural height). Set `"gallery"` for the fixed strip aspect (hero).
+ */
+
 
 /**
  * G2 Search — all copy and media paths for `/work/g2-search`.
@@ -20,25 +45,38 @@ export const g2SearchCaseStudy = {
       tracks: [7, 3],
       cells: [
         {
-          kind: "image",
-          src: G2_HERO_FRAME,
-          alt: "G2 Search — hero frame (70%)",
+          kind: "content",
+          parts: [
+            {
+              part: "visual",
+              src: "/thumbnails/g2-search-thumb.png",
+              alt: "G2 Search — hero frame (70%)",
+            },
+          ],
         },
         {
-          kind: "image",
-          src: G2_HERO_FRAME,
-          alt: "G2 Search — hero frame (30%)",
+          kind: "content",
+          parts: [
+            {
+              part: "visual",
+              src: "/thumbnails/g2-search-thumb.png",
+              alt: "G2 Search — hero frame (30%)",
+            },
+          ],
         },
       ],
     },
     intro: {
       timeline: {
         label: "Timeline",
-        body: "Summer 2025, 10 weeks",
+        body: `Summer 2025, 
+        10 weeks`,
       },
       contributors: {
         label: "With",
-        body: "Mentored by: Allison Horrell, Aryn Silverberg",
+        body: `Mentored by: 
+        Allison Horrell,
+        Aryn Silverberg`,
       },
       description: {
         label: "",
@@ -49,41 +87,95 @@ export const g2SearchCaseStudy = {
 
   sections: [
     {
-      sectionId: "process",
-      heading: "Process",
-      body: "Placeholder — section intro before stacked rows.",
+      sectionId: "context",
+      sectionHeader: "The Story",
       rows: [
         {
-          rowKind: "prose",
-          body: "Placeholder — discovery, synthesis, and early directions.",
+          rowKind: "split-row",
+          tracks: [2, 1],
+          cells: [
+            {
+              kind: "content",
+              parts: [
+                {
+                  part: "visual",
+                  src: "/g2-search-pg/search-stats1.png",
+                  alt: "Search stats — chart frame",
+                  intrinsicWidth: 1429,
+                  intrinsicHeight: 626,
+                },
+              ],
+            },
+            {
+              kind: "content",
+              cellClassNames: ["text-left", "w-[80%]"],
+              parts: [
+                {
+                  part: "text",
+                  textbox: [
+                    {
+                      text: "Software buyers are searching a lot per session... but they're not seeing results worth engaging with",
+                      utility: "type-h3-subhead",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
         {
-          rowKind: "prose",
-          body: "Placeholder — iteration and validation notes.",
+          rowKind: "callout",
+          heading: "What's going on?",
         },
         {
           rowKind: "split-row",
-          tracks: [1, 1],
-          measure: "content",
+          tracks: [1, 3],
           cells: [
             {
-              kind: "image",
-              src: G2_HERO_FRAME,
-              alt: "Process — frame A",
+              kind: "content",
+              parts: [
+                {
+                  part: "text",
+                  textbox: [
+                    {
+                      text: "An outdated search page, optimized for SEO, not buyer needs",
+                      utility: "type-h3-subhead",
+                    },
+                  ],
+                },
+              ],
             },
             {
-              kind: "image",
-              src: G2_HERO_FRAME,
-              alt: "Process — frame B",
+              kind: "content",
+              parts: [
+                {
+                  part: "visual",
+                  src: "/g2-search-pg/old-pg.png",
+                  alt: "Search stats — chart frame",
+                  intrinsicWidth: 1429,
+                  intrinsicHeight: 626,
+                },
+                {
+                  part: "text",
+                  textbox: [
+                    {
+                      text: `(01) Jargon filled product cards mean nothing to buyers and make cards impossible to scan quickly. 
+                      (02) Hidden away filters are collapse by default. 
+                      (03) AI button gives users no reason to use it or even know what it can do. `,
+                      utility: "type-body",
+                    },
+                  ],
+                },
+                
+              ],
             },
           ],
         },
       ],
     },
     {
-      sectionId: "outcomes",
-      heading: "Outcomes",
-      body: "Placeholder — impact, learnings, and next steps will live here.",
+      sectionId: "Brainstorm",
+      sectionHeader: "Brainstorm",
     },
   ] satisfies readonly CaseStudySection[],
 };
