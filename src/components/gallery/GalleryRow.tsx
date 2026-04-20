@@ -1,83 +1,66 @@
-import { Children, type ReactNode } from "react";
+import {
+  Children,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 
 import styles from "./GalleryRow.module.css";
 
-export type GalleryRowVariant =
-  | "60-40"
-  | "40-60"
-  | "50-50"
-  | "100"
-  | "70-30"
-  | "30-70"
-  | "fit-fill"
-  | "fill-fit";
+/** Positive `fr` weights per column, e.g. `[1, 1]` → 50/50, `[3, 7]` → 30/70. */
+export type GalleryRowTracks = readonly number[];
 
 type GalleryRowProps = {
-  variant: GalleryRowVariant;
+  tracks: GalleryRowTracks;
   children: ReactNode;
   /** `gallery` = card row aspect ratio; `content` = hero / intro (height from content) */
   measure?: "gallery" | "content";
+  /**
+   * Column + row gutter. Omitted or `"media"` → `--space-m` from row classes; `"large"` → `--space-lg`.
+   * Any other string is applied as both `column-gap` and `row-gap` (e.g. `var(--space-xl)`, `1.5rem`).
+   */
+  gap?: string;
   className?: string;
   /** Per-cell classes (e.g. hide a spacer column below the stack breakpoint) */
   cellClassName?: (index: number) => string | undefined;
 };
 
-function variantClassName(variant: GalleryRowVariant): string {
-  switch (variant) {
-    case "60-40":
-      return styles.row6040;
-    case "40-60":
-      return styles.row4060;
-    case "50-50":
-      return styles.row5050;
-    case "100":
-      return styles.row100;
-    case "70-30":
-      return styles.row7030;
-    case "30-70":
-      return styles.row3070;
-    case "fit-fill":
-      return styles.rowFitFill;
-    case "fill-fit":
-      return styles.rowFillFit;
-    default: {
-      const _exhaustive: never = variant;
-      return _exhaustive;
-    }
-  }
+function tracksCssValue(tracks: GalleryRowTracks): string {
+  return tracks.map((w) => `${w}fr`).join(" ");
 }
 
 export function GalleryRow({
-  variant,
+  tracks,
   children,
   measure = "gallery",
+  gap,
   className = "",
   cellClassName,
 }: GalleryRowProps) {
   const rowClass = measure === "gallery" ? styles.row : styles.rowContent;
-  const vClass = variantClassName(variant);
-  const isFitFill = variant === "fit-fill";
-  const isFillFit = variant === "fill-fit";
+  const gapRaw = gap?.trim();
+  const gapIsMedia = !gapRaw || gapRaw === "media";
+  const gapIsLarge = gapRaw === "large";
+  const gapClass = gapIsLarge ? styles.rowGapLarge : "";
+  const rowStyle = {
+    "--gallery-tracks": tracksCssValue(tracks),
+    ...(gapIsMedia || gapIsLarge || !gapRaw
+      ? {}
+      : { columnGap: gapRaw, rowGap: gapRaw }),
+  } as CSSProperties;
 
   return (
-    <div className={`${rowClass} ${vClass} ${className}`.trim()}>
+    <div
+      className={`${rowClass} ${gapClass} ${className}`.trim()}
+      style={rowStyle}
+    >
       {Children.map(children, (child, index) => {
         const extra = cellClassName?.(index);
-        const fitFillClass =
-          measure === "gallery" && (isFitFill || isFillFit)
-            ? isFitFill
-              ? index === 0
-                ? styles.cellFit
-                : styles.cellFill
-              : index === 0
-                ? styles.cellFill
-                : styles.cellFit
-            : "";
+
         return (
           <div
             key={index}
             className={
-              `${styles.cell} ${measure === "gallery" ? styles.cellAspectMobile : ""} ${fitFillClass} ${extra ?? ""}`.trim()
+              `${styles.cell} ${measure === "gallery" ? styles.cellAspectMobile : ""} ${extra ?? ""}`.trim()
             }
           >
             {child}

@@ -19,15 +19,8 @@ export type HomeProjectItem = {
 };
 
 export type HomeGalleryRow = {
-  variant:
-    | "60-40"
-    | "40-60"
-    | "50-50"
-    | "100"
-    | "70-30"
-    | "30-70"
-    | "fit-fill"
-    | "fill-fit";
+  /** `fr` weights per column (e.g. `[1, 1]` = 50/50). */
+  tracks: readonly number[];
   projects: readonly HomeProjectItem[];
 };
 
@@ -35,7 +28,7 @@ export const homeProjects = {
   work: {
     rows: [
       {
-        variant: "40-60",
+        tracks: [4, 6],
         projects: [
           {
             id: "g2-ai",
@@ -61,7 +54,7 @@ export const homeProjects = {
         ],
       },
       {
-        variant: "60-40",
+        tracks: [6, 4],
         projects: [
           {
             id: "g2-search",
@@ -90,7 +83,7 @@ export const homeProjects = {
   visual: {
     rows: [
       {
-        variant: "60-40",
+        tracks: [6, 4],
         projects: [
           {
             id: "dhero",
@@ -117,7 +110,7 @@ export const homeProjects = {
         ],
       },
       {
-        variant: "50-50",
+        tracks: [1, 1],
         projects: [
           {
             heading: "HCII 30",
@@ -135,7 +128,7 @@ export const homeProjects = {
         ],
       },
       // {
-      //   variant: "100",
+      //   tracks: [1],
       //   projects: [
       //     {
       //       heading: "Project Headline",

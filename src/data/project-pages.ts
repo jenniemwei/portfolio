@@ -7,6 +7,10 @@ export type ProjectPage = {
   altText: string;
   previewImage: string | null;
   heroImage: string | null;
+  /**
+   * `true` = work in progress: preview iframe stays interactive (scroll), no navigate-to-full-page.
+   * `false` = click preview (or full-screen control) opens the full `/work/...` page.
+   */
   disableFullscreen: boolean;
 };
 
@@ -16,8 +20,8 @@ const projectPages: readonly ProjectPage[] = [
     pageTitle: "G2 Search",
     altText: "G2 Search case study",
     previewImage: "/thumbnails/g2-search-thumb.png",
-    heroImage: "/thumbnails/G2-search-home-img.png",
-    disableFullscreen: true,
+    heroImage: null,
+    disableFullscreen: false,
   },
   {
     href: "/work/g2-ai",

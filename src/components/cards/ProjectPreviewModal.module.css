@@ -112,7 +112,13 @@
   width: 100%;
   height: 100%;
   border: 0;
+  /* Pass clicks to the shell so "click to open full page" works when `disableFullscreen` is false. */
   pointer-events: none;
+}
+
+/* WIP previews (`disableFullscreen: true`): interact + scroll inside the iframe. */
+.frameScrollable {
+  pointer-events: auto;
 }
 
 .hint {

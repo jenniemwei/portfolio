@@ -1,6 +1,6 @@
 /**
  * True in project preview iframe (`?embed=1`) or when the document is embedded
- * (`frameElement` / `top`), so preview-only UI (e.g. `#preview-section`) can run.
+ * (`frameElement` / `top`), e.g. to hide nav chrome (`Nav` / `SubNav`).
  */
 export function isPreviewOrEmbedFrame(): boolean {
   if (typeof window === "undefined") return false;

@@ -16,12 +16,11 @@ export function VisualSection() {
           who also loves visual design...
         </p>
       </div>
-      {/* <SectionHeader title="Visual" /> */}
       <div
         className={`${gallerySectionStyles.sectionReveal} flex w-full flex-col gap-[var(--space-32)] py-[var(--space-m)]`}
       >
         {homeProjects.visual.rows.map((row, rowIndex) => (
-          <GalleryRow key={`visual-${row.variant}-${rowIndex}`} variant={row.variant}>
+          <GalleryRow key={`visual-${row.tracks.join("-")}-${rowIndex}`} tracks={row.tracks}>
             {(row.projects as readonly HomeProjectItem[]).map(
               (project, i) => (
                 <ProjectCard

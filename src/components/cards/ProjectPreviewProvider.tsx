@@ -176,7 +176,11 @@ export function ProjectPreviewProvider({ children }: { children: ReactNode }) {
             ref={shellRef}
             role="dialog"
             aria-modal="true"
-            aria-label="Project preview — click to open full case study"
+            aria-label={
+              fullscreenDisabled
+                ? "Project preview — scroll to read the work in progress"
+                : "Project preview — click to open the full case study, or use the full-screen control"
+            }
             tabIndex={-1}
             className={`${styles.previewShell} ${isExiting ? styles.shellExit : styles.shellEnter}`}
             onAnimationEnd={onShellAnimationEnd}
@@ -196,7 +200,7 @@ export function ProjectPreviewProvider({ children }: { children: ReactNode }) {
               className={`${styles.frameWrap} ${fullscreenDisabled ? styles.frameWrapDisabled : ""}`}
             >
               <iframe
-                className={styles.frame}
+                className={`${styles.frame}${fullscreenDisabled ? ` ${styles.frameScrollable}` : ""}`}
                 src={previewIframeSrc(previewHref)}
                 title="Project preview"
                 sandbox="allow-scripts allow-same-origin"
@@ -204,8 +208,8 @@ export function ProjectPreviewProvider({ children }: { children: ReactNode }) {
             </div>
             <p className={`${styles.hint} type-body-sm text-subtle`}>
               {fullscreenDisabled
-                ? "Case study still in progress"
-                : "Click anywhere to open the full project page"}
+                ? "Case study still in progress — scroll inside the preview"
+                : "Click the preview or full-screen button above to open the full case study"}
             </p>
           </div>
         </div>

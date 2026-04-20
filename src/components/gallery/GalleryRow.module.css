@@ -1,6 +1,8 @@
 /*
  * GalleryRow — shared grid for home project rows + hero bands.
- * Picked in TSX via `measure`: `gallery` (default) → `.row`, `content` → `.rowContent`.
+ * Column widths: `tracks` prop in TS sets `--gallery-tracks` (e.g. `3fr 7fr`); base uses `grid-template-columns: var(--gallery-tracks)`.
+ * `measure`: `gallery` (default) → `.row`, `content` → `.rowContent`.
+ * Optional `gap` prop: `media` / omitted (default), `large` (`.rowGapLarge`), or any CSS length for inline `column-gap` + `row-gap`.
  * Responsive: tighter row aspect below `lg`; single column below `md` — @see docs/tailwind-guide.md
  */
 
@@ -16,6 +18,8 @@
   column-gap: var(--space-m);
   row-gap: var(--space-m);
   aspect-ratio: 10/ 3.5;
+  /* Set from TS via `--gallery-tracks` so mobile stack can override in one place. */
+  grid-template-columns: var(--gallery-tracks, 1fr);
 }
 
 /*
@@ -29,49 +33,16 @@
   min-width: 0;
   column-gap: var(--space-m);
   row-gap: var(--space-m);
-}
-
-/* Column splits for `variant` prop (60/40, 50/50, full width, 70/30, 30/70). */
-.row6040 {
-  grid-template-columns: 6fr 4fr;
-}
-
-.row4060 {
-  grid-template-columns: 4fr 6fr;
-}
-
-.row5050 {
-  grid-template-columns: 1fr 1fr;
-}
-
-.row100 {
-  grid-template-columns: 1fr;
-}
-
-.row7030 {
-  grid-template-columns: 7fr 3fr;
-}
-
-.row3070 {
-  grid-template-columns: 3fr 7fr;
+  grid-template-columns: var(--gallery-tracks, 1fr);
 }
 
 /*
- * Fit/fill row tracks:
- * - fit-fill: first column sizes to fit card width from row height + aspect ratio; second fills rest.
- * - fill-fit: inverse.
+ * `gap="large"` on `GalleryRow` — `--space-lg` column/row gutters (hero intro, etc.).
+ * Thumbnail rows omit this (default `gap="media"` = `--space-m` on `.row` / `.rowContent`).
  */
-.rowFitFill,
-.rowFillFit {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-}
-
-.rowFitFill {
-  grid-template-columns: auto minmax(0, 1fr);
-}
-
-.rowFillFit {
-  grid-template-columns: minmax(0, 1fr) auto;
+.rowGapLarge {
+  column-gap: var(--space-lg);
+  row-gap: var(--space-lg);
 }
 
 /*
@@ -82,24 +53,6 @@
   min-height: 0;
   min-width: 0;
   height: 100%;
-}
-
-/*
- * Fit/fill row helpers (`variant="fit-fill"` / `"fill-fit"`):
- * - `.cellFit` keeps a fixed card aspect ratio (does not stretch to full row height).
- * - `.cellFill` stretches to the row height.
- */
-.cellFit {
-  height: 100%;
-  aspect-ratio: 16 / 9;
-  align-self: start;
-  width: auto;
-  justify-self: start;
-}
-
-.cellFill {
-  height: 100%;
-  width: 100%;
 }
 
 /* Below Tailwind `lg` (64rem): match `max-lg:` — use literal px; @see docs/tailwind-guide.md */
@@ -121,7 +74,7 @@
    * Drop the strip `aspect-ratio` on `.row` when stacked: it sizes the grid as one short band
    * (meant for 2 columns in one row), then splits that height across stacked rows — cards look
    * collapsed (Safari + flex/`fill` media make it especially obvious). Height comes from each
-   * `.cellAspectMobile` / fit-fill cell instead.
+   * `.cellAspectMobile` cell instead.
    */
   .row {
     aspect-ratio: unset;
@@ -134,16 +87,5 @@
   .cellAspectMobile {
     aspect-ratio: 12 / 8;
     height: auto;
-  }
-
-  .cellFit,
-  .cellFill {
-    aspect-ratio: 16 / 9;
-    height: auto;
-  }
-
-  .cellFit {
-    width: 100%;
-    justify-self: stretch;
   }
 }

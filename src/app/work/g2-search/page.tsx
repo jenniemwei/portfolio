@@ -1,18 +1,28 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
+
+import { ProjHero, ProjSection } from "@/components/proj-page";
+import { SpacerSection } from "@/components/sections/SpacerSection";
+import { g2SearchCaseStudy } from "@/data/case-studies/g2-search";
 
 export const metadata: Metadata = {
   title: "G2 Search — Jennie Wei",
-  description: "Case study: G2 Search — Summer 2025.",
+  description: "Case study: G2 Search — smarter search for software buyers.",
 };
 
 export default function G2SearchProjectPage() {
+  const sections = g2SearchCaseStudy.sections;
+
   return (
-    <div className="mx-auto flex min-h-screen max-w-[var(--placeholder-body-max-width)] flex-col gap-[var(--space-m)] px-[var(--page-gutter)] py-[var(--space-64)]">
-      <h1 className="type-page-heading text-default">G2 Search</h1>
-      <p className="type-body text-subtle">Summer 2025</p>
-      <p className="type-body text-subtle">
-        Case study content coming soon.
-      </p>
-    </div>
+    <main className="mx-auto flex w-full max-w-[var(--content-max)] flex-col px-[var(--page-gutter)] py-[var(--space-64)]">
+      <ProjHero hero={g2SearchCaseStudy.hero} />
+      <SpacerSection />
+      {sections.map((section, index) => (
+        <Fragment key={section.sectionId}>
+          <ProjSection section={section} />
+          {index < sections.length - 1 ? <SpacerSection /> : null}
+        </Fragment>
+      ))}
+    </main>
   );
 }

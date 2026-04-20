@@ -80,8 +80,8 @@
   --tracking-serif-base: -1.1px;
   --tracking-serif-display: -3.5px;
   --tracking-sans-bold: -0.5px;
-  --lead-note: 1.3;
-  --lead-base: 1;
+  --lead-lg: 1.3;
+  --lead-base: 1.2;
 
   /* Semantic rhythm: s/m/lg = 12/24/48px from `md` up; below `md` → 8/20/32px (@media in this file). @see docs/design-tokens.md */
   --space-xs: var(--space-8);
@@ -150,12 +150,12 @@
 
 /* Typography roles: composites use primitive tokens only (`type-*` avoids clashing with `text-*` sizes) */
 @utility type-body {
-  font: var(--regular) var(--font-m) / var(--lead-note) var(--font-sans-stack);
+  font: var(--regular) var(--font-m) / var(--lead-base) var(--font-sans-stack);
   letter-spacing: 0;
 }
 
 @utility type-body-sm {
-  font: var(--regular) var(--font-sm) / var(--lead-note) var(--font-sans-stack);
+  font: var(--regular) var(--font-sm) / var(--lead-base) var(--font-sans-stack);
   letter-spacing: 0;
 }
 
@@ -169,6 +169,28 @@
   letter-spacing: var(--tracking-serif-base);
 }
 
+/*CASE STUDY PAGES
+ * Case study pages (`src/components/proj-page/*`) — which routes use which `type-*`
+ * utilities (keep in sync with `projPageRouteRegistry.ts` when adding `/work/*`).
+ *
+ * /work/g2-search
+ *   - `ProjHero`: `ProjHeroGallery` → rule + `type-proj-title` (full width) → `ProjOverview` (30–70, `gap="large"`)
+ *   - `ProjOverview`: specs 50–50 (`type-body-sm`); description `type-proj-subtitle`
+ *   - `ProjSection` / `SplitRow` (prose + split rows): `type-section-h2`, `type-body`
+ *   - `SpacerSection` between hero and each body section (see `app/work/g2-search/page.tsx`)
+ */
+ @utility type-proj-title {
+  font: var(--semibold) 28px / var(--lead-base) var(--font-sans-stack);
+  letter-spacing: -1px;
+}
+@utility type-proj-subtitle {
+  font: var(--regular) var(--font-lg) / var(--lead-base) var(--font-sans-stack);
+  letter-spacing: 0;
+}
+@utility type-proj-h2 {
+  font: var(--light) var(--font-xl) / var(--lead-base) var(--font-serif-stack);
+  letter-spacing: -2px;
+}
 @utility type-nav-link {
   font: var(--semibold) var(--font-sm) / var(--lead-base) var(--font-sans-stack);
   letter-spacing: 0;

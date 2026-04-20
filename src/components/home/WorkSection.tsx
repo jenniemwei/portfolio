@@ -13,12 +13,11 @@ import { ProjectCardWithPreview } from "@/components/cards/ProjectCardWithPrevie
 export function WorkSection() {
   return (
     <section id="work" className="w-full py-[var(--space-xl)]">
-      {/* <SectionHeader title="Work" /> */}
       <div
         className={`${gallerySectionStyles.sectionReveal} flex w-full flex-col gap-[var(--space-32)] py-[var(--space-m)]`}
       >
         {homeProjects.work.rows.map((row, rowIndex) => (
-          <GalleryRow key={`work-${row.variant}-${rowIndex}`} variant={row.variant}>
+          <GalleryRow key={`work-${row.tracks.join("-")}-${rowIndex}`} tracks={row.tracks}>
             {(row.projects as readonly HomeProjectItem[]).map(
               (project, i) => (
                 <ProjectCardWithPreview

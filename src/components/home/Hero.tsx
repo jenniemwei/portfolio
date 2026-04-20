@@ -97,7 +97,7 @@ export function Hero() {
     >
       <div className="relative z-[1] flex max-md:flex-none flex-col overflow-visible md:min-h-0 md:flex-1">
         <GalleryRow
-          variant="60-40"
+          tracks={[6, 4]}
           measure="content"
           className="min-h-0 overflow-visible max-md:h-auto md:h-full"
           cellClassName={(i) => (i === 0 ? "max-md:hidden" : undefined)}
@@ -149,7 +149,7 @@ export function Hero() {
         </GalleryRow>
       </div>
       <header className="relative z-0 shrink-0 border-solid border-line border-y-[length:var(--hero-border-width)] pt-[var(--space-lg)] pb-[var(--space-xl)] md:min-h-[30vh]">
-        <GalleryRow variant="30-70" measure="content">
+        <GalleryRow tracks={[3, 7]} measure="content">
           <div className="flex flex-col gap-[var(--space-s)] w-[50%]">
             {/* <div className="type-body-sm w-full space-y-0">
               <p className="text-default">Incoming @ Superhuman </p>
