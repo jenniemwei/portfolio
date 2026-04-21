@@ -61,7 +61,7 @@ export default function InfoPage() {
     <br /><br />
     <p> 
 
-  Outside of design, I love (and can't help) turning random whims into fixations, especially if I'm bad at it.<br />
+  Outside of design, I love (and can't help) turning random whims into fixations, especially if I'm bad at it.
     Right now its mastering latte art, indoor bouldering, and finding new ways to customize foccacia.
     </p>
   </dd>
@@ -74,8 +74,7 @@ export default function InfoPage() {
       Design, HCI, and Info Systems @ Carnegie Mellon
     </p>
     <p className="m-0">
-      Design @ Superhuman (Grammarly), <br />Previously Design @
-      G2 for AI interactions &amp; tools
+     Previously Design @ G2 for AI interactions &amp; tools
     </p>
   </dd>
 
