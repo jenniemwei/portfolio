@@ -11,7 +11,10 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 
-import { getProjectPageByHref } from "@/data/project-pages";
+import {
+  getProjectPageByHref,
+  PROJECT_CARD_INTERACTIONS_DISABLED,
+} from "@/data/project-pages";
 import { PreviewHeader } from "./PreviewHeader";
 import styles from "./ProjectPreviewModal.module.css";
 
@@ -103,6 +106,7 @@ export function ProjectPreviewProvider({ children }: { children: ReactNode }) {
   );
 
   const openPreview = useCallback((href: string) => {
+    if (PROJECT_CARD_INTERACTIONS_DISABLED) return;
     exitAnimStartedRef.current = false;
     pendingNavigationRef.current = null;
     setFullscreenDisabled(getProjectPageByHref(href)?.disableFullscreen ?? false);

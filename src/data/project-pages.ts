@@ -1,4 +1,10 @@
 /**
+ * When `true`, home work cards do not open the preview modal (and `openPreview` is a no-op).
+ * Set to `false` to restore previews / navigation from cards.
+ */
+export const PROJECT_CARD_INTERACTIONS_DISABLED = true;
+
+/**
  * Project page metadata for modal preview behavior and future per-page UI hooks.
  */
 export type ProjectPage = {

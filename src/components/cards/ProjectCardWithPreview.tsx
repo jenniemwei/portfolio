@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import type { HomeProjectItem } from "@/data/home-projects";
+import { PROJECT_CARD_INTERACTIONS_DISABLED } from "@/data/project-pages";
 
 import { useProjectPreview } from "./ProjectPreviewProvider";
 
@@ -29,7 +30,7 @@ export function ProjectCardWithPreview({
     />
   );
 
-  if (!href) {
+  if (!href || PROJECT_CARD_INTERACTIONS_DISABLED) {
     return card;
   }
 
