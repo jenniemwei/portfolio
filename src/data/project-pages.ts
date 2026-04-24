@@ -3,6 +3,7 @@
  * Set to `false` to restore previews / navigation from cards.
  */
 export const PROJECT_CARD_INTERACTIONS_DISABLED = true;
+export const PROJECT_PAGES_PASSWORD = "orange";
 
 /**
  * Project page metadata for modal preview behavior and future per-page UI hooks.
@@ -18,6 +19,8 @@ export type ProjectPage = {
    * `false` = click preview (or full-screen control) opens the full `/work/...` page.
    */
   disableFullscreen: boolean;
+  /** `true` = show password form before rendering page content. */
+  passwordProtected: boolean;
 };
 
 const projectPages: readonly ProjectPage[] = [
@@ -28,6 +31,7 @@ const projectPages: readonly ProjectPage[] = [
     previewImage: "/thumbnails/g2-search-thumb.png",
     heroImage: null,
     disableFullscreen: false,
+    passwordProtected: true,
   },
   {
     href: "/work/g2-ai",
@@ -36,6 +40,7 @@ const projectPages: readonly ProjectPage[] = [
     previewImage: "/thumbnails/g2-ai-thumb.png",
     heroImage: "/thumbnails/g2ai-home-img.png",
     disableFullscreen: true,
+    passwordProtected: true,
   },
   {
     href: "/work/mclubs",
@@ -44,6 +49,7 @@ const projectPages: readonly ProjectPage[] = [
     previewImage: "/thumbnails/mclubs-thumb-backup.png",
     heroImage: "/thumbnails/Mclubs-home-img.png",
     disableFullscreen: true,
+    passwordProtected: true,
   },
   {
     href: "/work/intouch",
@@ -52,6 +58,7 @@ const projectPages: readonly ProjectPage[] = [
     previewImage: "/thumbnails/intouch-thumb-backup.png",
     heroImage: "/thumbnails/intouch-thumb-backup.png",
     disableFullscreen: true,
+    passwordProtected: true,
   },
 ];
 
@@ -67,4 +74,8 @@ export function getProjectPageByHref(href: string): ProjectPage | undefined {
   } catch {
     return projectPages.find((page) => page.href === href);
   }
+}
+
+export function isProjectPagePasswordValid(input: string): boolean {
+  return input.trim().toLowerCase() === PROJECT_PAGES_PASSWORD.toLowerCase();
 }
