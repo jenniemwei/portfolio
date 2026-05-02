@@ -1,10 +1,18 @@
 "use client";
 
-import { FormEvent, ReactNode, useEffect, useState } from "react";
+import {
+  FormEvent,
+  type KeyboardEvent,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 import { isProjectPagePasswordValid } from "@/data/project-pages";
 
 const STORAGE_KEY = "project-pages-password-unlocked";
+const OPEN_FULL_PAGE_MESSAGE_TYPE = "project-password-unlocked";
 
 type ProjectPasswordGateProps = {
   enabled: boolean;
@@ -32,8 +40,7 @@ export function ProjectPasswordGate({
   if (!ready) return null;
   if (unlocked) return <>{children}</>;
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const tryUnlock = useCallback(() => {
     if (!isProjectPagePasswordValid(value)) {
       setError("Incorrect password. Please try again.");
       return;
@@ -41,6 +48,30 @@ export function ProjectPasswordGate({
     window.localStorage.setItem(STORAGE_KEY, "true");
     setError("");
     setUnlocked(true);
+
+    const inEmbedPreview =
+      typeof window !== "undefined" &&
+      (window.location.search.includes("embed=1") || window.parent !== window);
+    if (inEmbedPreview) {
+      window.parent.postMessage(
+        {
+          type: OPEN_FULL_PAGE_MESSAGE_TYPE,
+          href: window.location.pathname,
+        },
+        window.location.origin,
+      );
+    }
+  }, [value]);
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    tryUnlock();
+  };
+
+  const onPasswordKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    tryUnlock();
   };
 
   return (
@@ -57,12 +88,14 @@ export function ProjectPasswordGate({
           type="password"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onKeyDown={onPasswordKeyDown}
           className="type-body w-full rounded-[var(--space-4)] border border-line bg-canvas px-[var(--space-12)] py-[var(--space-8)] text-default outline-none focus-visible:ring-2 focus-visible:ring-default"
           placeholder="Password"
           autoComplete="current-password"
         />
         <button
-          type="submit"
+          type="button"
+          onClick={tryUnlock}
           className="type-body-sm w-fit rounded-full border border-line px-[var(--space-16)] py-[var(--space-8)] text-default transition-opacity hover:opacity-[var(--link-hover-opacity)]"
         >
           Submit

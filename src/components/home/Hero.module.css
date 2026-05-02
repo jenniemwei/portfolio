@@ -1,9 +1,11 @@
 /**
  * Fine-pointer hero only: hides system cursor in-zone; follower is position:fixed.
- * z-index below sticky nav (nav uses Tailwind z-50).
+ * z-index above hero + nav — see `--hero-cursor-z` in globals.css.
  */
 .zone {
   cursor: none;
+  width: 100%;
+  height: fit-content;
 }
 
 /* Rive uses <canvas>; it often swallows bubbled mouse events — cursor + follower still hide system pointer. */

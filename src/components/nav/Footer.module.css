@@ -27,3 +27,14 @@
   object-position: bottom left;
   pointer-events: none;
 }
+
+.meta {
+  position: absolute;
+  right: var(--space-24);
+  bottom: var(--space-24);
+  z-index: 2;
+  margin: 0;
+  color: var(--white);
+  text-align: right;
+  pointer-events: none;
+}

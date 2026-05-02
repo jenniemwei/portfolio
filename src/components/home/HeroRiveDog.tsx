@@ -51,7 +51,7 @@ export function HeroRiveDog() {
   return (
     <div
       id="dog-container"
-      className="relative z-20 flex aspect-square w-[90%] max-w-[var(--hero-visual-max-width)] min-h-0 shrink-0 flex-col items-center justify-start overflow-visible"
+      className="relative z-[61] flex aspect-square w-[90%] max-w-[var(--hero-visual-max-width)] min-h-0 shrink-0 flex-col items-center justify-start overflow-visible"
     >
       <div
         id="dog-wrapper"

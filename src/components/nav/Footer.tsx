@@ -24,6 +24,9 @@ export function Footer() {
         className={styles.dog}
         decoding="async"
       />
+      <p className={`${styles.meta} type-body-sm`}>
+        Built with Next.js | Last updated Apr 2026
+      </p>
     </footer>
   );
 }

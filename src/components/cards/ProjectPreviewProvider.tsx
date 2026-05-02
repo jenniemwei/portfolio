@@ -18,6 +18,8 @@ import {
 import { PreviewHeader } from "./PreviewHeader";
 import styles from "./ProjectPreviewModal.module.css";
 
+const OPEN_FULL_PAGE_MESSAGE_TYPE = "project-password-unlocked";
+
 function prefersReducedMotion(): boolean {
   if (typeof window === "undefined") return false;
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -156,6 +158,22 @@ export function ProjectPreviewProvider({ children }: { children: ReactNode }) {
     };
   }, [previewHref, closePreview]);
 
+  useEffect(() => {
+    if (!previewHref) return;
+    const onMessage = (e: MessageEvent) => {
+      if (e.origin !== window.location.origin) return;
+      const data = e.data as { type?: string; href?: string } | null;
+      if (!data || data.type !== OPEN_FULL_PAGE_MESSAGE_TYPE || !data.href) return;
+      const current = previewHrefRef.current;
+      if (!current) return;
+      const currentPath = getProjectPageByHref(current)?.href ?? current;
+      if (currentPath !== data.href) return;
+      requestClose({ navigateTo: data.href });
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [previewHref, requestClose]);
+
   const onShellAnimationEnd = useCallback(
     (e: React.AnimationEvent<HTMLDivElement>) => {
       if (!isExitingRef.current) return;
@@ -204,7 +222,7 @@ export function ProjectPreviewProvider({ children }: { children: ReactNode }) {
                 className={styles.frame}
                 src={previewIframeSrc(previewHref)}
                 title="Project preview"
-                sandbox="allow-scripts allow-same-origin"
+                sandbox="allow-scripts allow-same-origin allow-forms"
               />
             </div>
           </div>

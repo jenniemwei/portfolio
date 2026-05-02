@@ -12,9 +12,7 @@ const HERO_CURSOR_HAND_SRC = "/icons/hand-cursor.svg";
 const HERO_CURSOR_SCRATCH_SRC = "/icons/hand-scratching.gif";
 const DOG_TARGET_SELECTOR = "[data-hero-dog-target]";
 
-/**
- * Hero band: fixed block size from `--hero-height` (`80vh` in `globals.css`) from `md` up; below `md`, height follows content.
- */
+/** Hero band height follows content (min height on the top row from layout classes). */
 export function Hero() {
   const zoneRef = useRef<HTMLDivElement>(null);
   const [useCustomCursor, setUseCustomCursor] = useState(false);
@@ -92,14 +90,14 @@ export function Hero() {
 
   const heroSection = (
     <section
-      className="flex h-auto min-h-0 w-full flex-col overflow-visible md:h-[var(--hero-height)]"
+      className="relative z-[60] flex h-auto min-h-0 w-full flex-col overflow-visible"
       aria-label="Hero"
     >
-      <div className="relative z-[1] flex max-md:flex-none flex-col overflow-visible md:min-h-0 md:flex-1">
+      <div className="relative z-[1] flex min-h-0 max-md:flex-none flex-col overflow-visible md:min-h-[400px]">
         <GalleryRow
           tracks={[6, 4]}
           measure="content"
-          className="min-h-0 overflow-visible max-md:h-auto md:h-full"
+          className="min-h-0 overflow-visible max-md:h-auto md:flex-1 md:grid-auto-rows-[minmax(0,1fr)]"
           cellClassName={(i) =>
             [
               "w-full min-w-0 justify-self-stretch",
