@@ -12,7 +12,7 @@ const HERO_CURSOR_HAND_SRC = "/icons/hand-cursor.svg";
 const HERO_CURSOR_SCRATCH_SRC = "/icons/hand-scratching.gif";
 const DOG_TARGET_SELECTOR = "[data-hero-dog-target]";
 
-/** Hero band height follows content (min height on the top row from layout classes). */
+/** Hero: from `md`, section is at least `--hero-min-height`; top band flexes with a 400px floor. */
 export function Hero() {
   const zoneRef = useRef<HTMLDivElement>(null);
   const [useCustomCursor, setUseCustomCursor] = useState(false);
@@ -90,10 +90,10 @@ export function Hero() {
 
   const heroSection = (
     <section
-      className="relative z-[60] flex h-auto min-h-0 w-full flex-col overflow-visible"
+      className="relative z-[60] flex h-auto min-h-0 w-full flex-col overflow-visible md:min-h-[var(--hero-min-height)]"
       aria-label="Hero"
     >
-      <div className="relative z-[1] flex min-h-0 max-md:flex-none flex-col overflow-visible md:min-h-[400px]">
+      <div className="relative z-[1] flex min-h-0 max-md:flex-none flex-col overflow-visible md:min-h-[400px] md:flex-1">
         <GalleryRow
           tracks={[6, 4]}
           measure="content"

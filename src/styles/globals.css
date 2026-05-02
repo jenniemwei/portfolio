@@ -111,6 +111,8 @@
 
   /* --- Hero / galleries / sections --- */
   --hero-border-width: var(--border-width-sm);
+  /* Home hero `<section>` floor from `md` up (band + intro header grow inside). */
+  --hero-min-height: 80vh;
   --hero-grid-gap-x: var(--space-20);
   /* Dog Rive: 360px from `md` up; 240px below `md` — same @media as semantic spaces */
   --hero-visual-max-width: 360px;
