@@ -110,13 +110,13 @@ export function ProjectCard({
     >
       <div className="relative min-h-0 w-full flex-[1_1_0]">
         <div
-          className={`absolute inset-0 origin-center overflow-hidden opacity-100 transition-[transform,opacity] duration-200 motion-reduce:transition-none ${
+          className={`absolute inset-0 origin-center overflow-hidden rounded-md opacity-100 transition-[transform,opacity] duration-200 motion-reduce:transition-none ${
             hovered ? "scale-[0.98] opacity-70" : ""
           }`}
         >
           {visual ?? (
             <div
-              className="absolute inset-0 bg-g3"
+              className="absolute inset-0 rounded-md bg-g3"
               aria-hidden
             />
           )}

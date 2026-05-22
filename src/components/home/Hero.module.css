@@ -1,5 +1,20 @@
 @reference "../../styles/globals.css";
 
+/* Softens shader into page canvas at the bottom of the hero stage. */
+.heroSkyFade {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 55%,
+    color-mix(in srgb, var(--color-canvas) 35%, transparent) 78%,
+    var(--color-canvas) 100%
+  );
+}
+
 /**
  * Fine-pointer hero only: hides system cursor in-zone; follower is position:fixed.
  * z-index above hero + nav — `--hero-follow-z` in `globals.css` @theme.
@@ -52,9 +67,25 @@
     rotate(30deg);
 }
 
-/* Fills gallery cell on md+ so icons can sit on the bottom edge; stacks below visual on narrow. */
+/* Headline block — rule spans text width only (see mockup). */
+.heroTextBlock {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-md);
+}
+
+.heroTextRule {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-top: var(--border-width-sm) solid var(--color-line);
+}
+
+/* Bottom-left icon column — aligned with hero text. */
 .heroIconCell {
-  @apply py-md;
   display: flex;
   width: 100%;
   min-height: 0;
@@ -65,7 +96,7 @@
 }
 
 .heroIconRow {
-  @apply gap-32 p-12;
+  @apply gap-32;
   display: flex;
   width: fit-content;
   flex-direction: column;
@@ -80,9 +111,9 @@
   }
 
   .heroIconRow {
-    @apply gap-md p-0;
-    flex-direction: row;
-    width: auto;
+    @apply gap-md;
+    flex-direction: column;
+    align-items: center;
   }
 }
 

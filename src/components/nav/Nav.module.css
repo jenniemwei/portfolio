@@ -19,6 +19,10 @@
   .navBackdropPlate {
     transition-duration: 0.01ms;
   }
+
+  .navPillFill {
+    transition-duration: 0.01ms;
+  }
 }
 
 /* Frost plate: sibling of `.slideLayer` (no transform) so `backdrop-filter` can sample the page. */
@@ -35,6 +39,35 @@
 .navBackdropPlateHidden {
   clip-path: inset(0 0 100% 0 round 9999px);
   -webkit-clip-path: inset(0 0 100% 0 round 9999px);
+}
+
+/* Home hero: links only — no frosted plate or white hover fill. */
+.navBackdropPlateNoFill {
+  opacity: 0;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.navPillNoFill .navPillFill,
+.navPillNoFill:hover .navPillFill,
+.navPillNoFill:focus-within .navPillFill {
+  opacity: 0;
+}
+
+/* White pill fill — 50% opacity when pill is hovered or focused. */
+.navPillFill {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: var(--white);
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+.navPill:hover .navPillFill,
+.navPill:focus-within .navPillFill {
+  opacity: 0.5;
 }
 
 /* Logo: CCW 270° on hover/focus; springy ease-out-back on both directions. */

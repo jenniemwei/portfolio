@@ -77,7 +77,7 @@ export function SubNav() {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full pt-4 pb-2"
+      className="fixed inset-x-0 top-0 z-[var(--nav-z)] w-full pt-4 pb-2"
       data-nav-label-leave={navLabelLeaveEnabled ? "true" : undefined}
       onMouseEnter={() => {
         setPointerHover(true);
@@ -118,22 +118,9 @@ export function SubNav() {
             >
               <div
                 id="subnav-pill"
-                className="group/nav-pill relative w-full overflow-hidden rounded-full py-2"
+                className={`${styles.navPill} group/nav-pill relative w-full overflow-hidden rounded-full py-2`}
               >
-                <div
-                  id="subnav-pill-fill"
-                  className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] opacity-0 transition-opacity duration-300 ease-out group-hover/nav-pill:opacity-[0.5] group-focus-within/nav-pill:opacity-[0.75]"
-                  aria-hidden
-                >
-                  <Image
-                    src="/clouds-bg-thin.gif"
-                    alt=""
-                    fill
-                    className="object-cover object-center"
-                    sizes="(max-width: 1440px) 100vw, 1440px"
-                    unoptimized
-                  />
-                </div>
+                <div id="subnav-pill-fill" className={styles.navPillFill} aria-hidden />
                 <div className="relative z-[1] grid min-h-[var(--nav-icon-size)] w-full grid-cols-[1fr_auto] items-center gap-x-md">
                   <div className="flex min-w-0 items-stretch justify-center gap-64">
                     {WORK_SUBNAV_LINKS.map((item) => {

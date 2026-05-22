@@ -24,8 +24,10 @@ export function Nav() {
   const pathname = usePathname();
   const isWorkPage = pathname.startsWith("/work/");
   const lastScrollY = useRef(0);
+  const isHome = pathname === "/";
   const [atTop, setAtTop] = useState(true);
   const [hiddenByScroll, setHiddenByScroll] = useState(false);
+  const [inHeroSection, setInHeroSection] = useState(false);
   const [pointerHover, setPointerHover] = useState(false);
   const [focusWithin, setFocusWithin] = useState(false);
   const [navLabelLeaveEnabled, setNavLabelLeaveEnabled] = useState(false);
@@ -48,6 +50,14 @@ export function Nav() {
         lastScrollY.current = y;
 
         setAtTop(y < SCROLL_TOP_SHOW_PX);
+
+        if (isHome) {
+          const hero = document.getElementById("hero-container");
+          setInHeroSection(hero ? y < hero.offsetHeight : false);
+        } else {
+          setInHeroSection(false);
+        }
+
         if (y < SCROLL_TOP_SHOW_PX) {
           setHiddenByScroll(false);
           return;
@@ -58,9 +68,13 @@ export function Nav() {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
     queueMicrotask(onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [isHome]);
 
   const onBlurCapture = useCallback((e: React.FocusEvent<HTMLElement>) => {
     const next = e.relatedTarget;
@@ -68,8 +82,13 @@ export function Nav() {
     setFocusWithin(false);
   }, []);
 
+  const pillNoFill = isHome && inHeroSection;
   const expanded =
-    atTop || !hiddenByScroll || pointerHover || focusWithin;
+    pillNoFill ||
+    atTop ||
+    !hiddenByScroll ||
+    pointerHover ||
+    focusWithin;
   const slideHidden = !expanded;
 
   if (isWorkPage) {
@@ -78,7 +97,7 @@ export function Nav() {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full pt-4 pb-2"
+      className="fixed inset-x-0 top-0 z-[var(--nav-z)] w-full pt-4 pb-2"
       data-nav-label-leave={navLabelLeaveEnabled ? "true" : undefined}
       onMouseEnter={() => setPointerHover(true)}
       onMouseLeave={() => setPointerHover(false)}
@@ -105,26 +124,17 @@ export function Nav() {
         <div className="min-h-[var(--nav-icon-size)] min-w-0 flex-1 overflow-hidden">
           <div className="relative w-full overflow-hidden rounded-full">
             <div
-              className={`pointer-events-none absolute inset-0 z-0 rounded-full ${styles.navBackdropPlate} ${slideHidden ? styles.navBackdropPlateHidden : ""}`}
+              className={`pointer-events-none absolute inset-0 z-0 rounded-full ${styles.navBackdropPlate} ${slideHidden ? styles.navBackdropPlateHidden : ""} ${pillNoFill ? styles.navBackdropPlateNoFill : ""}`}
               aria-hidden
             />
             <div
               className={`relative z-[1] rounded-full  ${styles.slideLayer} ${slideHidden ? styles.slideLayerHidden : ""}`}
             >
-              <div id="nav-pill" className="group/nav-pill relative w-full overflow-hidden rounded-full py-2">
-                <div id="nav-pill-fill"
-                  className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] opacity-0 transition-opacity duration-300 ease-out group-hover/nav-pill:opacity-[0.5] group-focus-within/nav-pill:opacity-[0.75]"
-                  aria-hidden
-                >
-                  <Image
-                    src="/clouds-bg-thin.gif"
-                    alt=""
-                    fill
-                    className="object-cover object-center"
-                    sizes="(max-width: 1440px) 100vw, 1440px"
-                    unoptimized
-                  />
-                </div>
+              <div
+                id="nav-pill"
+                className={`${styles.navPill} ${pillNoFill ? styles.navPillNoFill : ""} group/nav-pill relative w-full overflow-hidden rounded-full py-2`}
+              >
+                <div id="nav-pill-fill" className={styles.navPillFill} aria-hidden />
                 <div className="relative z-[1] grid min-h-[var(--nav-icon-size)] w-full grid-cols-[1fr_auto] items-center gap-x-md">
                   <div className="flex min-w-0 items-stretch justify-center gap-64">
                     {HOME_NAV_LINKS.map((item) => {

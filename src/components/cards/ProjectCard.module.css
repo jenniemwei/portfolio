@@ -1,4 +1,4 @@
-/* Scroll-scale on the card only — section blur lives in GallerySectionReveal.module.css */
+/* Scroll-scale on the card only — section fade lives in GallerySectionReveal.module.css */
 @keyframes projectCardScrollScale {
   from {
     transform: scale(0.9);

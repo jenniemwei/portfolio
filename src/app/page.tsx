@@ -8,7 +8,7 @@ import { Footer } from "@/components/nav/Footer";
 export default function HomePage() {
   return (
     <div
-      className="flex min-h-screen flex-col items-center justify-center"
+      className="flex min-h-screen flex-col items-center justify-start"
       data-home-smooth-scroll
     >
       <HomeScrollToSection />

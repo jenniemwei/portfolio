@@ -1,13 +1,11 @@
-/* Scroll-driven fade + blur for the gallery block (Work / Visual), not per card. */
-/* Easing maps scroll progress → keyframes (ease-in). */
+/* Scroll-driven fade for the gallery block (Work / Visual), not per card. */
 @keyframes gallerySectionEnter {
   from {
-    filter: blur(400px);
+    opacity: 0;
   }
 
   to {
     opacity: 1;
-    filter: blur(0);
   }
 }
 
