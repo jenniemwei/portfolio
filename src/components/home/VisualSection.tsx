@@ -11,15 +11,15 @@ import { resolveProjectCardHref } from "@/data/project-pages";
 
 export function VisualSection() {
   return (
-    <section id="visual" className="w-[100%]">
-      <div className="mx-auto min-w-0 ">
+    <section id="visual" className="w-full py-xl">
+      <div className="mx-auto w-[95%] min-w-0 max-w-page-lg">
         <div className="grid w-full grid-cols-6 gap-x-sm gap-y-sm border-line border-y border-solid py-xl">
           <p className="type-display col-span-6 text-default md:col-span-4">
             who also loves visual design...
           </p>
         </div>
         <div
-          className={`${gallerySectionStyles.sectionReveal} flex flex-col gap-32 py-md`}
+          className={`${gallerySectionStyles.sectionReveal} flex flex-col gap-12 py-md`}
         >
           {homeProjects.visual.rows.map((row, rowIndex) => (
           <GalleryRow
