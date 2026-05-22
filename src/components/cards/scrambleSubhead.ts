@@ -1,8 +1,14 @@
 const GLYPHS =
   "ABCDEHKMNPRSTVWXZabcdfhkmnprstvwxz023458";
 
+function randomGlyph(): string {
+  return GLYPHS[(Math.random() * GLYPHS.length) | 0]!;
+}
+
 /**
- * Animates `from` → `to` with a short character scramble. Calls `onUpdate` each frame;
+ * Animates `from` → `to` with a character scramble. Visible length starts at
+ * `from.length` and eases toward `to.length` (shrinks early, grows late) so
+ * text does not spill outside a fixed-width box. Calls `onUpdate` each frame;
  * returns a cancel function (stops rAF, does not fire `onUpdate` again).
  */
 export function runScrambleAnimation(
@@ -11,9 +17,6 @@ export function runScrambleAnimation(
   onUpdate: (value: string) => void,
   durationMs: number,
 ): () => void {
-  const maxLen = Math.max(from.length, to.length);
-  const a = from.padEnd(maxLen, " ");
-  const b = to.padEnd(maxLen, " ");
   const start = performance.now();
   let raf = 0;
   let cancelled = false;
@@ -27,17 +30,28 @@ export function runScrambleAnimation(
       return;
     }
     const eased = 1 - (1 - p) ** 2.2;
+    const lenDelta = to.length - from.length;
+    const displayLen =
+      lenDelta <= 0
+        ? Math.ceil(from.length + lenDelta * eased)
+        : Math.floor(from.length + lenDelta * eased);
+
     let out = "";
-    for (let i = 0; i < maxLen; i++) {
-      const charRevealT = (i + 0.45) / (maxLen + 0.5);
+    for (let i = 0; i < displayLen; i++) {
+      if (i >= to.length) {
+        const chA = i < from.length ? from[i]! : " ";
+        out += p < 0.04 ? chA : randomGlyph();
+        continue;
+      }
+      const charRevealT = (i + 0.45) / (to.length + 0.5);
       if (eased >= charRevealT) {
-        out += b[i] ?? " ";
+        out += to[i]!;
       } else {
-        const chA = a[i] ?? " ";
-        out += p < 0.04 ? chA : GLYPHS[(Math.random() * GLYPHS.length) | 0]!;
+        const chA = i < from.length ? from[i]! : randomGlyph();
+        out += p < 0.04 ? chA : randomGlyph();
       }
     }
-    onUpdate(out.replace(/\s+$/, ""));
+    onUpdate(out);
     raf = requestAnimationFrame(tick);
   };
 
@@ -46,4 +60,4 @@ export function runScrambleAnimation(
     cancelled = true;
     cancelAnimationFrame(raf);
   };
-}
+};

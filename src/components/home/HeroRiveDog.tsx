@@ -29,11 +29,8 @@ export function HeroRiveDog() {
       stateMachines: [...HERO_RIVE_STATE_MACHINES],
       autoplay: true,
       layout,
-      /** Required for pointer / hover listeners on the state machine */
       shouldDisableRiveListeners: false,
-      /** Binds default ViewModel when the file uses one (e.g. isPetting) */
       autoBind: true,
-      /** Avoid blocking page scroll when dragging on the canvas (mobile) */
       isTouchScrollEnabled: true,
     },
     {
@@ -42,11 +39,8 @@ export function HeroRiveDog() {
   );
 
   /**
-   * Layout contract:
-   * - `#dog-container`: width = 90% of parent cell (capped); aspect **width:height = 3:4** (i.e. height:width 4:3). Border on hero cell in `Hero.tsx`. `overflow-visible` so `#dog-wrapper` (taller 7:10) can extend below.
-   * - `#dog-wrapper`: `w-full`, `aspect-ratio` = artboard 7:10; top + horizontal center within `#dog-container` (hero cell uses `items-end justify-end` for bottom-right placement).
-   * - Rive: `Fit.Contain` + full-size canvas in wrapper → artboard always fully visible, letterboxed if needed.
-   * `min-h-0` avoids flex `min-height:auto` inflating past the container aspect.
+   * `#dog-container`: 90% width, capped; square outer box.
+   * `#dog-wrapper`: artboard aspect (7:10); Rive `Fit.Contain` fills wrapper.
    */
   return (
     <div
@@ -55,7 +49,7 @@ export function HeroRiveDog() {
     >
       <div
         id="dog-wrapper"
-        className="relative w-full shrink-0 overflow-visible aspect-[var(--hero-visual-aspect-ratio)]"
+        className="relative aspect-[var(--hero-visual-aspect-ratio)] w-full shrink-0 overflow-visible"
       >
         <div
           className="pointer-events-auto absolute inset-0 min-h-0 min-w-0"

@@ -1,7 +1,9 @@
+@reference "../../styles/globals.css";
+
 /*
  * GalleryRow — shared grid for home project rows + hero bands.
  * Column widths: `tracks` prop in TS sets `--gallery-tracks` (e.g. `3fr 7fr`); base uses `grid-template-columns: var(--gallery-tracks)`.
- * `measure`: `gallery` (default) → `.row`, `content` → `.rowContent`.
+ * `measure`: `gallery` (default) → `.row`, `viewport` → `.rowViewport`, `content` → `.rowContent`.
  * Optional `gap` prop: `media` / omitted (default), `large` (`.rowGapLarge`), or any CSS length for inline `column-gap` + `row-gap`.
  * Responsive: tighter row aspect below `lg`; single column below `md` — @see docs/tailwind-guide.md
  */
@@ -12,14 +14,37 @@
  * Use case: any `GalleryRow` that should size like a gallery strip, not shrink-wrap to copy.
  */
 .row {
+  @apply gap-md;
   display: grid;
   width: 100%;
   min-width: 0;
-  column-gap: var(--space-m);
-  row-gap: var(--space-m);
   aspect-ratio: 10/ 3.5;
   /* Set from TS via `--gallery-tracks` so mobile stack can override in one place. */
   grid-template-columns: var(--gallery-tracks, 1fr);
+}
+
+/*
+ * `.rowViewport` — `measure="viewport"` (home work / visual strips).
+ * Fixed band: `--gallery-row-height` with `--gallery-row-min-height` floor.
+ */
+.rowViewport {
+  @apply gap-md;
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  height: var(--gallery-row-height);
+  min-height: var(--gallery-row-min-height);
+  grid-template-columns: var(--gallery-tracks, 1fr);
+  align-items: stretch;
+}
+
+/* Stretch with parent row; card brings its own min-height so stacked `height:auto` rows still read tall. */
+.cellViewport {
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  align-self: stretch;
+  height: 100%;
 }
 
 /*
@@ -29,11 +54,10 @@
  * `justify-items: center` — each cell’s box is centered on the inline axis within its track.
  */
 .rowContent {
+  @apply gap-md;
   display: grid;
   width: 100%;
   min-width: 0;
-  column-gap: var(--space-m);
-  row-gap: var(--space-m);
   grid-template-columns: var(--gallery-tracks, 1fr);
   justify-items: center;
 }
@@ -44,12 +68,30 @@
 }
 
 /*
- * `gap="large"` on `GalleryRow` — `--space-lg` column/row gutters (hero intro, etc.).
- * Thumbnail rows omit this (default `gap="media"` = `--space-m` on `.row` / `.rowContent`).
+ * `gap="large"` on `GalleryRow` — `gap-lg` gutters (hero intro, etc.).
+ * Thumbnail rows omit this (default `gap="media"` = `gap-md` on `.row` / `.rowContent`).
  */
 .rowGapLarge {
-  column-gap: var(--space-lg);
-  row-gap: var(--space-lg);
+  @apply gap-lg;
+}
+
+/*
+ * `tracksCompact` prop — spacer column hidden below `md` (48rem); compact fr weights until then.
+ * Compound selectors beat base `.row` / `.rowContent` `grid-template-columns`.
+ */
+.row.tracksCompactAtMd,
+.rowViewport.tracksCompactAtMd,
+.rowContent.tracksCompactAtMd {
+  grid-template-columns: var(--gallery-tracks-compact, 1fr);
+}
+
+@media (min-width: 48rem) {
+
+  .row.tracksCompactAtMd,
+  .rowViewport.tracksCompactAtMd,
+  .rowContent.tracksCompactAtMd {
+    grid-template-columns: var(--gallery-tracks, 1fr);
+  }
 }
 
 /*
@@ -78,7 +120,14 @@
 /* Matches max-md (48rem). Stack columns; @see docs/tailwind-guide.md */
 @media (max-width: 48rem) {
   .row,
+  .rowViewport,
   .rowContent {
+    grid-template-columns: 1fr;
+  }
+
+  .row.tracksCompactAtMd,
+  .rowViewport.tracksCompactAtMd,
+  .rowContent.tracksCompactAtMd {
     grid-template-columns: 1fr;
   }
 
@@ -90,6 +139,16 @@
    */
   .row {
     aspect-ratio: unset;
+  }
+
+  /* Stacked home strips: row grows with stacked cells (each cell keeps the band floor). */
+  .rowViewport {
+    height: auto;
+    min-height: 0;
+  }
+
+  .rowViewport .cell {
+    height: auto;
   }
 
   /*

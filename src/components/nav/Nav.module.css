@@ -64,11 +64,11 @@
     opacity: 1;
   }
   55% {
-    transform: translate3d(0, calc(var(--space-8) * -1), 0);
+    transform: translate3d(0, -8px, 0);
     opacity: 0.6;
   }
   100% {
-    transform: translate3d(0, calc(var(--space-8) * -1), 0);
+    transform: translate3d(0, -8px, 0);
     opacity: 0.8;
   }
 }
@@ -80,7 +80,7 @@
 
 @keyframes navLinkLabelLeave {
   0% {
-    transform: translate3d(0, calc(var(--space-8) * -1), 0);
+    transform: translate3d(0, -8px, 0);
     opacity: 0.5;
   }
   100% {
@@ -115,7 +115,7 @@ header[data-nav-label-leave="true"]
   .navTextLink:hover .navLinkLabel,
   .navTextLink:focus-visible .navLinkLabel {
     animation: none;
-    transform: translate3d(0, calc(var(--space-8) * -1), 0);
+    transform: translate3d(0, -8px, 0);
     opacity: 0.5;
   }
 

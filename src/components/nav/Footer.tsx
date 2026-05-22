@@ -1,13 +1,9 @@
 import Image from "next/image";
 
-import styles from "./Footer.module.css";
-
 export function Footer() {
   return (
-    <footer
-      className={`${styles.footer} mt-auto w-full shrink-0 self-stretch`}
-    >
-      <div className={styles.bgWrap} aria-hidden>
+    <footer className="relative mt-auto h-[10vh] w-full shrink-0 self-stretch overflow-visible">
+      <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden>
         <Image
           src="/footer-bg.gif"
           alt=""
@@ -21,10 +17,10 @@ export function Footer() {
       <img
         src="/dog-laying.png"
         alt=""
-        className={styles.dog}
+        className="pointer-events-none absolute bottom-0 left-[5%] z-[1] h-[150%] w-auto max-w-none object-contain object-bottom-left"
         decoding="async"
       />
-      <p className={`${styles.meta} type-body-sm`}>
+      <p className="type-body-sm pointer-events-none absolute right-24 bottom-24 z-[2] m-0 text-right text-white">
         Built with Next.js | Last updated Apr 2026
       </p>
     </footer>

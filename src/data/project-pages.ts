@@ -1,70 +1,49 @@
 /**
- * When `true`, home work cards do not open the preview modal (and `openPreview` is a no-op).
- * Set to `false` to restore previews / navigation from cards.
- */
-export const PROJECT_CARD_INTERACTIONS_DISABLED = false;
-export const PROJECT_PAGES_PASSWORD = "orange";
-
-/**
- * Project page metadata for modal preview behavior and future per-page UI hooks.
+ * Case study routes — used for card links and per-page metadata.
  */
 export type ProjectPage = {
+  id: string;
   href: string;
   pageTitle: string;
   altText: string;
-  previewImage: string | null;
   heroImage: string | null;
-  /**
-   * `true` = work in progress: preview iframe stays interactive (scroll), no navigate-to-full-page.
-   * `false` = click preview (or full-screen control) opens the full `/work/...` page.
-   */
-  disableFullscreen: boolean;
-  /** `true` = show password form before rendering page content. */
-  passwordProtected: boolean;
 };
 
 const projectPages: readonly ProjectPage[] = [
   {
-    href: "/work/g2-search",
+    id: "g2-search",
+    href: "/work/",
     pageTitle: "G2 Search",
     altText: "G2 Search case study",
-    previewImage: "/thumbnails/g2-search-thumb.png",
     heroImage: null,
-    disableFullscreen: false,
-    passwordProtected: true,
   },
   {
-    href: "/work/g2-ai",
+    id: "g2-ai",
+    href: "/work/",
     pageTitle: "G2 AI",
     altText: "G2 AI case study",
-    previewImage: "/thumbnails/g2-ai-thumb.png",
     heroImage: "/thumbnails/g2ai-home-img.png",
-    disableFullscreen: true,
-    passwordProtected: true,
   },
   {
-    href: "/work/mclubs",
+    id: "mclubs",
+    href: "/work/",
     pageTitle: "Mclubs",
     altText: "Mclubs case study",
-    previewImage: "/thumbnails/mclubs-thumb-backup.png",
     heroImage: "/thumbnails/Mclubs-home-img.png",
-    disableFullscreen: true,
-    passwordProtected: true,
   },
   {
-    href: "/work/intouch",
+    id: "intouch",
+    href: "/work/",
     pageTitle: "InTouch",
     altText: "InTouch case study",
-    previewImage: "/thumbnails/intouch-thumb-backup.png",
     heroImage: "/thumbnails/intouch-thumb-backup.png",
-    disableFullscreen: true,
-    passwordProtected: true,
   },
 ];
 
-/**
- * Resolve by pathname only (`/work/x`), ignoring query/hash for preview iframe URLs.
- */
+export function getProjectPageById(id: string): ProjectPage | undefined {
+  return projectPages.find((page) => page.id === id);
+}
+
 export function getProjectPageByHref(href: string): ProjectPage | undefined {
   try {
     const origin =
@@ -76,6 +55,10 @@ export function getProjectPageByHref(href: string): ProjectPage | undefined {
   }
 }
 
-export function isProjectPagePasswordValid(input: string): boolean {
-  return input.trim().toLowerCase() === PROJECT_PAGES_PASSWORD.toLowerCase();
+/** Card link from `home-projects` item `id`, when a case study exists. */
+export function resolveProjectCardHref(project: {
+  id?: string;
+}): string | undefined {
+  if (!project.id) return undefined;
+  return getProjectPageById(project.id)?.href;
 }

@@ -55,8 +55,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${saans.variable} ${crimsonPro.variable}`}>
-      <body className="min-h-screen bg-canvas text-default antialiased">
+    <html
+      lang="en"
+      className={`${saans.variable} ${crimsonPro.variable}`}
+      suppressHydrationWarning
+    >
+      <body
+        className="min-h-screen bg-canvas text-default antialiased"
+        suppressHydrationWarning
+      >
         <Nav />
         {children}
       </body>

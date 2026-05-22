@@ -11,17 +11,25 @@ export type GalleryRowTracks = readonly number[];
 
 type GalleryRowProps = {
   tracks: GalleryRowTracks;
+  /**
+   * Below `md` (48rem): these fr weights (omit spacer column). From `md`: `tracks`.
+   * Pair with hiding spacer cells (`hidden md:block`) so column count matches.
+   */
+  tracksCompact?: GalleryRowTracks;
   children: ReactNode;
-  /** `gallery` = card row aspect ratio; `content` = hero / intro (height from content) */
-  measure?: "gallery" | "content";
+  /**
+   * `gallery` = aspect-ratio strip; `viewport` = fixed `--gallery-row-height` (home);
+   * `content` = height from children (hero / intro).
+   */
+  measure?: "gallery" | "viewport" | "content";
   /**
    * `start` = grid items use intrinsic cross-size (pair with non-`fill` media for natural image height).
    * Default stretch keeps card / `fill` columns equal height.
    */
   alignItems?: "stretch" | "start";
   /**
-   * Column + row gutter. Omitted or `"media"` → `--space-m` from row classes; `"large"` → `--space-lg`.
-   * Any other string is applied as both `column-gap` and `row-gap` (e.g. `var(--space-xl)`, `1.5rem`).
+   * Column + row gutter. Omitted or `"media"` → `gap-md` from row classes; `"large"` → `gap-lg`.
+   * Any other string is applied as both `column-gap` and `row-gap` (e.g. `gap-xl`, `1.5rem`).
    */
   gap?: string;
   className?: string;
@@ -35,6 +43,7 @@ function tracksCssValue(tracks: GalleryRowTracks): string {
 
 export function GalleryRow({
   tracks,
+  tracksCompact,
   children,
   measure = "gallery",
   alignItems = "stretch",
@@ -42,15 +51,24 @@ export function GalleryRow({
   className = "",
   cellClassName,
 }: GalleryRowProps) {
-  const rowClass = measure === "gallery" ? styles.row : styles.rowContent;
+  const rowClass =
+    measure === "viewport"
+      ? styles.rowViewport
+      : measure === "gallery"
+        ? styles.row
+        : styles.rowContent;
   const alignClass =
     alignItems === "start" ? styles.rowAlignStart : "";
   const gapRaw = gap?.trim();
   const gapIsMedia = !gapRaw || gapRaw === "media";
   const gapIsLarge = gapRaw === "large";
   const gapClass = gapIsLarge ? styles.rowGapLarge : "";
+  const tracksCompactClass = tracksCompact ? styles.tracksCompactAtMd : "";
   const rowStyle = {
     "--gallery-tracks": tracksCssValue(tracks),
+    ...(tracksCompact
+      ? { "--gallery-tracks-compact": tracksCssValue(tracksCompact) }
+      : {}),
     ...(gapIsMedia || gapIsLarge || !gapRaw
       ? {}
       : { columnGap: gapRaw, rowGap: gapRaw }),
@@ -58,7 +76,7 @@ export function GalleryRow({
 
   return (
     <div
-      className={`${rowClass} ${gapClass} ${alignClass} ${className}`.trim()}
+      className={`${rowClass} ${tracksCompactClass} ${gapClass} ${alignClass} ${className}`.trim()}
       style={rowStyle}
     >
       {Children.map(children, (child, index) => {
@@ -66,11 +84,16 @@ export function GalleryRow({
         const cellIntrinsic =
           alignItems === "start" ? styles.cellIntrinsic : "";
 
+        const viewportCell =
+          measure === "viewport" && alignItems !== "start"
+            ? styles.cellViewport
+            : "";
+
         return (
           <div
             key={index}
             className={
-              `${styles.cell} ${cellIntrinsic} ${measure === "gallery" ? styles.cellAspectMobile : ""} ${extra ?? ""}`.trim()
+              `${styles.cell} ${cellIntrinsic} ${viewportCell} ${measure === "gallery" ? styles.cellAspectMobile : ""} ${extra ?? ""}`.trim()
             }
           >
             {child}

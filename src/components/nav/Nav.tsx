@@ -5,38 +5,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { isPreviewOrEmbedFrame } from "@/lib/embedChrome";
+import {
+  HOME_NAV_LINKS,
+  NAV_LINK_LABEL_CLASS,
+  NAV_TEXT_LINK_CLASS,
+} from "@/components/nav/navConfig";
 import { SectionScrollLink } from "@/components/nav/SectionScrollLink";
 
 import styles from "./Nav.module.css";
 
-const links = [
-  {
-    href: "/#work",
-    label: "WORK",
-    containerId: "work-button",
-    sectionId: "work" as const,
-  },
-  {
-    href: "/#visual",
-    label: "VISUAL",
-    containerId: "visual-button",
-    sectionId: "visual" as const,
-  },
-  { href: "/else", label: "ELSE", containerId: "else-button" },
-] as const;
-
 const SCROLL_TOP_SHOW_PX = 56;
 const SCROLL_DELTA_PX = 6;
 
-/** Link is the interactive surface; label animates via `Nav.module.css` keyframes. */
-const navTextLinkClassName = `${styles.navTextLink} group/nav-link flex items-center py-[var(--space-12)]`;
-
-const navLinkLabelClassName = `${styles.navLinkLabel} type-nav-link text-default`;
+const navTextLinkClassName = `${styles.navTextLink} ${NAV_TEXT_LINK_CLASS}`;
+const navLinkLabelClassName = `${styles.navLinkLabel} ${NAV_LINK_LABEL_CLASS}`;
 
 export function Nav() {
   const pathname = usePathname();
-  const [embeddedInFrame, setEmbeddedInFrame] = useState(false);
   const isWorkPage = pathname.startsWith("/work/");
   const lastScrollY = useRef(0);
   const [atTop, setAtTop] = useState(true);
@@ -50,14 +35,6 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
-    const id = requestAnimationFrame(() => {
-      setEmbeddedInFrame(isPreviewOrEmbedFrame());
-    });
-    return () => cancelAnimationFrame(id);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (embeddedInFrame) return;
     lastScrollY.current = window.scrollY;
     let ticking = false;
     const onScroll = () => {
@@ -83,7 +60,7 @@ export function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     queueMicrotask(onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, [embeddedInFrame]);
+  }, []);
 
   const onBlurCapture = useCallback((e: React.FocusEvent<HTMLElement>) => {
     const next = e.relatedTarget;
@@ -95,24 +72,24 @@ export function Nav() {
     atTop || !hiddenByScroll || pointerHover || focusWithin;
   const slideHidden = !expanded;
 
-  if (isWorkPage || embeddedInFrame) {
+  if (isWorkPage) {
     return null;
   }
 
   return (
     <header
-      className="sticky top-0 z-50 w-full pt-[var(--space-4)] pb-[var(--space-2)]"
+      className="sticky top-0 z-50 w-full pt-4 pb-2"
       data-nav-label-leave={navLabelLeaveEnabled ? "true" : undefined}
       onMouseEnter={() => setPointerHover(true)}
       onMouseLeave={() => setPointerHover(false)}
       onFocusCapture={() => setFocusWithin(true)}
       onBlurCapture={onBlurCapture}
     >
-      <div className="mx-auto flex w-full max-w-[var(--shell-max-width)] items-center gap-[var(--space-m)] px-[var(--space-m)]">
+      <div className="mx-auto flex w-full max-w-xl items-center gap-md px-md">
         <Link
           id="logo-button"
           href="/"
-          className={`${styles.logoButton} relative z-[2] inline-flex items-center justify-center p-[var(--space-4)]`}
+          className={`${styles.logoButton} relative z-[2] inline-flex items-center justify-center p-4`}
         >
           <Image
             src="/icons/favicon-1.png"
@@ -134,7 +111,7 @@ export function Nav() {
             <div
               className={`relative z-[1] rounded-full  ${styles.slideLayer} ${slideHidden ? styles.slideLayerHidden : ""}`}
             >
-              <div id="nav-pill" className="group/nav-pill relative w-full overflow-hidden rounded-full py-[var(--space-2)]">
+              <div id="nav-pill" className="group/nav-pill relative w-full overflow-hidden rounded-full py-2">
                 <div id="nav-pill-fill"
                   className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] opacity-0 transition-opacity duration-300 ease-out group-hover/nav-pill:opacity-[0.5] group-focus-within/nav-pill:opacity-[0.75]"
                   aria-hidden
@@ -148,9 +125,9 @@ export function Nav() {
                     unoptimized
                   />
                 </div>
-                <div className="relative z-[1] grid min-h-[var(--nav-icon-size)] w-full grid-cols-[1fr_auto] items-center gap-x-[var(--space-m)]">
-                  <div className="flex min-w-0 items-stretch justify-center gap-[var(--space-64)]">
-                    {links.map((item) => {
+                <div className="relative z-[1] grid min-h-[var(--nav-icon-size)] w-full grid-cols-[1fr_auto] items-center gap-x-md">
+                  <div className="flex min-w-0 items-stretch justify-center gap-64">
+                    {HOME_NAV_LINKS.map((item) => {
                       const { href, label, containerId } = item;
                       if ("sectionId" in item) {
                         return (
@@ -184,7 +161,7 @@ export function Nav() {
                   <Link
                     id="info-button"
                     href="/info"
-                    className={`${navTextLinkClassName} shrink-0 px-[var(--space-8)]`}
+                    className={`${navTextLinkClassName} shrink-0 px-8`}
                     onMouseEnter={enableNavLabelLeaveAnim}
                     onFocus={enableNavLabelLeaveAnim}
                   >

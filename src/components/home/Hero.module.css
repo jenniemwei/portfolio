@@ -1,11 +1,17 @@
+@reference "../../styles/globals.css";
+
 /**
  * Fine-pointer hero only: hides system cursor in-zone; follower is position:fixed.
- * z-index above hero + nav — see `--hero-cursor-z` in globals.css.
+ * z-index above hero + nav — `--hero-follow-z` in `globals.css` @theme.
  */
 .zone {
   cursor: none;
   width: 100%;
-  height: fit-content;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Rive uses <canvas>; it often swallows bubbled mouse events — cursor + follower still hide system pointer. */
@@ -17,9 +23,9 @@
   position: fixed;
   left: 0;
   top: 0;
-  width: var(--hero-cursor-width);
+  width: var(--hero-follow-w);
   pointer-events: none;
-  z-index: var(--hero-cursor-z);
+  z-index: var(--hero-follow-z);
   opacity: 0;
   transition: opacity var(--transition-fast);
 }
@@ -29,32 +35,55 @@
 }
 
 .cursorGraphic {
-  width: var(--hero-cursor-width);
+  width: var(--hero-follow-w);
   height: auto;
   display: block;
   transform: translate(
-    var(--hero-cursor-hotspot-nudge-x),
-    var(--hero-cursor-hotspot-nudge-y)
+    var(--hero-follow-nudge-x),
+    var(--hero-follow-nudge-y)
   );
 }
 
 .cursorGraphicScratching {
   transform: translate(
-      var(--hero-cursor-hotspot-nudge-x),
-      var(--hero-cursor-hotspot-nudge-y)
+      var(--hero-follow-nudge-x),
+      var(--hero-follow-nudge-y)
     )
     rotate(30deg);
 }
 
-.heroIconRow {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Fills gallery cell on md+ so icons can sit on the bottom edge; stacks below visual on narrow. */
+.heroIconCell {
+  @apply py-md;
   display: flex;
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.heroIconRow {
+  @apply gap-32 p-12;
+  display: flex;
+  width: fit-content;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-32);
-  padding: var(--space-12);
+}
+
+@media (max-width: 48rem) {
+  .heroIconCell {
+    height: auto;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .heroIconRow {
+    @apply gap-md p-0;
+    flex-direction: row;
+    width: auto;
+  }
 }
 
 .heroIconLink {
@@ -82,7 +111,7 @@
   width: 24px;
   height: 24px;
   aspect-ratio: 1 / 1;
-  background-color: var(--secondary);
+  background-color: var(--color-secondary);
   opacity: 0.8;
   transition: opacity 0.25s ease;
   -webkit-mask-image: var(--hero-icon-url);
