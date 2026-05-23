@@ -26,7 +26,7 @@ export function Hero() {
       <div className={styles.heroSkyFade} aria-hidden />
       <section
         id="hero-box"
-        className="relative z-[60] mx-auto box-border flex aspect-[4/3] h-[80%] max-h-[900px] min-w-0 max-w-page-lg shrink-0 flex-col justify-start overflow-visible rounded-lg bg-hero-box p-[3vw] lg:h-[70%]"
+        className="relative z-[60] mx-auto mt-[80px] box-border flex aspect-[4/3] h-[90%] max-h-[900px] min-w-0 max-w-page-lg shrink-0 flex-col justify-start overflow-visible rounded-lg bg-hero-box p-[3vw] xl:h-[70%]"
         aria-label="Hero"
       >
         <header
@@ -38,7 +38,6 @@ export function Hero() {
               <span className="text-default">Jennie Wei is a product designer </span>
               <HeroTypewriterTagline className="text-subtle" />
             </p>
-            <hr className={styles.heroTextRule} aria-hidden />
           </div>
         </header>
         <div

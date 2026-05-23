@@ -22,29 +22,29 @@ export function VisualSection() {
           className={`${gallerySectionStyles.sectionReveal} flex flex-col gap-12 py-md`}
         >
           {homeProjects.visual.rows.map((row, rowIndex) => (
-          <GalleryRow
-            key={`visual-${row.tracks.join("-")}-${rowIndex}`}
-            tracks={row.tracks}
-            measure="viewport"
-          >
-            {sortProjectsByIndex(row.projects as readonly HomeProjectItem[]).map(
-              (project, i) => (
-                <ProjectCard
-                  key={project.id ?? `visual-${rowIndex}-${i}`}
-                  id={project.id}
-                  href={resolveProjectCardHref(project)}
-                  projTitle={project.heading}
-                  projTitleHover={project.subheadDesc}
-                  visual={
-                    <HomeProjectVisual
-                      project={project}
-                      sizes="(max-width: 1023px) 100vw, 50vw"
-                    />
-                  }
-                />
-              ),
-            )}
-          </GalleryRow>
+            <GalleryRow
+              key={`visual-${row.tracks.join("-")}-${rowIndex}`}
+              tracks={row.tracks}
+              measure="viewport"
+            >
+              {sortProjectsByIndex(row.projects as readonly HomeProjectItem[]).map(
+                (project, i) => (
+                  <ProjectCard
+                    key={project.id ?? `visual-${rowIndex}-${i}`}
+                    id={project.id}
+                    href={resolveProjectCardHref(project)}
+                    projTitle={project.heading}
+                    projTitleHover={project.subheadDesc}
+                    visual={
+                      <HomeProjectVisual
+                        project={project}
+                        sizes="(max-width: 1023px) 100vw, 50vw"
+                      />
+                    }
+                  />
+                ),
+              )}
+            </GalleryRow>
           ))}
         </div>
       </div>

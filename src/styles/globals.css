@@ -128,14 +128,15 @@
   --hero-follow-nudge-y: calc(var(--spacing-sm) * -1);
 }
 
-/* Tighter rhythm ≤1024px — use :root only (nested @theme in @media breaks Tailwind dev). */
-@media (max-width: 1024px) {
+/* Tighter rhythm ≤1280px — use :root only (nested @theme in @media breaks Tailwind dev). */
+@media (max-width: 1280px) {
   :root {
     --spacing-sm: 12px;
     --spacing-md: 20px;
     --spacing-lg: 32px;
     --hero-visual-max-width: 300px;
-    --font-size-display: 40px;
+    --font-size-display: 38px;
+    --tracking-serif-display: -2px;
   }
 }
 

@@ -46,7 +46,7 @@ export const homeProjects = {
             img: "/thumbnails/g2-search-thumb.png",
             imgAlt: "G2 Search",
             video:
-              "https://res.cloudinary.com/dlaz3infq/video/upload/v1778953178/g2-search_qc2aoo.mp4",
+              "https://res.cloudinary.com/dlaz3infq/video/upload/v1779490718/g2-search_qc2aoo.mp4",
           },
           {
             index: 1,
