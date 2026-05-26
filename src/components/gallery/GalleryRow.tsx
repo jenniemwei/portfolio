@@ -9,6 +9,17 @@ import styles from "./GalleryRow.module.css";
 /** Positive `fr` weights per column, e.g. `[1, 1]` → 50/50, `[3, 7]` → 30/70. */
 export type GalleryRowTracks = readonly number[];
 
+/** Named rhythm gaps — maps to `--spacing-*` in `globals.css` (`gap-xs` … `gap-xl`). */
+export const GALLERY_ROW_GAP_CLASS = {
+  xs: "gap-xs",
+  sm: "gap-sm",
+  md: "gap-md",
+  lg: "gap-lg",
+  xl: "gap-xl",
+} as const;
+
+export type GalleryRowGap = keyof typeof GALLERY_ROW_GAP_CLASS;
+
 type GalleryRowProps = {
   tracks: GalleryRowTracks;
   /**
@@ -27,11 +38,8 @@ type GalleryRowProps = {
    * Default stretch keeps card / `fill` columns equal height.
    */
   alignItems?: "stretch" | "start";
-  /**
-   * Column + row gutter. Omitted or `"media"` → `gap-md` from row classes; `"large"` → `gap-lg`.
-   * Any other string is applied as both `column-gap` and `row-gap` (e.g. `gap-xl`, `1.5rem`).
-   */
-  gap?: string;
+  /** Column + row gutter — `xs` | `sm` | `md` | `lg` | `xl` (`--spacing-*` tokens). Default `md`. */
+  gap?: GalleryRowGap;
   className?: string;
   /** Per-cell classes (e.g. hide a spacer column below the stack breakpoint) */
   cellClassName?: (index: number) => string | undefined;
@@ -47,7 +55,7 @@ export function GalleryRow({
   children,
   measure = "gallery",
   alignItems = "stretch",
-  gap,
+  gap = "md",
   className = "",
   cellClassName,
 }: GalleryRowProps) {
@@ -59,24 +67,20 @@ export function GalleryRow({
         : styles.rowContent;
   const alignClass =
     alignItems === "start" ? styles.rowAlignStart : "";
-  const gapRaw = gap?.trim();
-  const gapIsMedia = !gapRaw || gapRaw === "media";
-  const gapIsLarge = gapRaw === "large";
-  const gapClass = gapIsLarge ? styles.rowGapLarge : "";
+  const gapClass = GALLERY_ROW_GAP_CLASS[gap];
   const tracksCompactClass = tracksCompact ? styles.tracksCompactAtMd : "";
+  const scrollRevealClass =
+    measure === "gallery" || measure === "viewport" ? styles.rowScrollReveal : "";
   const rowStyle = {
     "--gallery-tracks": tracksCssValue(tracks),
     ...(tracksCompact
       ? { "--gallery-tracks-compact": tracksCssValue(tracksCompact) }
       : {}),
-    ...(gapIsMedia || gapIsLarge || !gapRaw
-      ? {}
-      : { columnGap: gapRaw, rowGap: gapRaw }),
   } as CSSProperties;
 
   return (
     <div
-      className={`${rowClass} ${tracksCompactClass} ${gapClass} ${alignClass} ${className}`.trim()}
+      className={`${rowClass} ${gapClass} ${scrollRevealClass} ${tracksCompactClass} ${alignClass} ${className}`.trim()}
       style={rowStyle}
     >
       {Children.map(children, (child, index) => {

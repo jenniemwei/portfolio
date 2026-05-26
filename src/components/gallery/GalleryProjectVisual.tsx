@@ -1,5 +1,4 @@
 import { GalleryThumbImage } from "@/components/gallery/GalleryThumbImage";
-import { GalleryVideoHoverThumb } from "@/components/gallery/GalleryVideoHoverThumb";
 import { GalleryVideoThumb } from "@/components/gallery/GalleryVideoThumb";
 
 type GalleryProjectVisualProps = {
@@ -19,19 +18,6 @@ export function GalleryProjectVisual({
   fill,
   fit = "cover",
 }: GalleryProjectVisualProps) {
-  if (video && img) {
-    return (
-      <GalleryVideoHoverThumb
-        videoSrc={video}
-        imageSrc={img}
-        label={label}
-        sizes={sizes}
-        fill={fill}
-        fit={fit}
-      />
-    );
-  }
-
   if (video) {
     return (
       <GalleryVideoThumb
@@ -40,6 +26,7 @@ export function GalleryProjectVisual({
         fill={fill}
         fit={fit}
         fallbackSrc={img ?? undefined}
+        sizes={sizes}
       />
     );
   }

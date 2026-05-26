@@ -31,7 +31,7 @@
     to bottom,
     transparent 0%,
     transparent 10%,
-    color-mix(in srgb, var(--color-fill-default) 60%, transparent) 80%,
+    color-mix(in srgb, var(--color-fill-default) 50%, transparent) 80%,
     var(--color-fill-default) 100%
   );
 }

@@ -11,9 +11,10 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 const HOLD_MS = 4500;
 const TYPEWRITER_OPTS = {
-  deleteMsPerChar: 28,
-  typeMsPerChar: 28,
-  pauseMs: 100,
+  granularity: "word" as const,
+  deleteMsPerWord: 90,
+  typeMsPerWord: 90,
+  pauseMs: 120,
 } as const;
 
 /** Cycles hero taglines with letter-by-letter delete, then retype. */

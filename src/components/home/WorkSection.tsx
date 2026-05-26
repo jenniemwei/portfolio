@@ -12,15 +12,16 @@ import { resolveProjectCardHref } from "@/data/project-pages";
 export function WorkSection() {
   return (
     <section id="work" className="w-full py-md">
-      <div className="pg-w-90">
+      <div className="pg-w-xl">
         <div
-          className={`${gallerySectionStyles.sectionReveal} w-full min-w-0 flex-col gap-3`}
+          className={`${gallerySectionStyles.sectionReveal} flex w-full min-w-0 flex-col gap-md`}
         >
           {homeProjects.work.rows.map((row, rowIndex) => (
             <GalleryRow
               key={`work-${row.tracks.join("-")}-${rowIndex}`}
               tracks={row.tracks}
               measure="viewport"
+              gap="md"
             >
               {sortProjectsByIndex(row.projects as readonly HomeProjectItem[]).map(
                 (project, i) => (
@@ -29,7 +30,8 @@ export function WorkSection() {
                     id={project.id}
                     href={resolveProjectCardHref(project)}
                     projTitle={project.heading}
-                    projTitleHover={project.subheadDesc}
+                    projSub={project.subheading}
+                    projSubDesc={project.subheadDesc}
                     visual={
                       <HomeProjectVisual
                         project={project}

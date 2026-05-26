@@ -5,6 +5,10 @@ import type { CSSProperties } from "react";
 import { HeroCursorZone } from "@/components/home/HeroCursorZone";
 import { HeroRiveDog } from "@/components/home/HeroRiveDog";
 import { HeroTypewriterTagline } from "@/components/home/HeroTypewriterTagline";
+import {
+  HERO_HEADLINE_PREFIX,
+  HERO_TAGLINE_LONGEST,
+} from "@/data/hero-text";
 
 const HERO_ICON_LINK_CLASS =
   "group inline-flex size-6 items-center justify-center origin-center rotate-0 outline-none transition-[transform,filter] duration-[350ms] ease-in-out hover:rotate-[30deg] hover:drop-shadow-[0_8px_16px_rgba(0,0,0,0.24)] focus-visible:rotate-[30deg] focus-visible:drop-shadow-[0_8px_16px_rgba(0,0,0,0.24)]";
@@ -67,27 +71,41 @@ export function Hero() {
     >
         <section
           id="hero-box"
-          className="relative pg-w-90 flex flex-col gap-md overflow-visible rounded-3xl p-md "
+          className="relative pg-w-90 flex flex-col overflow-visible rounded-3xl px-0"
           aria-label="Hero"
         >
               <HeroCursorZone>
               <div
               id="text-dog"
-              className="h-auto flex flex-row max-md:flex-col min-gap-lg justify-between w-full overflow-visible"
+              className="h-auto flex flex-row max-md:flex-col gap-lg justify-between w-full overflow-visible px-md"
             >
-                <header className="type-display min-w-0 max-w-[800px] flex-1 pt-xl text-pretty text-left">
-                  <span className="text-text-default">
-                    Jennie Wei is a product designer{" "}
+                <header className="type-display grid min-w-0 max-w-[800px] flex-1 pt-xl text-left">
+                  <span
+                    className="invisible col-start-1 row-start-1 block min-w-0"
+                    aria-hidden
+                  >
+                    <span className="text-text-default">
+                      {HERO_HEADLINE_PREFIX}
+                    </span>
+                    <span className="text-text-subtle">
+                      {HERO_TAGLINE_LONGEST}
+                    </span>
                   </span>
-                  <HeroTypewriterTagline className="text-text-subtle" />
+                  <span className="col-start-1 row-start-1 block min-w-0">
+                    <span className="text-text-default">
+                      {HERO_HEADLINE_PREFIX}
+                    </span>
+                    <HeroTypewriterTagline className="text-text-subtle" />
+                  </span>
                 </header>
                 <HeroRiveDog />
                 </div>
               </HeroCursorZone>
-          <div className="relative z-[1] flex min-h-0 w-full flex-row overflow-visible max-lg:flex-none max-md:justify-end max-md:pt-xl">
+          <div className="relative z-[1] flex min-h-0 w-full flex-row overflow-visible 
+          max-lg:flex-none max-md:justify-end max-md:pt-xl px-md">
                   <HeroSocialLinks />
           </div>
-          <hr className="bottom-hr" aria-hidden />
+          <hr className="bottom-hr pt-md" aria-hidden />
         </section>
     </section>
   );

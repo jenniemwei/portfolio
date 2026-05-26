@@ -13,7 +13,7 @@ export default function HomePage() {
     >
       <div
         id="home-sky"
-        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[40vh]"
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[30vh]"
         aria-hidden
       >
         <PageSkyBackground variant="band" />
@@ -22,8 +22,6 @@ export default function HomePage() {
       <main className="relative z-[1] w-full flex-col items-center pb-12">
         <Hero />
         <WorkSection />
-        <SpacerSection />
-        <VisualSection />
         <SpacerSection />
       </main>
     </div>

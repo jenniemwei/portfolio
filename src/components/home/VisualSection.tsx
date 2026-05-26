@@ -20,13 +20,14 @@ export function VisualSection() {
             </p>
           </div>
           <div
-            className={`${gallerySectionStyles.sectionReveal} flex-col gap-3 py-md`}
+            className={`${gallerySectionStyles.sectionReveal} flex flex-col gap-3 py-md`}
           >
             {homeProjects.visual.rows.map((row, rowIndex) => (
               <GalleryRow
                 key={`visual-${row.tracks.join("-")}-${rowIndex}`}
                 tracks={row.tracks}
                 measure="viewport"
+                gap="sm"
               >
                 {sortProjectsByIndex(row.projects as readonly HomeProjectItem[]).map(
                   (project, i) => (
@@ -35,7 +36,8 @@ export function VisualSection() {
                       id={project.id}
                       href={resolveProjectCardHref(project)}
                       projTitle={project.heading}
-                      projTitleHover={project.subheadDesc}
+                      projSub={project.subheading}
+                      projSubDesc={project.subheadDesc}
                       visual={
                         <HomeProjectVisual
                           project={project}

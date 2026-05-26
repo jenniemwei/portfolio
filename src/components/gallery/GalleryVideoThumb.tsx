@@ -18,6 +18,8 @@ type GalleryVideoThumbProps = {
   fit?: "contain" | "cover";
   /** Optional image fallback if video fails to load/decode. */
   fallbackSrc?: string;
+  /** `sizes` for fallback `<Image>` when video errors. */
+  sizes?: string;
 };
 
 /**
@@ -113,6 +115,7 @@ export function GalleryVideoThumb({
   fill,
   fit = "cover",
   fallbackSrc,
+  sizes = "(max-width: 1023px) 100vw, 60vw",
 }: GalleryVideoThumbProps) {
   const [videoFailed, setVideoFailed] = useState(false);
   const fillStyle: CSSProperties | undefined = fill
@@ -132,7 +135,7 @@ export function GalleryVideoThumb({
           alt={label}
           fill
           className="object-cover"
-          sizes="(max-width: 1023px) 100vw, 60vw"
+          sizes={sizes}
         />
       </div>
     );

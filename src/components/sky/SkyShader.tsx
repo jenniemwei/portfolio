@@ -8,11 +8,11 @@ export type GlRgb = [number, number, number];
 /** WebGL 0–1 RGB sky palette. */
 export const SKY_SHADER_COLORS = {
   /** Base sky fill */
-  baseColor: [172 / 255, 217 / 255, 230 / 255]  as GlRgb,
+  baseColor: [143/ 255, 204 / 255, 222 / 255]  as GlRgb,
   /** Cloud body */
-  cloudColor: [250 / 255, 244/255, 237 / 255] as GlRgb,
+  cloudColor: [255 / 255, 242 / 255, 230 / 255] as GlRgb,
   /** Cloud highlight */
-  cloudHighlightColor: [255 / 255, 238 / 255, 230 / 255] as GlRgb,
+  cloudHighlightColor: [250 / 255, 244/255, 237 / 255] as GlRgb,
 } as const;
 
 export interface SkyShaderConfig {
@@ -54,17 +54,17 @@ export interface SkyShaderConfig {
 export const DEFAULT_SKY_SHADER_CONFIG: SkyShaderConfig = {
   animationSpeed: 0.75,
   driftSpeedSlow: 0.05,
-  driftSpeedFast: 0.08,
+  driftSpeedFast: 0.15,
   driftDirectionX: 1,
   driftDirectionY: 0.6,
   baseColor: SKY_SHADER_COLORS.baseColor,
   cloudColor: SKY_SHADER_COLORS.cloudColor,
   cloudHighlightColor: SKY_SHADER_COLORS.cloudHighlightColor,
-  cloudStrength: 0.5,
+  cloudStrength: 0.4,
   cloudHighlightStrength: 0.5,
-  grain: 0.1,
-  cloudSize: 1,
-  cloudEdgeBlur: 1,
+  grain: 0.08,
+  cloudSize: 1.2,
+  cloudEdgeBlur: 1.8,
 };
 
 type SkyShaderProps = {
@@ -127,29 +127,49 @@ export function SkyShader({
       uniform float u_cloudSize;
       uniform float u_cloudEdgeBlur;
 
-      float hash(vec2 p) {
-        return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+      // Hash + noise: use a Hoskins-style hash to avoid lattice/diagonal artifacts.
+      // Value noise is still "soft" but we rotate/warp between octaves to break grid alignment.
+      float hash12(vec2 p) {
+        vec3 p3 = fract(vec3(p.xyx) * 0.1031);
+        p3 += dot(p3, p3.yzx + 33.33);
+        return fract((p3.x + p3.y) * p3.z);
       }
 
       float noise(vec2 p) {
         vec2 i = floor(p);
         vec2 f = fract(p);
-        vec2 u = f * f * (3.0 - 2.0 * f);
-        return mix(
-          mix(hash(i),             hash(i + vec2(1.0, 0.0)), u.x),
-          mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
-          u.y
-        );
+        // Quintic curve (smoother than cubic) reduces interpolation line visibility.
+        vec2 u = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
+        float a = hash12(i);
+        float b = hash12(i + vec2(1.0, 0.0));
+        float c = hash12(i + vec2(0.0, 1.0));
+        float d = hash12(i + vec2(1.0, 1.0));
+        return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+      }
+
+      mat2 rot2(float a) {
+        float s = sin(a), c = cos(a);
+        return mat2(c, -s, s, c);
       }
 
       float fbm(vec2 p) {
-        float v = 0.0, a = 0.5;
+        float v = 0.0;
+        float a = 0.55;
+        // Rotate each octave so the underlying grid doesn't show up at any one scale.
+        mat2 r = rot2(0.65);
         for (int i = 0; i < 6; i++) {
           v += a * noise(p);
-          p  = p * 2.0 + vec2(1.7, 9.2);
+          p = (r * p) * 2.03 + vec2(17.3, 9.2);
           a *= 0.5;
         }
         return v;
+      }
+
+      // Tiny domain warp for more organic, cloud-like diffusion.
+      vec2 warp(vec2 p) {
+        float w1 = fbm(p * 0.85 + vec2(8.2, 1.3));
+        float w2 = fbm(p * 0.85 + vec2(2.7, 9.2));
+        return vec2(w1, w2);
       }
 
       void main() {
@@ -163,9 +183,15 @@ export function SkyShader({
         vec2 flowSlow = st + dir * t * u_driftSpeedSlow;
         vec2 flowFast = st + dir * t * u_driftSpeedFast;
 
-        float size = max(u_cloudSize, 0.25);
-        float blobSlow = fbm(flowSlow * (2.2 / size) + vec2(t * 0.05, t * 0.03));
-        float blobFast = fbm(flowFast * (4.5 / size) + vec2(fbm(flowFast * (1.1 / size)) * 1.5, t * 0.08));
+        float size = max(u_cloudSize, 0.5);
+        vec2 slowP = flowSlow * (2.2 / size) + vec2(t * 0.05, t * 0.03);
+        vec2 fastP = flowFast * (4.5 / size) + vec2(t * 0.02, t * 0.08);
+
+        slowP += 0.22 * warp(slowP);
+        fastP += 0.18 * warp(fastP + 3.1);
+
+        float blobSlow = fbm(slowP);
+        float blobFast = fbm(fastP + vec2(fbm(flowFast * (1.1 / size)) * 1.1, 0.0));
         float bloom = blobSlow * 0.5 + blobFast * 0.5;
 
         float blur = max(u_cloudEdgeBlur, 0.01);
@@ -177,7 +203,10 @@ export function SkyShader({
         col = mix(col, u_cloudColor, cloudMask * u_cloudStrength);
         col = mix(col, u_cloudHighlightColor, cloudHighlightMask * u_cloudHighlightStrength);
 
-        col += u_grain * (hash(uv + t) - 0.5);
+        // Screen-space grain + dithering: helps hide 8-bit gradient banding without revealing a grid.
+        // Use pixel coords (not uv) so grain doesn't "swim" with resizes.
+        float g = hash12(gl_FragCoord.xy + vec2(t * 60.0, t * 17.0)) - 0.5;
+        col += u_grain * g;
 
         gl_FragColor = vec4(col, 1.0);
       }

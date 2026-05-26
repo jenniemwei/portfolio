@@ -1,11 +1,19 @@
-/* Scroll-driven fade for the gallery block (Work / Visual), not per card. */
-@keyframes gallerySectionEnter {
-  from {
+/* Scroll-driven fade for the gallery block (Work / Visual) — enter + exit */
+@keyframes gallerySectionReveal {
+  0% {
     opacity: 0;
   }
 
-  to {
+  35% {
     opacity: 1;
+  }
+
+  65% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }
 
@@ -16,9 +24,9 @@
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .sectionReveal {
-      animation: gallerySectionEnter ease-in-out both;
+      animation: gallerySectionReveal ease-in-out both;
       animation-timeline: view(block);
-      animation-range: entry -95% cover 30%;
+      animation-range: entry 0% exit 100%;
     }
   }
 }

@@ -25,10 +25,7 @@
 
   /* Page / content width utilities (`pg-w-*`, `content-*`) */
   --pg-w-80-width: 90%;
-  --pg-w-80-max: 1000px;
   --pg-w-90-width: 90%;
-  --pg-w-90-max: 1200px;
-  --content-mw-800: 800px;
   --content-w-80: 80%;
 
   /* Hero Rive dog column — single source; see min-width breakpoints below */
@@ -70,11 +67,11 @@
   --spacing-xl: 64px;
 
   /* Layout widths + gutter (`max-w-*`) */
-  --max-width-page-sm: 800px;
-  --max-width-page-md: 1000px;
-  --max-width-page-lg: 1400px;
-  /* Nav bar width — `max-w-xl` */
+  --max-width-sm: 800px;
+  --max-width-md: 1000px;
+  --max-width-lg: 1200px;
   --max-width-xl: 1440px;
+ 
 
   /* Horizontal page inset — `px-gutter` / `mx-gutter` clamp from ~20px to 80px with viewport */
   --spacing-gutter: clamp(1.25rem, 5.55vw, 5rem);
@@ -88,7 +85,7 @@
   --nav-z: 55;
 
   /* Home work / visual gallery strips (`GalleryRow` measure="viewport") */
-  --gallery-row-height: 45vh;
+  --gallery-row-height: 40vh;
   --gallery-row-min-height: 400px;
 
   --spacer-section-height: 200px;
@@ -217,7 +214,7 @@
   margin-inline: auto;
   width: var(--pg-w-80-width);
   min-width: 0;
-  max-width: var(--pg-w-80-max);
+  max-width: var(--max-width-md);
 }
 
 @utility pg-w-90 {
@@ -225,15 +222,15 @@
   margin-inline: auto;
   width: var(--pg-w-90-width);
   min-width: 0;
-  max-width: var(--pg-w-90-max);
+  max-width: var(--max-width-lg);
 }
 
 @utility pg-w-xl {
   box-sizing: border-box;
   margin-inline: auto;
-  width: 100%;
+  width: 90%;
   min-width: 0;
-  max-width: var(--max-width-xl);
+  max-width: var(--max-width-lg);
 }
 
 @utility hero-visual-column {
@@ -249,13 +246,13 @@
   margin-inline: auto;
   width: 100%;
   min-width: 0;
-  max-width: var(--content-mw-800);
+  max-width: var(--max-width-sm);
 }
 
 @utility content-w-80 {
   box-sizing: border-box;
   margin-inline: auto;
-  width: var(--content-w-80);
+  width: var(--max-width-md);
   min-width: 0;
 }
 

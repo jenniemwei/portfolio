@@ -75,6 +75,7 @@ export const homeProjects = {
             videoThumbBg: "var(--color-fill-default)",
           },
           {
+            
             index: 1,
             id: "folding-at-home",
             heading: "Folding@Home",
@@ -88,12 +89,9 @@ export const homeProjects = {
           },
         ],
       },
-    ],
-  },
-  visual: {
-    rows: [
       {
-        tracks: [6, 4],
+        tracks: [3, 2],
+        
         projects: [
           {
             index: 0,
@@ -120,6 +118,53 @@ export const homeProjects = {
         ],
       },
       {
+        tracks: [1, 2],
+        projects: [
+          {
+            index: 1,
+            heading: "HCII 30",
+            subheading: "Summer 2024",
+            subheadDesc: "Celebrating 30 years of HCII",
+            img: "/thumbnails/HCII-thumb.jpeg",
+            imgAlt: "HCII",
+          },
+          {
+            index: 0,
+            heading: "Meeting of the Minds",
+            subheading: "Spring 2025",
+            subheadDesc: "Event identity & collateral",
+            img: "/thumbnails/MOM-thumb.png",
+          },
+        ],
+      },
+    ],
+  },
+  visual: {
+    rows: [
+      {
+        tracks: [6, 4],
+        projects: [
+          {
+            index: 0,
+            id: "dhero",
+            heading: "The Designers Republic",
+            subheading: "Spring 2025",
+            subheadDesc: "Multimedia tribute to my design hero",
+            img: "/thumbnails/dhero-thumb-backup.webp",
+            imgAlt: "The Designers Republic",
+            video:
+              "https://res.cloudinary.com/dlaz3infq/video/upload/v1767847688/ian_anderson_video_nzysfl.mp4",
+          },
+          {
+            index: 1,
+            heading: "Meeting of the Minds",
+            subheading: "Spring 2025",
+            subheadDesc: "Event identity & collateral",
+            img: "/thumbnails/MOM-thumb.png",
+          },
+        ],
+      },
+      {
         tracks: [1, 1],
         projects: [
           {
@@ -129,13 +174,6 @@ export const homeProjects = {
             subheadDesc: "Celebrating 30 years of HCII",
             img: "/thumbnails/HCII-thumb.jpeg",
             imgAlt: "HCII",
-          },
-          {
-            index: 1,
-            heading: "Meeting of the Minds",
-            subheading: "Spring 2025",
-            subheadDesc: "Event identity & collateral",
-            img: "/thumbnails/MOM-thumb.png",
           },
         ],
       },
