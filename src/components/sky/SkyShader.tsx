@@ -8,7 +8,7 @@ export type GlRgb = [number, number, number];
 /** WebGL 0–1 RGB sky palette. */
 export const SKY_SHADER_COLORS = {
   /** Base sky fill */
-  baseColor: [143/ 255, 204 / 255, 222 / 255]  as GlRgb,
+  baseColor: [151/ 255, 204 / 255, 222 / 255]  as GlRgb,
   /** Cloud body */
   cloudColor: [255 / 255, 242 / 255, 230 / 255] as GlRgb,
   /** Cloud highlight */

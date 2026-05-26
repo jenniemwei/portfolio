@@ -266,6 +266,8 @@
   html,
   body {
     background-color: var(--color-fill-default);
+    /* No rubber-band / scroll chaining past the top (or bottom) of the page. */
+    overscroll-behavior-y: none;
   }
 
   body {
