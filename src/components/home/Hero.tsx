@@ -82,9 +82,8 @@ export function Hero() {
                 <HeroRiveDog />
                 </div>
               </HeroCursorZone>
-          <div className="relative z-[1] flex min-h-0 w-full flex-1 flex-row overflow-visible max-lg:flex-none lg:h-[60%]">
+          <div className="relative z-[1] flex min-h-0 w-full flex-row overflow-visible max-lg:flex-none ">
                   <HeroSocialLinks />
-       
           </div>
           <hr className="bottom-hr" aria-hidden />
         </section>
