@@ -3,9 +3,9 @@
  *
  * Sections (read top to bottom):
  * 1. `:root` — color ramps only (`--g*`, `--white`).
- * 2. `@theme` — Tailwind tokens + component vars (type, spacing, border radius, …).
+ * 2. `@theme` — Tailwind tokens + component vars (type, spacing, …).
  *    Responsive rhythm + hero column: nested `@theme` inside `@media` (below).
- * 3. `@utility type-*` + `bottom-hr` — typography utilities for case-study pages.
+ * 3. `@utility type-*`, `bottom-hr`, `pg-w-*`, `content-*` — typography + layout width utilities.
  * 4. `@layer base` — body, scroll-margin anchors, focus ring.
  */
 @import "tailwindcss";
@@ -16,25 +16,38 @@
 /* ─── :root — color ramps only ─── */
 :root {
   --g0: #f7f7f7;
-  --white: #ffffff;
   --g2: #d7d7d9;
-  --g3: #efeff1;
+  --g3: #EFEFF1;
   --g4: #86868a;
   --g6: #1c1c1c;
   --g8: #121212;
-  --hero-box: rgba(255, 255, 255, 0.5);
+  --white: #ffffff;
+
+  /* Page / content width utilities (`pg-w-*`, `content-*`) */
+  --pg-w-80-width: 90%;
+  --pg-w-80-max: 1000px;
+  --pg-w-90-width: 90%;
+  --pg-w-90-max: 1200px;
+  --content-mw-800: 800px;
+  --content-w-80: 80%;
+
+  /* Hero Rive dog column — single source; see min-width breakpoints below */
+  --hero-visual-width: 200px;
 }
 
-/* ─── @theme ─── */
-@theme {
-  --color-canvas: var(--g3);
-  --color-default: var(--g8);
-  --color-secondary: var(--g6);
-  --color-subtle: var(--g4);
+/* ─── @theme (inline: tokens reference :root ramp via var()) ─── */
+@theme inline {
+  --color-fill-white: var(--white);
+  --color-fill-default: var(--g3);
+  --color-fill-dark: var(--g8);
+  --color-text-white: var(--white);
+  --color-text-default: var(--g8);
+  --color-text-secondary: var(--g6);
+  --color-text-subtle: var(--g4);
+  --color-text-black: var(--g8);
   --color-line: var(--g2);
-  --color-bg-default: var(--g3);
-  --color-hero-box: var(--hero-box);
-
+  --color-hero-box: color-mix(in srgb, var(--color-fill-default) 50%, transparent);
+  /* Font families */
   --font-sans: var(--font-saans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-crimson), ui-serif, Georgia, serif;
 
@@ -42,40 +55,19 @@
   --line-height-title: 1.05;
 
   --tracking-serif-base: -1.1px;
-  --tracking-serif-display: -3px;
+  --tracking-serif-display: -1.5px;
 
-  /* Type — weights + step sizes (`@utility type-*` only reference these) */
-  --font-weight-light: 300;
-  --font-weight-regular: 400;
-  --font-weight-semibold: 500;
-  --font-weight-bold: 700;
-
-  --font-size-sm: 14px;
-  --font-size-md: 16px;
-  --font-size-lg: 20px;
-  --font-size-xl: 24px;
+  /* Type — sizes use Tailwind `--text-*` / `--font-weight-*` except display + 28px step */
+  --font-weight-light: 350;
   --font-size-2xl: 28px;
-  --font-size-display: 48px;
+  --font-size-display: 36px;
 
-  /* Named rhythm — use Tailwind spacing utilities (`gap-md`, `px-lg`, …) */
+  /* Named rhythm — responsive via `:root` @media; use `gap-md`, `px-lg`, … */
   --spacing-xs: 8px;
   --spacing-sm: 12px;
   --spacing-md: 24px;
   --spacing-lg: 48px;
   --spacing-xl: 64px;
-
-  /* Pixel ladder (`gap-48`, `py-64`, …) */
-  --spacing-2: 2px;
-  --spacing-4: 4px;
-  --spacing-8: 8px;
-  --spacing-12: 12px;
-  --spacing-16: 16px;
-  --spacing-20: 20px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
-  --spacing-48: 48px;
-  --spacing-56: 56px;
-  --spacing-64: 64px;
 
   /* Layout widths + gutter (`max-w-*`) */
   --max-width-page-sm: 800px;
@@ -88,7 +80,7 @@
   --spacing-gutter: clamp(1.25rem, 5.55vw, 5rem);
 
   /* Nav chrome (CSS modules + components) */
-  --nav-fill-background: color-mix(in srgb, var(--g0) 30%, transparent);
+  --nav-fill-background: color-mix(in srgb, var(--color-fill-default) 30%, transparent);
   --nav-fill-backdrop-blur: 16px;
   --nav-icon-size: 32px;
   --nav-scroll-margin: 4.75rem;
@@ -101,21 +93,16 @@
 
   --spacer-section-height: 200px;
 
+  /** Fixed reveal footer — pair with `RevealFooterLayout` margin-bottom. */
+  --footer-reveal-height: 14rem;
+
   --link-hover-opacity: 0.7;
   --transition-fast: 150ms ease;
 
   --border-width-sm: 0.5px;
 
-  /* Border radius (`rounded-sm`, card visuals, …) */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-
-
-  /* Hero Rive dog — artboard 7:10, max canvas width */
-  --hero-visual-max-width: 360px;
-  --hero-visual-aspect-ratio: 8/10;
+  /* Hero text + dog row — fixed height from display type metrics (typewriter must not shift layout) */
+  --hero-text-dog-height: calc(5 * var(--font-size-display) * var(--line-height-title));
 
   /* SPECIAL  not used often*/
 
@@ -123,9 +110,22 @@
   /* follower sprite / hit area width */
   --hero-follow-z: 70;
 
-  /* Optical offset for transform-origin vs art (see `Hero.module.css` `.cursorGraphic`) */
+  /* Optical offset for transform-origin vs art (hero cursor follower) */
   --hero-follow-nudge-x: calc(var(--spacing-sm) * -1);
   --hero-follow-nudge-y: calc(var(--spacing-sm) * -1);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --pg-w-80-width: 80%;
+    --hero-visual-width: 240px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --hero-visual-width: 300px;
+  }
 }
 
 /* Tighter rhythm ≤1280px — use :root only (nested @theme in @media breaks Tailwind dev). */
@@ -134,9 +134,9 @@
     --spacing-sm: 12px;
     --spacing-md: 20px;
     --spacing-lg: 32px;
-    --hero-visual-max-width: 300px;
-    --font-size-display: 38px;
-    --tracking-serif-display: -2px;
+    --font-size-display: 32px;
+    --tracking-serif-display: -1.5px;
+    --hero-text-dog-height: calc(6 * var(--font-size-display) * var(--line-height-title));
   }
 }
 
@@ -148,7 +148,7 @@
 
 /* case study page title h2 sans */
 @utility type-proj-title {
-  font: var(--font-weight-semibold) var(--font-size-lg) / var(--line-height-base) var(--font-sans);
+  font: var(--font-weight-medium) var(--text-xl) / var(--line-height-base) var(--font-sans);
   letter-spacing: -1px;
 }
 
@@ -160,32 +160,32 @@
 
 /* section headers serif */
 @utility type-h2 {
-  font: var(--font-weight-regular) var(--font-size-xl) / var(--line-height-base) var(--font-serif);
+  font: var(--font-weight-normal) var(--text-2xl) / var(--line-height-base) var(--font-serif);
   letter-spacing: var(--tracking-serif-base);
 }
 
 @utility type-h3-subhead {
-  font: var(--font-weight-semibold) var(--font-size-lg) / var(--line-height-base) var(--font-sans);
+  font: var(--font-weight-medium) var(--text-xl) / var(--line-height-base) var(--font-sans);
   letter-spacing: 0;
 }
 
 @utility type-body {
-  font: var(--font-weight-regular) var(--font-size-md) / var(--line-height-base) var(--font-sans);
+  font: var(--font-weight-normal) var(--text-base) / var(--line-height-base) var(--font-sans);
   letter-spacing: 0;
 }
 
 @utility type-body-bold {
-  font: var(--font-weight-semibold) var(--font-size-md) / var(--line-height-base) var(--font-sans);
+  font: var(--font-weight-medium) var(--text-base) / var(--line-height-base) var(--font-sans);
   letter-spacing: 0;
 }
 
 @utility type-body-sm {
-  font: var(--font-weight-regular) var(--font-size-sm) / var(--line-height-base) var(--font-sans);
+  font: var(--font-weight-normal) var(--text-sm) / var(--line-height-base) var(--font-sans);
   letter-spacing: 0;
 }
 
 @utility type-body-sm-bold {
-  font: var(--font-weight-semibold) var(--font-size-sm) / var(--line-height-base) var(--font-sans);
+  font: var(--font-weight-medium) var(--text-sm) / var(--line-height-base) var(--font-sans);
   letter-spacing: 0;
 }
 
@@ -201,20 +201,78 @@
 }
 
 @utility type-nav-link {
-  font: var(--font-weight-semibold) var(--font-size-sm) / var(--line-height-base) var(--font-sans);
+  font: var(--font-weight-medium) var(--text-sm) / var(--line-height-base) var(--font-sans);
   letter-spacing: 0;
 }
 
 @utility type-page-heading {
-  font: var(--font-weight-regular) var(--font-size-2xl) / var(--line-height-base) var(--font-serif);
+  font: var(--font-weight-normal) var(--font-size-2xl) / var(--line-height-base) var(--font-serif);
   letter-spacing: var(--tracking-serif-base);
 }
 
+/* ─── @utility — pg-w-* (page outer) + content-* (inner) ─── */
+
+@utility pg-w-80 {
+  box-sizing: border-box;
+  margin-inline: auto;
+  width: var(--pg-w-80-width);
+  min-width: 0;
+  max-width: var(--pg-w-80-max);
+}
+
+@utility pg-w-90 {
+  box-sizing: border-box;
+  margin-inline: auto;
+  width: var(--pg-w-90-width);
+  min-width: 0;
+  max-width: var(--pg-w-90-max);
+}
+
+@utility pg-w-xl {
+  box-sizing: border-box;
+  margin-inline: auto;
+  width: 100%;
+  min-width: 0;
+  max-width: var(--max-width-xl);
+}
+
+@utility hero-visual-column {
+  box-sizing: border-box;
+  width: var(--hero-visual-width);
+  min-width: 0;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+@utility content-mw-800 {
+  box-sizing: border-box;
+  margin-inline: auto;
+  width: 100%;
+  min-width: 0;
+  max-width: var(--content-mw-800);
+}
+
+@utility content-w-80 {
+  box-sizing: border-box;
+  margin-inline: auto;
+  width: var(--content-w-80);
+  min-width: 0;
+}
+
+@utility layout-fluid {
+  width: 100%;
+  min-width: 0;
+}
 
 /* ─── @layer base ─── */
 @layer base {
+  html,
   body {
-    font: var(--font-weight-regular) var(--font-size-md) / var(--line-height-base) var(--font-sans);
+    background-color: var(--color-fill-default);
+  }
+
+  body {
+    font: var(--font-weight-normal) var(--text-base) / var(--line-height-base) var(--font-sans);
     letter-spacing: 0;
   }
 

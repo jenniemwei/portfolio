@@ -9,7 +9,7 @@ const saans = localFont({
   src: [
     {
       path: "../../public/Saans/Saans-TRIAL-Light.woff2",
-      weight: "300",
+      weight: "350",
       style: "normal",
     },
     {
@@ -36,7 +36,7 @@ const crimsonPro = Crimson_Pro({
   subsets: ["latin"],
   variable: "--font-crimson",
   display: "swap",
-  weight: ["300", "400", "500", "600"],
+  weight: "variable",
 });
 
 export const metadata: Metadata = {
@@ -57,11 +57,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${saans.variable} ${crimsonPro.variable}`}
+      className={`${saans.variable} ${crimsonPro.variable} bg-fill-default`}
       suppressHydrationWarning
     >
       <body
-        className="min-h-screen bg-canvas text-default antialiased"
+        className="min-h-screen bg-fill-default text-text-default antialiased"
         suppressHydrationWarning
       >
         <Nav />

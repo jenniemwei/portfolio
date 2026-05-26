@@ -12,7 +12,7 @@ export type HomeProjectItem = {
   imgAlt?: string;
   /** MP4 URL (e.g. Cloudinary). Default card visual; `img` shows on hover when both are set. */
   video?: string;
-  /** Solid fill behind video (e.g. letterboxing). Use token vars like `var(--g0)` or `white`. */
+  /** Solid fill behind video (e.g. letterboxing). Use `var(--color-fill-default)` or `white`. */
   videoThumbBg?: string;
   /** Default is cover (like images). Set `contain` for letterboxed / width-first video. */
   videoThumbFit?: "contain" | "cover";
@@ -72,7 +72,7 @@ export const homeProjects = {
             imgAlt: "Mclubs",
             video:
               "https://res.cloudinary.com/dlaz3infq/video/upload/v1776166382/Mobile-Screens-Grid-remix_1_flex5t.webm",
-            videoThumbBg: "var(--g0)",
+            videoThumbBg: "var(--color-fill-default)",
           },
           {
             index: 1,
@@ -84,7 +84,7 @@ export const homeProjects = {
             imgAlt: "Folding@Home",
             video:
               "https://res.cloudinary.com/dlaz3infq/video/upload/v1776208966/logoanilight_rklxrq.webm",
-            videoThumbBg: "var(--g0)",
+            videoThumbBg: "var(--color-fill-default)",
           },
         ],
       },

@@ -12,7 +12,7 @@ function sourceTypeForVideoUrl(src: string): string {
 type GalleryVideoThumbProps = {
   src: string;
   label: string;
-  /** Background behind letterboxing; `white` maps to `var(--white)`, or pass any CSS color. */
+  /** Background behind letterboxing; `white` maps to `var(--color-fill-default)`, or pass any CSS color. */
   fill?: string;
   /** `cover` = same as thumb images (fill + crop). `contain` = letterbox / width-first fit. */
   fit?: "contain" | "cover";
@@ -117,7 +117,7 @@ export function GalleryVideoThumb({
   const [videoFailed, setVideoFailed] = useState(false);
   const fillStyle: CSSProperties | undefined = fill
     ? {
-        backgroundColor: fill === "white" ? "var(--white)" : fill,
+        backgroundColor: fill === "white" ? "var(--color-fill-default)" : fill,
       }
     : undefined;
 

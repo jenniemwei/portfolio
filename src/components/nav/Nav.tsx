@@ -52,8 +52,8 @@ export function Nav() {
         setAtTop(y < SCROLL_TOP_SHOW_PX);
 
         if (isHome) {
-          const hero = document.getElementById("hero-container");
-          setInHeroSection(hero ? y < hero.offsetHeight : false);
+          const sky = document.getElementById("home-sky");
+          setInHeroSection(sky ? y < sky.offsetHeight : false);
         } else {
           setInHeroSection(false);
         }
@@ -97,18 +97,18 @@ export function Nav() {
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-[var(--nav-z)] w-full pt-4 pb-2"
+      className="fixed inset-x-0 top-0 z-[var(--nav-z)] w-full pt-1 pb-0.5"
       data-nav-label-leave={navLabelLeaveEnabled ? "true" : undefined}
       onMouseEnter={() => setPointerHover(true)}
       onMouseLeave={() => setPointerHover(false)}
       onFocusCapture={() => setFocusWithin(true)}
       onBlurCapture={onBlurCapture}
     >
-      <div className="mx-auto flex w-full max-w-xl items-center gap-md px-md">
+      <div className="pg-w-xl flex items-center gap-md px-md">
         <Link
           id="logo-button"
           href="/"
-          className={`${styles.logoButton} relative z-[2] inline-flex items-center justify-center p-4`}
+          className={`${styles.logoButton} relative z-[2] inline-flex items-center justify-center p-1`}
         >
           <Image
             src="/icons/favicon-1.png"
@@ -132,11 +132,11 @@ export function Nav() {
             >
               <div
                 id="nav-pill"
-                className={`${styles.navPill} ${pillNoFill ? styles.navPillNoFill : ""} group/nav-pill relative w-full overflow-hidden rounded-full py-2`}
+                className={`${styles.navPill} ${pillNoFill ? styles.navPillNoFill : ""} group/nav-pill relative w-full overflow-hidden rounded-full py-0.5`}
               >
                 <div id="nav-pill-fill" className={styles.navPillFill} aria-hidden />
                 <div className="relative z-[1] grid min-h-[var(--nav-icon-size)] w-full grid-cols-[1fr_auto] items-center gap-x-md">
-                  <div className="flex min-w-0 items-stretch justify-center gap-64">
+                  <div className="flex min-w-0 items-stretch justify-center gap-16">
                     {HOME_NAV_LINKS.map((item) => {
                       const { href, label, containerId } = item;
                       if ("sectionId" in item) {
@@ -171,7 +171,7 @@ export function Nav() {
                   <Link
                     id="info-button"
                     href="/info"
-                    className={`${navTextLinkClassName} shrink-0 px-8`}
+                    className={`${navTextLinkClassName} shrink-0 px-2`}
                     onMouseEnter={enableNavLabelLeaveAnim}
                     onFocus={enableNavLabelLeaveAnim}
                   >

@@ -8,11 +8,11 @@ export type GlRgb = [number, number, number];
 /** WebGL 0–1 RGB sky palette. */
 export const SKY_SHADER_COLORS = {
   /** Base sky fill */
-  baseColor: [156 / 255, 213 / 255, 233 / 255] as GlRgb,
+  baseColor: [172 / 255, 217 / 255, 230 / 255]  as GlRgb,
   /** Cloud body */
-  cloudColor: [234 / 255, 240 / 255, 242 / 255] as GlRgb,
+  cloudColor: [250 / 255, 244/255, 237 / 255] as GlRgb,
   /** Cloud highlight */
-  cloudHighlightColor: [239 / 255, 1, 252 / 255] as GlRgb,
+  cloudHighlightColor: [255 / 255, 238 / 255, 230 / 255] as GlRgb,
 } as const;
 
 export interface SkyShaderConfig {
@@ -43,6 +43,12 @@ export interface SkyShaderConfig {
   cloudHighlightStrength: number;
   /** Film grain (0 = off, ~0.02 = subtle). */
   grain: number;
+
+  // ── Cloud shape ─────────────────────────────────────────────────
+  /** Blob scale (1 = default). Higher = larger clouds. */
+  cloudSize: number;
+  /** Edge softness multiplier (1 = default smoothstep half-width). */
+  cloudEdgeBlur: number;
 }
 
 export const DEFAULT_SKY_SHADER_CONFIG: SkyShaderConfig = {
@@ -54,9 +60,11 @@ export const DEFAULT_SKY_SHADER_CONFIG: SkyShaderConfig = {
   baseColor: SKY_SHADER_COLORS.baseColor,
   cloudColor: SKY_SHADER_COLORS.cloudColor,
   cloudHighlightColor: SKY_SHADER_COLORS.cloudHighlightColor,
-  cloudStrength: 0.7,
+  cloudStrength: 0.5,
   cloudHighlightStrength: 0.5,
-  grain: 0.01,
+  grain: 0.1,
+  cloudSize: 1,
+  cloudEdgeBlur: 1,
 };
 
 type SkyShaderProps = {
@@ -116,6 +124,8 @@ export function SkyShader({
       uniform float u_cloudStrength;
       uniform float u_cloudHighlightStrength;
       uniform float u_grain;
+      uniform float u_cloudSize;
+      uniform float u_cloudEdgeBlur;
 
       float hash(vec2 p) {
         return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
@@ -153,13 +163,15 @@ export function SkyShader({
         vec2 flowSlow = st + dir * t * u_driftSpeedSlow;
         vec2 flowFast = st + dir * t * u_driftSpeedFast;
 
-        float blobSlow = fbm(flowSlow * 2.2 + vec2(t * 0.05, t * 0.03));
-        float blobFast = fbm(flowFast * 4.5 + vec2(fbm(flowFast * 1.1) * 1.5, t * 0.08));
+        float size = max(u_cloudSize, 0.25);
+        float blobSlow = fbm(flowSlow * (2.2 / size) + vec2(t * 0.05, t * 0.03));
+        float blobFast = fbm(flowFast * (4.5 / size) + vec2(fbm(flowFast * (1.1 / size)) * 1.5, t * 0.08));
         float bloom = blobSlow * 0.5 + blobFast * 0.5;
 
-        float cloudHighlightMask = smoothstep(0.38, 0.65, blobSlow)
-                                 * smoothstep(0.60, 0.35, blobFast);
-        float cloudMask = smoothstep(0.42, 0.62, bloom);
+        float blur = max(u_cloudEdgeBlur, 0.01);
+        float cloudHighlightMask = smoothstep(0.515 - 0.135 * blur, 0.515 + 0.135 * blur, blobSlow)
+                                 * smoothstep(0.475 + 0.125 * blur, 0.475 - 0.125 * blur, blobFast);
+        float cloudMask = smoothstep(0.52 - 0.10 * blur, 0.52 + 0.10 * blur, bloom);
 
         vec3 col = u_baseColor;
         col = mix(col, u_cloudColor, cloudMask * u_cloudStrength);
@@ -214,6 +226,8 @@ export function SkyShader({
       cloudStrength: ctx.getUniformLocation(prog, "u_cloudStrength"),
       cloudHighlightStrength: ctx.getUniformLocation(prog, "u_cloudHighlightStrength"),
       grain: ctx.getUniformLocation(prog, "u_grain"),
+      cloudSize: ctx.getUniformLocation(prog, "u_cloudSize"),
+      cloudEdgeBlur: ctx.getUniformLocation(prog, "u_cloudEdgeBlur"),
     };
 
     let startTime: number | null = null;
@@ -242,6 +256,8 @@ export function SkyShader({
       ctx.uniform1f(u.cloudStrength, cfg.cloudStrength);
       ctx.uniform1f(u.cloudHighlightStrength, cfg.cloudHighlightStrength);
       ctx.uniform1f(u.grain, cfg.grain);
+      ctx.uniform1f(u.cloudSize, cfg.cloudSize);
+      ctx.uniform1f(u.cloudEdgeBlur, cfg.cloudEdgeBlur);
 
       ctx.drawArrays(ctx.TRIANGLE_STRIP, 0, 4);
     }

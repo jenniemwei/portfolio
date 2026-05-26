@@ -17,8 +17,8 @@ export function HeroRiveDog() {
   const layout = useMemo(
     () =>
       new Layout({
-        fit: Fit.Contain,
-        alignment: Alignment.BottomCenter,
+        fit: Fit.FitWidth,
+        alignment: Alignment.TopCenter,
       }),
     [],
   );
@@ -35,28 +35,25 @@ export function HeroRiveDog() {
     },
     {
       shouldResizeCanvasToContainer: true,
+      fitCanvasToArtboardHeight: true,
     },
   );
 
-  /**
-   * `#dog-container`: 90% width, capped; square outer box.
-   * `#dog-wrapper`: artboard aspect (7:10); Rive `Fit.Contain` fills wrapper.
-   */
   return (
     <div
-      id="dog-container"
-      className="relative z-[61] flex aspect-square w-[90%] max-w-[var(--hero-visual-max-width)] min-h-0 shrink-0 flex-col items-center justify-start overflow-visible"
+      id="dog-column"
+      className="hero-visual-column relative z-[61] flex items-start justify-end"
     >
       <div
-        id="dog-wrapper"
-        className="relative aspect-[var(--hero-visual-aspect-ratio)] w-full shrink-0 overflow-visible"
+        id="dog-layout-slot"
+        className="relative w-full aspect-square overflow-visible"
       >
         <div
-          className="pointer-events-auto absolute inset-0 min-h-0 min-w-0"
+          className="pointer-events-auto absolute top-0 left-0 w-full overflow-visible"
           data-hero-dog-target
         >
           <RiveComponent
-            style={{ width: "100%", height: "100%", display: "block" }}
+            className="block w-full overflow-visible [&_canvas]:overflow-visible"
             role="img"
             aria-label={HERO_RIVE_ARIA_LABEL}
           />

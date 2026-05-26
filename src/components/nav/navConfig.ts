@@ -46,6 +46,6 @@ export const WORK_SUBNAV_LINKS: readonly NavLinkItem[] = [
 ] as const;
 
 export const NAV_TEXT_LINK_CLASS =
-  "group/nav-link flex items-center py-12";
+  "group/nav-link flex items-center py-3";
 
-export const NAV_LINK_LABEL_CLASS = "type-nav-link text-default";
+export const NAV_LINK_LABEL_CLASS = "type-nav-link text-text-default";

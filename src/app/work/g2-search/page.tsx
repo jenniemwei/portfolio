@@ -14,7 +14,8 @@ export const metadata: Metadata = {
 
 export default function G2SearchPage() {
   return (
-    <main className="mx-auto flex w-full max-w-page-lg flex-col gap-lg px-gutter py-64">
+    <main className="w-full flex-col gap-lg py-16">
+      <div className="pg-w-80 flex-col gap-lg px-gutter">
       <ProjHero
         images={[
           {
@@ -36,7 +37,7 @@ export default function G2SearchPage() {
       {/* ─── The Story ────────────────────────────── */}
       <HeaderSection id="context" header="The Story">
         <Row cols="3fr 1fr">
-          <div className="flex flex-col items-start gap-md">
+          <div className="flex-col items-start gap-md">
             <Image
               src="/g2-search-pg/search-stats1.png"
               alt="Search stats"
@@ -47,7 +48,7 @@ export default function G2SearchPage() {
              
             />
           </div>
-          <div className="flex flex-col items-center justify-center gap-md">
+          <div className="flex-col items-center justify-center gap-md">
             <h3 className="type-h3-subhead">
               Buyers search a lot but don&apos;t engage with results
             </h3>
@@ -77,7 +78,7 @@ export default function G2SearchPage() {
 
       {/* ─── Brainstorm ───────────────────────────── */}
       <HeaderSection id="brainstorm" header="Brainstorm">
-      <h3 className="type-h3-subhead max-w-3xl">
+      <h3 className="type-h3-subhead content-mw-800">
         AI is never a magical black box, so early on I ran a brainstorm with Buyer Team engineers to better understand the limitations and possibilities directly from those who build and maintain it.
       </h3>
       <Row cols="1fr 1fr 1fr" className="gap-xs">
@@ -91,7 +92,7 @@ export default function G2SearchPage() {
       {/* Design ------------------------------------ */}
       <HeaderSection id="initial-design" header="Design">
       <Row cols="1fr 2fr">
-          <div className="flex flex-col justify-start gap-md">
+          <div className="flex-col justify-start gap-md">
             <p className="type-body-sm">01.</p>
             <p className="type-body">
               Prompt to filter using G2&apos;s robust software data
@@ -108,7 +109,7 @@ export default function G2SearchPage() {
             />
        </Row>
         <Row cols="1fr 1fr" className="justify-items-start">
-          <div className="flex flex-col gap-md">
+          <div className="flex-col gap-md">
             <p className="type-body-sm">02.</p>
             <p className="type-body">
               Context-based dynamic product card content
@@ -126,7 +127,7 @@ export default function G2SearchPage() {
         </Row>
 
         <Row cols="3fr 2fr">
-          <div className="flex flex-col items-start gap-md">
+          <div className="flex-col items-start gap-md">
             <Image
               src="/g2-search-pg/inline.png"
               alt="Inline assistance"
@@ -137,7 +138,7 @@ export default function G2SearchPage() {
              
             />
           </div>
-          <div className="flex flex-col items-start gap-md">
+          <div className="flex-col items-start gap-md">
             <p className="type-body-sm">03.</p>
             <p className="type-body">
               Inline assistance so buyers can refine results without breaking
@@ -146,11 +147,14 @@ export default function G2SearchPage() {
           </div>
         </Row>
 
+        <div className="content-w-80">
         <Callout>
           How far can we personalize a search result experience?
         </Callout>
+        </div>
       </HeaderSection>
      
+      </div>
     </main>
   );
 }

@@ -24,7 +24,7 @@ interface ProjHeroProps {
 export function ProjHero({ images, title, specs, description }: ProjHeroProps) {
   return (
     <>
-      <header className="flex w-full flex-col gap-md">
+      <header className="w-full flex-col gap-md">
         {/* hero visuals: fixed band height; images cover each cell */}
         <section
           aria-label="Hero visuals"
@@ -37,7 +37,7 @@ export function ProjHero({ images, title, specs, description }: ProjHeroProps) {
             {images.map((img) => (
               <div
                 key={img.src}
-                className="flex h-full min-h-0 w-full flex-col items-start gap-md"
+                className="h-full min-h-0 w-full flex-col items-start gap-md"
               >
                 <div className="relative min-h-0 w-full flex-1 overflow-hidden">
                   <Image
@@ -60,16 +60,16 @@ export function ProjHero({ images, title, specs, description }: ProjHeroProps) {
 
         {/* specs row */}
         <Row cols="1fr 1fr 2fr">
-          <div className="flex flex-col items-start gap-lg">
+          <div className="flex-col items-start gap-lg">
             {specs.map((s) => (
-              <div key={s.label} className="flex flex-col">
+              <div key={s.label} className="flex-col">
                 <p className="type-body-sm-bold">{s.label}</p>
                 <p className="type-body-sm whitespace-pre-line">{s.value}</p>
               </div>
             ))}
           </div>
           <Spacer />
-          <div className="flex flex-col items-start gap-md">
+          <div className="flex-col items-start gap-md">
             <p className="type-hero-description w-full min-w-0 text-pretty">
               {description}
             </p>

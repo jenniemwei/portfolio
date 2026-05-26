@@ -1,9 +1,20 @@
 import Image from "next/image";
 
-export function Footer() {
+type FooterProps = {
+  className?: string;
+};
+
+export function Footer({ className }: FooterProps) {
   return (
-    <footer className="relative mt-auto h-[10vh] w-full shrink-0 self-stretch overflow-visible">
-      <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden>
+    <footer
+      className={[
+        "box-border h-[var(--footer-reveal-height)] w-full overflow-hidden bg-fill-dark",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      <div className="absolute inset-0 z-0 hidden overflow-hidden" aria-hidden>
         <Image
           src="/footer-bg.gif"
           alt=""
@@ -20,7 +31,7 @@ export function Footer() {
         className="pointer-events-none absolute bottom-0 left-[5%] z-[1] h-[150%] w-auto max-w-none object-contain object-bottom-left"
         decoding="async"
       />
-      <p className="type-body-sm pointer-events-none absolute right-24 bottom-24 z-[2] m-0 text-right text-white">
+      <p className="type-body-sm pointer-events-none absolute right-24 bottom-24 z-[2] m-0 text-right text-text-white">
         Built with Next.js | Last updated Apr 2026
       </p>
     </footer>

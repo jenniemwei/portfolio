@@ -115,7 +115,7 @@ export function ProjectCard({
         >
           {visual ?? (
             <div
-              className="absolute inset-0 bg-g3"
+              className="absolute inset-0 bg-fill-default"
               aria-hidden
             />
           )}
@@ -125,7 +125,7 @@ export function ProjectCard({
         base={projTitle}
         alternate={projTitleHover}
         hovered={hovered}
-        className="type-body-bold w-full min-w-0 shrink-0 text-default"
+        className="type-body-bold w-full min-w-0 shrink-0 text-text-default"
       />
     </article>
   );
@@ -137,7 +137,7 @@ export function ProjectCard({
   return (
     <Link
       href={href}
-      className={`${styles.cardLink} rounded-none text-inherit no-underline outline-none focus-visible:ring-2 focus-visible:ring-default focus-visible:ring-offset-2 focus-visible:ring-offset-canvas`}
+      className={`${styles.cardLink} rounded-none text-inherit no-underline outline-none focus-visible:ring-2 focus-visible:ring-text-default focus-visible:ring-offset-2 focus-visible:ring-offset-fill-default`}
       aria-label={`View ${projTitle}`}
     >
       {article}

@@ -2,116 +2,92 @@
 
 import type { CSSProperties } from "react";
 
-import { GalleryRow } from "@/components/gallery/GalleryRow";
 import { HeroCursorZone } from "@/components/home/HeroCursorZone";
 import { HeroRiveDog } from "@/components/home/HeroRiveDog";
 import { HeroTypewriterTagline } from "@/components/home/HeroTypewriterTagline";
-import { SkyShader } from "@/components/home/SkyShader";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-import styles from "./Hero.module.css";
+const HERO_ICON_LINK_CLASS =
+  "group inline-flex size-6 items-center justify-center origin-center rotate-0 outline-none transition-[transform,filter] duration-[350ms] ease-in-out hover:rotate-[30deg] hover:drop-shadow-[0_8px_16px_rgba(0,0,0,0.24)] focus-visible:rotate-[30deg] focus-visible:drop-shadow-[0_8px_16px_rgba(0,0,0,0.24)]";
+
+const HERO_ICON_MASK_CLASS =
+  "block size-6 aspect-square bg-text-secondary opacity-80 transition-opacity duration-[250ms] ease-in group-hover:opacity-100 group-focus-visible:opacity-100 [mask-image:var(--hero-icon-url)] [mask-repeat:no-repeat] [mask-position:center] [mask-size:contain] [-webkit-mask-image:var(--hero-icon-url)] [-webkit-mask-repeat:no-repeat] [-webkit-mask-position:center] [-webkit-mask-size:contain]";
+
+const HERO_SOCIAL_LINKS = [
+  {
+    href: "mailto:jenniew@andrew.cmu.edu",
+    label: "Send email to Jennie Wei",
+    icon: "/icons/email.svg",
+  },
+  {
+    href: "https://www.linkedin.com/in/jenniewei/",
+    label: "LinkedIn profile",
+    icon: "/icons/linkedin.svg",
+    external: true,
+  },
+  {
+    href: "https://drive.google.com/drive/folders/19OuC2GBTdKbCcStpXL2HzcYGEMkKCDvW",
+    label: "Open dog assets folder",
+    icon: "/icons/dog.svg",
+    external: true,
+  },
+] as const;
+
+function HeroSocialLinks() {
+  return (
+    <div
+      id="hero-icon-row"
+      className="flex h-full min-h-0 w-fit flex-row items-start justify-end max-md:h-auto max-md:justify-start gap-8"
+    >
+        {HERO_SOCIAL_LINKS.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            {...("external" in link && link.external
+              ? { target: "_blank", rel: "noreferrer" }
+              : {})}
+            aria-label={link.label}
+            className={HERO_ICON_LINK_CLASS}
+          >
+            <span
+              aria-hidden
+              className={HERO_ICON_MASK_CLASS}
+              style={{ "--hero-icon-url": `url('${link.icon}')` } as CSSProperties}
+            />
+          </a>
+        ))}
+      </div>
+  );
+}
 
 export function Hero() {
-  const reduceMotion = usePrefersReducedMotion();
-
   return (
     <section
       id="hero-container"
-      className="relative flex h-[90vh] w-screen shrink-0 flex-col items-center justify-center overflow-hidden"
+      className="relative z-[60] flex w-full shrink-0 flex-col items-center justify-center pt-[80px] h-auto lg:h-[60vh]"
     >
-      <SkyShader
-        className="pointer-events-none absolute inset-0 z-0"
-        paused={reduceMotion}
-      />
-      <div className={styles.heroSkyFade} aria-hidden />
-      <section
-        id="hero-box"
-        className="relative z-[60] mx-auto mt-[80px] box-border flex aspect-[4/3] h-[90%] max-h-[900px] min-w-0 max-w-page-lg shrink-0 flex-col justify-start overflow-visible rounded-lg bg-hero-box p-[3vw] xl:h-[70%]"
-        aria-label="Hero"
-      >
-        <header
-          id="hero-text"
-          className="relative z-0 flex h-[40%] shrink-0 flex-col overflow-visible"
+        <section
+          id="hero-box"
+          className="relative pg-w-90 flex flex-col gap-md overflow-visible rounded-3xl p-md"
+          aria-label="Hero"
         >
-          <div className={styles.heroTextBlock}>
-            <p className="type-display max-w-[900px] overflow-visible">
-              <span className="text-default">Jennie Wei is a product designer </span>
-              <HeroTypewriterTagline className="text-subtle" />
-            </p>
-          </div>
-        </header>
-        <div
-          id="hero-gallery"
-          className="relative z-[1] flex h-[60%] min-h-0 shrink-0 flex-col overflow-visible"
-        >
-          <HeroCursorZone>
-            <GalleryRow
-              tracks={[1, 2]}
-              measure="content"
-              className="h-full min-h-0 overflow-visible max-md:items-center md:items-end md:grid-auto-rows-[minmax(0,1fr)]"
-              cellClassName={(i) =>
-                [
-                  "w-full min-w-0 justify-self-stretch max-md:h-auto",
-                  i === 0 ? "max-md:order-2" : "max-md:order-1",
-                ].join(" ")
-              }
+              <HeroCursorZone>
+              <div
+              id="text-dog"
+              className="h-[var(--hero-text-dog-height)] flex flex-row justify-between w-full shrink-0 overflow-visible"
             >
-              <div id="hero-icon-row" className={styles.heroIconCell}>
-                <div className={styles.heroIconRow}>
-                  <a
-                    href="mailto:jenniew@andrew.cmu.edu"
-                    aria-label="Send email to Jennie Wei"
-                    className={styles.heroIconLink}
-                  >
-                    <span
-                      aria-hidden
-                      className={styles.heroIconMask}
-                      style={
-                        { "--hero-icon-url": "url('/icons/email.svg')" } as CSSProperties
-                      }
-                    />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/jenniewei/"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="LinkedIn profile"
-                    className={styles.heroIconLink}
-                  >
-                    <span
-                      aria-hidden
-                      className={styles.heroIconMask}
-                      style={
-                        {
-                          "--hero-icon-url": "url('/icons/linkedin.svg')",
-                        } as CSSProperties
-                      }
-                    />
-                  </a>
-                  <a
-                    href="https://drive.google.com/drive/folders/19OuC2GBTdKbCcStpXL2HzcYGEMkKCDvW"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Open dog assets folder"
-                    className={styles.heroIconLink}
-                  >
-                    <span
-                      aria-hidden
-                      className={styles.heroIconMask}
-                      style={
-                        { "--hero-icon-url": "url('/icons/dog.svg')" } as CSSProperties
-                      }
-                    />
-                  </a>
-                </div>
-              </div>
-              <div className="flex min-h-0 w-full min-w-0 flex-col items-end justify-end overflow-visible max-md:h-auto max-md:items-center max-md:justify-start max-md:border-l-0 md:h-full">
+                <header className="type-display max-w-[800px] flex flex-1 flex-col items-start justify-start text-left pt-lg">
+                  <span className="text-text-default">Jennie Wei is a product designer </span>
+                  <HeroTypewriterTagline className="text-left text-text-subtle" />
+                </header>
                 <HeroRiveDog />
-              </div>
-            </GalleryRow>
-          </HeroCursorZone>
-        </div>
-      </section>
+                </div>
+              </HeroCursorZone>
+          <div className="relative z-[1] flex min-h-0 w-full flex-1 flex-row overflow-visible max-lg:flex-none lg:h-[60%]">
+                  <HeroSocialLinks />
+       
+          </div>
+          <hr className="bottom-hr" aria-hidden />
+        </section>
     </section>
   );
 }

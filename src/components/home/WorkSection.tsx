@@ -11,35 +11,37 @@ import { resolveProjectCardHref } from "@/data/project-pages";
 
 export function WorkSection() {
   return (
-    <section id="work" className="w-full py-xl">
-      <div
-        className={`mx-auto w-[95%] min-w-0 max-w-page-lg ${gallerySectionStyles.sectionReveal} flex flex-col gap-12 py-md`}
-      >
-        {homeProjects.work.rows.map((row, rowIndex) => (
-          <GalleryRow
-            key={`work-${row.tracks.join("-")}-${rowIndex}`}
-            tracks={row.tracks}
-            measure="viewport"
-          >
-            {sortProjectsByIndex(row.projects as readonly HomeProjectItem[]).map(
-              (project, i) => (
-                <ProjectCard
-                  key={project.id ?? `work-${rowIndex}-${i}`}
-                  id={project.id}
-                  href={resolveProjectCardHref(project)}
-                  projTitle={project.heading}
-                  projTitleHover={project.subheadDesc}
-                  visual={
-                    <HomeProjectVisual
-                      project={project}
-                      sizes="(max-width: 1023px) 100vw, 60vw"
-                    />
-                  }
-                />
-              ),
-            )}
-          </GalleryRow>
-        ))}
+    <section id="work" className="w-full py-md">
+      <div className="pg-w-90">
+        <div
+          className={`${gallerySectionStyles.sectionReveal} w-full min-w-0 flex-col gap-3`}
+        >
+          {homeProjects.work.rows.map((row, rowIndex) => (
+            <GalleryRow
+              key={`work-${row.tracks.join("-")}-${rowIndex}`}
+              tracks={row.tracks}
+              measure="viewport"
+            >
+              {sortProjectsByIndex(row.projects as readonly HomeProjectItem[]).map(
+                (project, i) => (
+                  <ProjectCard
+                    key={project.id ?? `work-${rowIndex}-${i}`}
+                    id={project.id}
+                    href={resolveProjectCardHref(project)}
+                    projTitle={project.heading}
+                    projTitleHover={project.subheadDesc}
+                    visual={
+                      <HomeProjectVisual
+                        project={project}
+                        sizes="(max-width: 1023px) 100vw, 60vw"
+                      />
+                    }
+                  />
+                ),
+              )}
+            </GalleryRow>
+          ))}
+        </div>
       </div>
     </section>
   );

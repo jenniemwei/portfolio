@@ -1,12 +1,16 @@
+import { PageSurface } from "@/components/layout/PageSurface";
+
 export default function ElsePage() {
   return (
-    <div className="mx-auto flex min-h-screen max-w-page-lg flex-col gap-md px-gutter py-64">
-      <h1 className="type-page-heading text-default">
+    <PageSurface>
+      <div className="pg-w-80 min-h-screen flex-col gap-md px-gutter py-16">
+      <h1 className="type-page-heading text-text-default">
         Else
       </h1>
-      <p className="type-body text-subtle">
+      <p className="type-body text-text-subtle">
         More soon.
       </p>
-    </div>
+      </div>
+    </PageSurface>
   );
 }

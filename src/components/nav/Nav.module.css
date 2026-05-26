@@ -60,7 +60,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background-color: var(--white);
+  background-color: var(--color-fill-default);
   opacity: 0;
   transition: opacity 300ms ease-out;
 }

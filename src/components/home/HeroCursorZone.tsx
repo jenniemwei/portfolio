@@ -3,11 +3,12 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-import styles from "./Hero.module.css";
-
 const HERO_CURSOR_HAND_SRC = "/icons/hand-cursor.svg";
 const HERO_CURSOR_SCRATCH_SRC = "/icons/hand-scratching.gif";
 const DOG_TARGET_SELECTOR = "[data-hero-dog-target]";
+
+const HERO_ZONE_LAYOUT =
+  "flex h-full min-h-0 w-full flex-row items-stretch gap-md";
 
 type HeroCursorZoneProps = {
   children: React.ReactNode;
@@ -79,14 +80,22 @@ export function HeroCursorZone({ children }: HeroCursorZoneProps) {
   }, [useCustomCursor]);
 
   if (!useCustomCursor) {
-    return <>{children}</>;
+    return <div className={HERO_ZONE_LAYOUT}>{children}</div>;
   }
 
   return (
-    <div ref={zoneRef} className={styles.zone}>
+    <div
+      ref={zoneRef}
+      className={`${HERO_ZONE_LAYOUT} cursor-none [&_canvas]:cursor-none`}
+    >
       {children}
       <div
-        className={`${styles.follower} ${insideHero ? styles.followerVisible : ""}`}
+        className={[
+          "pointer-events-none fixed left-0 top-0 z-[var(--hero-follow-z)] w-[var(--hero-follow-w)] opacity-0 transition-opacity duration-[150ms] ease-in",
+          insideHero ? "opacity-100" : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
         style={{
           transform: `translate(${coords.x}px, ${coords.y}px)`,
         }}
@@ -99,7 +108,12 @@ export function HeroCursorZone({ children }: HeroCursorZoneProps) {
           width={256}
           height={256}
           unoptimized
-          className={`${styles.cursorGraphic}${scratching ? ` ${styles.cursorGraphicScratching}` : ""}`}
+          className={[
+            "block h-auto w-[var(--hero-follow-w)] translate-x-[var(--hero-follow-nudge-x)] translate-y-[var(--hero-follow-nudge-y)]",
+            scratching ? "rotate-[30deg]" : "",
+          ]
+            .filter(Boolean)
+            .join(" ")}
         />
       </div>
     </div>

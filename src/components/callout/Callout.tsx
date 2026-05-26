@@ -7,7 +7,7 @@ type CalloutHeaderProps = {
   className?: string;
   /** Stable id for linking / `aria-labelledby`. */
   id?: string;
-  /** Heading semantics; visual style is `type-h2 text-default`. Defaults to `h2`. */
+  /** Heading semantics; visual style is `type-h2 text-text-default`. Defaults to `h2`. */
   as?: "h2" | "h3" | "p" | "span";
   /**
    * `span` wrapper + tighter padding — use inside a sentence so only `children` sits in the ellipse
@@ -45,7 +45,7 @@ export function CalloutHeader({
     : "clamp(0.5rem, 2vw, 1rem)";
 
   const innerClass = [
-    "type-h2 text-default relative z-[1] m-0 text-balance text-center",
+    "type-h2 text-text-default relative z-[1] m-0 text-balance text-center",
     inline ? "max-w-none" : "max-w-[min(100%,42ch)]",
   ].join(" ");
 
@@ -71,7 +71,7 @@ interface CalloutProps {
 
 export function Callout({ children }: CalloutProps) {
   return (
-    <div className="flex justify-center py-64">
+    <div className="flex justify-center py-16">
       <CalloutHeader>{children}</CalloutHeader>
     </div>
   );

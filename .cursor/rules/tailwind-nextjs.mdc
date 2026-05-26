@@ -1,0 +1,422 @@
+---
+description: Tailwind v4 + Next.js — tokens, type utilities, styling conventions
+globs: src/**/*.{tsx,ts,css}
+alwaysApply: true
+---
+
+# Tailwind v4 · Next.js · TypeScript — Cursor Rules
+
+You are a senior frontend engineer on this project. The design system is fully
+defined in `src/styles/globals.css`. Follow every rule below precisely. Never
+justify deviating from them. When in doubt, check the token list in Section 1
+before reaching for an arbitrary value.
+
+---
+
+## 1. PROJECT TOKENS — THE REAL TOKEN MAP
+
+All tokens are defined in `src/styles/globals.css`. This is the canonical reference.
+Never invent values — always use what exists here, or add a new token to the file.
+
+### 1.1 Color tokens (use as Tailwind utilities)
+
+Raw ramp lives in `:root` as `--g*` variables. Reference them only through
+semantic `@theme` aliases below — never use `--g*` directly in component
+`className` strings.
+
+| Utility class | Token | Raw value |
+|---|---|---|
+| `text-text-default` | `--color-text-default` → `--g8` | `#121212` — primary text |
+| `text-text-secondary` | `--color-text-secondary` → `--g6` | `#1c1c1c` |
+| `text-text-subtle` | `--color-text-subtle` → `--g4` | `#86868a` — captions |
+| `text-text-white` | `--color-text-white` → `--white` | `#ffffff` |
+| `text-text-black` | `--color-text-black` → `--g8` | `#121212` |
+| `bg-fill-default` | `--color-fill-default` | Page/panel surfaces (`html`, `body`, home shell, sky) |
+| `bg-fill-dark` | `--color-fill-dark` → `--g8` | `#121212` — dark chrome (footer reveal) |
+| `bg-fill-white` | `--color-fill-white` → `--white` | `#ffffff` |
+| `border-line` | `--color-line` → `--g2` | `#d7d7d9` — dividers |
+| `bg-hero-box` | `--color-hero-box` | `color-mix` from `--color-fill-default` at 50% |
+
+Rules:
+- `text-text-default` for primary body text (g8).
+- `bg-fill-default` for page/section surfaces and `html` / `body` base (g3).
+- `bg-fill-dark` for dark site chrome (footer reveal).
+- `text-text-secondary` for slightly softer headings.
+- `text-text-subtle` for captions, labels, metadata.
+- `border-line` for ALL dividers and borders — never `border-gray-*`.
+- Never use raw `--g*` variables in className. Never use hex colors in className.
+
+### 1.2 Font family tokens
+
+| Utility | Token | Maps to |
+|---|---|---|
+| `font-sans` | `--font-sans` | `var(--font-saans)` + system fallbacks |
+| `font-serif` | `--font-serif` | `var(--font-crimson)` + system fallbacks |
+
+- `--font-saans` and `--font-crimson` are injected by `next/font` as CSS variables.
+  They must be declared on `<html>` in `src/app/layout.tsx`.
+- Never use `font-['Inter']` or any hardcoded font name.
+
+### 1.3 Spacing — named rhythm + Tailwind default scale
+
+#### Named rhythm (semantic — prefer for section layout)
+Use these for section-level padding and gaps that should tighten at ≤1280px.
+
+| Utility | Token | Value (desktop) | Value (≤1280px) |
+|---|---|---|---|
+| `gap-xs` / `p-xs` | `--spacing-xs` | `8px` | `8px` |
+| `gap-sm` / `p-sm` | `--spacing-sm` | `12px` | `12px` |
+| `gap-md` / `p-md` | `--spacing-md` | `24px` | `20px` |
+| `gap-lg` / `p-lg` | `--spacing-lg` | `48px` | `32px` |
+| `gap-xl` / `p-xl` | `--spacing-xl` | `64px` | `64px` |
+
+The `sm`, `md`, `lg` named spacers **respond automatically** via the
+`@media (max-width: 1280px)` block in `:root`.
+
+#### Tailwind v4 default scale (0.25rem steps — use for fixed UI details)
+Base unit `0.25rem` (4px at 16px root). Examples:
+
+| Utility | px |
+|---|---|
+| `p-0.5` / `gap-0.5` | 2px |
+| `p-1` / `gap-1` | 4px |
+| `p-2` / `gap-2` | 8px |
+| `p-3` / `gap-3` | 12px |
+| `p-4` / `gap-4` | 16px |
+| `p-5` / `gap-5` | 20px |
+| `p-6` / `gap-6` | 24px |
+| `p-8` / `gap-8` | 32px |
+| `p-12` / `gap-12` | 48px |
+| `p-14` / `gap-14` | 56px |
+| `p-16` / `gap-16` | 64px |
+
+**Decision rule:**
+- Major section padding/gaps → named rhythm (`px-lg`, `gap-md`).
+- Component internals, nav chrome, icon spacing → Tailwind scale (`p-2`, `gap-8`).
+- **Migration note:** old custom `p-24` meant 24px → use `p-6`; old `gap-64` meant 64px → use `gap-16`.
+
+### 1.4 Horizontal page gutter
+
+Always use `px-gutter` for horizontal page insets. This is a `clamp()` from
+~20px to 80px that scales with viewport width.
+
+```tsx
+// ✅ correct — responsive inset
+<main className="px-gutter max-w-page-lg mx-auto">
+
+// ❌ wrong — fixed padding misses the clamp
+<main className="px-4 max-w-page-lg mx-auto">
+```
+
+### 1.5 Max-width tokens
+
+| Utility | Token | Value |
+|---|---|---|
+| `max-w-page-sm` | `--max-width-page-sm` | `800px` — long-form / case study |
+| `max-w-page-md` | `--max-width-page-md` | `1000px` — standard content |
+| `max-w-page-lg` | `--max-width-page-lg` | `1400px` — wide layout |
+| `max-w-xl` | `--max-width-xl` | `1440px` — nav bar |
+
+Never use `max-w-4xl`, `max-w-5xl`, etc. (Tailwind's rem-based scale).
+Always use the project's named page widths above.
+
+### 1.6 Border radius — Tailwind defaults only
+
+Use Tailwind’s built-in `rounded-*` scale (no custom `@theme` radius tokens).
+
+| Use case | Utility | Tailwind default (≈) |
+|---|---|---|
+| Small corners | `rounded-sm` | 2px |
+| Medium corners (cards, hero box, buttons) | `rounded-lg` | 8px |
+| Large / 24px corners | `rounded-3xl` | 24px |
+| Pills / avatars | `rounded-full` | 50% |
+
+Do not use custom `--radius-*` tokens or `rounded-md` for project medium radii — prefer `rounded-lg`.
+
+### 1.7 Motion tokens
+
+| Token | Value | Use for |
+|---|---|---|
+| `--transition-fast` | `150ms ease` | Hover states, opacity fades |
+
+Use `transition-fast` as a CSS variable in the rare cases motion needs
+to be expressed in CSS. For Tailwind, compose with `transition duration-[150ms] ease-in`.
+
+### 1.8 Nav / layout system tokens
+
+These are consumed by nav and layout components. Reference via CSS variable only
+(they are not used as Tailwind utilities directly):
+
+| Token | Value | Notes |
+|---|---|---|
+| `--nav-z` | `55` | Nav sits between sky (`z-0`) and hero box (`z-60`) |
+| `--nav-scroll-margin` | `4.75rem` | `scroll-margin-top` on anchor targets `#work`, `#visual` |
+| `--nav-fill-background` | `color-mix` from `--color-fill-default` at 30% | Frosted glass nav fill |
+| `--nav-fill-backdrop-blur` | `16px` | Backdrop blur for nav |
+| `--nav-icon-size` | `32px` | Nav icon dimensions |
+| `--gallery-row-height` | `45vh` | `GalleryRow` height |
+| `--gallery-row-min-height` | `400px` | `GalleryRow` min-height |
+| `--spacer-section-height` | `200px` | Vertical spacer sections |
+| `--link-hover-opacity` | `0.7` | All link hover states |
+| `--border-width-sm` | `0.5px` | All hairline borders/dividers |
+
+**Never hardcode these values inline** — always reference the variable.
+
+---
+
+## 2. TYPOGRAPHY — USE `@utility type-*` CLASSES
+
+The project defines a complete type system via `@utility` in `src/styles/globals.css`.
+These are the ONLY way to set typography. Never compose font size + weight +
+line-height manually in className strings.
+
+### 2.1 Type utility reference
+
+| Utility | Use case | Font | Size | Weight |
+|---|---|---|---|---|
+| `type-display` | Hero headline, page title | Serif | `--font-size-display` (48px→38px) | Light 300 |
+| `type-page-heading` | Page-level `<h1>` | Serif | `--font-size-2xl` (28px) | Normal 400 |
+| `type-h2` | Section headings | Serif | `--text-2xl` (24px) | Normal 400 |
+| `type-proj-title` | Case study page `<h2>` | Sans | `--text-xl` (20px) | Medium 500 |
+| `type-h3-subhead` | Sub-section headings | Sans | `--text-xl` (20px) | Medium 500 |
+| `type-hero-description` | Hero `<h1>` descriptor | Sans | `--font-size-2xl` (28px) | Light 300 |
+| `type-body` | Default body text | Sans | `--text-base` (16px) | Normal 400 |
+| `type-body-bold` | Emphasized body | Sans | `--text-base` (16px) | Medium 500 |
+| `type-body-sm` | Captions, labels, metadata | Sans | `--text-sm` (14px) | Normal 400 |
+| `type-body-sm-bold` | Bold captions/labels | Sans | `--text-sm` (14px) | Medium 500 |
+| `type-nav-link` | Navigation links | Sans | `--text-sm` (14px) | Medium 500 |
+
+Use Tailwind `--font-weight-*` in utilities (`normal`, `medium`, `light`). For one-off
+emphasis in JSX use `font-medium` (500), not `font-semibold` (600).
+
+### 2.2 Type utility rules
+
+```tsx
+// ✅ correct
+<h1 className="type-display text-text-default">Welcome</h1>
+<p className="type-body text-text-subtle">Caption text</p>
+<h2 className="type-h2 text-text-secondary">Section</h2>
+
+// ❌ wrong — never manually compose typography
+<h1 className="text-[48px] font-light leading-[1.05] tracking-[-3px] font-serif">
+<p className="text-sm font-normal leading-[1.3]">
+```
+
+- A `type-*` utility sets `font`, `letter-spacing`, and `line-height` atomically.
+  Do not override individual sub-properties (`leading-*`, `tracking-*`, `text-*`,
+  `font-*`) on an element that already has a `type-*` class unless intentionally
+  overriding for a one-off exception — document why.
+- `type-display` is responsive: `font-size-display` reduces from 48px to 38px
+  at ≤1280px automatically via the `:root` override. Do not add manual responsive
+  size classes on top of it.
+- Pair `type-*` with a color token: `type-body text-text-default`, `type-body-sm text-text-subtle`.
+
+### 2.3 Fonts are loaded via `next/font`
+
+```ts
+// src/lib/fonts.ts — pattern
+import localFont from "next/font/local";
+
+export const saans = localFont({
+  src: "...",
+  variable: "--font-saans",
+  display: "swap",
+});
+```
+
+```tsx
+// src/app/layout.tsx
+import { saans, crimson } from "@/lib/fonts";
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" className={`${saans.variable} ${crimson.variable}`}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+---
+
+## 3. DIVIDERS & BORDERS
+
+The project has a dedicated `@utility bottom-hr` for horizontal rules:
+
+```tsx
+// ✅ section divider
+<hr className="bottom-hr" />
+
+// ✅ border on a container — always use border-line token
+<div className="border-b border-line">
+
+// ❌ never
+<div className="border-b border-gray-200">
+<hr className="border-t border-[#d7d7d9]">
+```
+
+- All borders use `--border-width-sm` (0.5px) via `border-line`. Never write
+  `border` without the `border-line` color token.
+- For hairline borders on components use `border border-line`.
+
+---
+
+## 4. STYLING — TAILWIND UTILITIES + PROJECT TOKENS
+
+### 4.1 CSS files
+
+`src/styles/globals.css` is the **token + type system** file. Do not add new global CSS files.
+
+- **Prefer Tailwind utilities in TSX** for layout, spacing, and color.
+- **CSS modules** (`*.module.css`) are allowed only for effects that are awkward in utilities:
+  keyframes, `animation-timeline`, masks, nav slide layers, cursor zones. Do not add new modules for simple layout.
+- Avoid new `@apply` — extract a React component or use utilities instead.
+- No `style={{ color: "..." }}` for values that have a project token.
+
+Exceptions where `style={{}}` is permitted (comment why):
+- Runtime-computed values: `style={{ width: `${pct}%` }}`
+- CSS variables for assets: `style={{ "--hero-icon-url": "url(...)" } as CSSProperties}`
+- Canvas/WebGL or third-party overrides
+
+### 4.2 Class composition — always use `cn()`
+
+```ts
+// src/lib/utils.ts
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+```tsx
+// ✅ correct
+<div className={cn("type-body text-text-default px-gutter", isActive && "bg-fill-default")} />
+
+// ❌ wrong
+<div className={`type-body text-text-default px-gutter ${isActive ? "bg-fill-default" : ""}`} />
+```
+
+### 4.3 Link hover states
+
+Use `--link-hover-opacity` (0.7) for all link hover effects:
+
+```tsx
+// ✅
+<a className="transition-opacity hover:opacity-70">Link</a>
+
+// ❌ — inventing a hover value
+<a className="hover:opacity-50">Link</a>
+```
+
+---
+
+## 5. WHEN TO EXTRACT A COMPONENT
+
+Extract a component when ANY of these is true:
+
+1. **Repetition** — the same className combination appears 2+ times across different files.
+2. **Complexity** — more than ~8 utility classes on a single element AND it's a
+   reusable pattern (not a one-off page layout).
+3. **Behaviour** — the element has state, events, or accessibility requirements.
+
+### Component hierarchy
+
+| Layer | What lives here | Path |
+|---|---|---|
+| **Primitive** | Single-element, prop-driven (Button, Badge, Tag) | `src/components/ui/` |
+| **Composite** | Combines primitives (Card, FormField, Modal) | `src/components/ui/` |
+| **Feature** | Business-aware composites (ProjectCard, CaseStudyHero) | `src/components/[feature]/` |
+| **Section** | Full-width layout blocks (HeroSection, Footer) | `src/components/sections/` |
+
+### Do NOT componentise
+
+- One-off layout containers with fewer than 5 classes.
+- `<section className="px-gutter py-lg">` wrappers that appear once.
+- Purely typographic `<p>` or `<span>` wrappers.
+
+### Variants via `cva`, never duplicate files
+
+```tsx
+const button = cva(
+  "inline-flex items-center justify-center rounded-lg type-body-bold transition-opacity duration-[150ms] ease-in",
+  {
+    variants: {
+      size: { sm: "h-8 px-3", md: "h-10 px-4", lg: "h-12 px-6" },
+    },
+  }
+);
+```
+
+---
+
+## 6. NEXT.JS APP ROUTER RULES
+
+- Default to **Server Components**. `"use client"` only for hooks, browser APIs, or context.
+- Keep `"use client"` as **leaf nodes** — not on `layout.tsx` or `page.tsx` unless required.
+- Data fetching in Server Components (`async/await` in component).
+
+```
+src/styles/globals.css     ← tokens + @utility type-*
+
+src/app/
+  layout.tsx               ← font variables on <html>
+  page.tsx
+
+src/components/
+  ui/ | sections/ | [feature]/
+
+src/lib/
+  utils.ts                 ← cn()
+  fonts.ts
+```
+
+### Anchor scroll targets
+
+`#work` and `#visual` have `scroll-margin-top: var(--nav-scroll-margin)` in `@layer base`.
+Add new anchor ids there when sections sit under the fixed nav.
+
+---
+
+## 7. TYPESCRIPT RULES
+
+- `interface` for props, `type` for unions. No `any`. No `enum` — use `as const`.
+- Named exports in `components/`; default exports only for `page.tsx` / `layout.tsx`.
+
+---
+
+## 8. RESPONSIVENESS
+
+- `px-gutter` and named spacers (`sm`, `md`, `lg`) are responsive via `:root` @media — don't duplicate with manual overrides.
+- Layout breakpoints: `sm:`, `md:`, `lg:`, `max-sm:` per default Tailwind scale.
+- `type-display` shrinks automatically — no `md:text-[38px]` on top.
+
+---
+
+## 9. ACCESSIBILITY
+
+- Interactive elements: visible text or `aria-label`.
+- Semantic HTML: `<button>`, `<a>`, `<nav>`, `<main>`, `<section>`, etc.
+- Do not remove global `:focus-visible` without a replacement.
+
+---
+
+## 10. QUICK-REFERENCE CHEAT SHEET
+
+| ❌ Never | ✅ Instead |
+|---|---|
+| `text-[14px] font-normal leading-[1.3]` | `type-body-sm` |
+| `text-[48px] font-light` | `type-display` |
+| `text-gray-400` | `text-text-subtle` |
+| `border-gray-200` | `border-line` |
+| `bg-[#efeff1]` | `bg-fill-default` |
+| dark chrome on footer | `bg-fill-dark` |
+| `px-4` for page inset | `px-gutter` |
+| `max-w-5xl` | `max-w-page-md` |
+| `font-semibold` for 500 weight | `font-medium` |
+| `hover:opacity-50` on links | `hover:opacity-70` |
+| `<hr className="border-t">` | `<hr className="bottom-hr">` |
+| `className="bg-[#2563eb]"` | Add token to `@theme`, use utility |
+| `z-[999]` | Add token to `@theme` |
+| New `*.css` for layout | Tailwind in TSX |
+| `style={{ color: "#..." }}` | `text-text-default` / `text-text-subtle` |
