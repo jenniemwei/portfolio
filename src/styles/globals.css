@@ -85,7 +85,7 @@
   --nav-z: 55;
 
   /* Home work / visual gallery strips (`GalleryRow` measure="viewport") */
-  --gallery-row-height: 40vh;
+  --gallery-row-height: 45vh;
   --gallery-row-min-height: 400px;
 
   --spacer-section-height: 200px;
@@ -115,7 +115,7 @@
 @media (min-width: 640px) {
   :root {
     --pg-w-80-width: 80%;
-    --hero-visual-width: 200px;
+    --hero-visual-width: 220px;
   }
 }
 
@@ -131,8 +131,8 @@
     --spacing-sm: 12px;
     --spacing-md: 20px;
     --spacing-lg: 32px;
-    --font-size-display: 32px;
-    --tracking-serif-display: -1.5px;
+    /* --font-size-display: 36px;
+    --tracking-serif-display: -1.5px; */
     --hero-text-dog-height: calc(6 * var(--font-size-display) * var(--line-height-title));
   }
 }
@@ -228,9 +228,9 @@
 @utility pg-w-xl {
   box-sizing: border-box;
   margin-inline: auto;
-  width: 90%;
+  width: 95%;
   min-width: 0;
-  max-width: var(--max-width-lg);
+  max-width: var(--max-width-xl);
 }
 
 @utility hero-visual-column {

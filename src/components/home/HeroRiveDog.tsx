@@ -42,14 +42,15 @@ export function HeroRiveDog() {
   return (
     <div
       id="dog-column"
-      className="hero-visual-column relative z-[61] flex items-start justify-end"
+      className="hero-visual-column relative z-[61] flex items-start justify-center mr-xl"
     >
       <div
         id="dog-layout-slot"
         className="relative w-full aspect-square overflow-visible"
       >
         <div
-          className="pointer-events-auto absolute top-0 left-0 w-full overflow-visible"
+          className="pointer-events-auto absolute inset-0 flex items-center justify-center w-full h-full overflow-visible"
+     
           data-hero-dog-target
         >
           <RiveComponent

@@ -3,7 +3,7 @@ export const HERO_HEADLINE_PREFIX = "Jennie Wei is a product designer ";
 
 /** Rotating taglines shown after {@link HERO_HEADLINE_PREFIX} in the hero. */
 export const HERO_TAGLINES = [
-  "creating with intention and curiosity to understand people",
+  "creating with intention, curiosity, and a drive to understand people",
   "building meaningful tools that teach and empower humans",
   "who experiments, builds, and breaks things occasionally",
 ] as const;

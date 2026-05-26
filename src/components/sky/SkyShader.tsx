@@ -5,67 +5,51 @@ import { useEffect, useRef, type CSSProperties } from "react";
 /** WebGL color: RGB channels in 0–1. */
 export type GlRgb = [number, number, number];
 
-/** WebGL 0–1 RGB sky palette. */
+/** WebGL 0–1 RGB sky palette (fixed; not part of public config). */
 export const SKY_SHADER_COLORS = {
-  /** Base sky fill */
-  baseColor: [151/ 255, 204 / 255, 222 / 255]  as GlRgb,
-  /** Cloud body */
-  cloudColor: [255 / 255, 242 / 255, 230 / 255] as GlRgb,
-  /** Cloud highlight */
-  cloudHighlightColor: [250 / 255, 244/255, 237 / 255] as GlRgb,
+  baseColor: [180 / 255, 226 / 255, 235 / 255] as GlRgb,
+  cloudColor: [253 / 255, 248 / 255, 245 / 255] as GlRgb,
+  cloudHighlightColor: [255 / 255, 238 / 255, 230/ 255] as GlRgb,
 } as const;
 
+/** Motion + grain — fixed; tune clouds via `SkyShaderConfig` only. */
+const SKY_SHADER_MOTION = {
+  animationSpeed: 0.2,
+  driftSpeedSlow: 0.08,
+  driftSpeedFast: 0.5,
+  driftDirectionX: -1,
+  driftDirectionY: 0.4,
+  grain: 0.09,
+} as const;
+
+/** Public tuning dials — all values are **0–1** (clamped in shader). */
 export interface SkyShaderConfig {
-  // ── Motion ──────────────────────────────────────────────────────
-  /** Master animation speed (1 = default). */
-  animationSpeed: number;
-  /** Large blob layer drift (× animationSpeed). */
-  driftSpeedSlow: number;
-  /** Fine detail layer drift (× animationSpeed). */
-  driftSpeedFast: number;
-  /** Horizontal drift (+ right, − left). */
-  driftDirectionX: number;
-  /** Vertical drift (+ up, − down). */
-  driftDirectionY: number;
-
-  // ── Colors ──────────────────────────────────────────────────────
-  /** Base sky fill — starting color across the canvas. */
-  baseColor: GlRgb;
-  /** Cloud body — mixed into slower, darker drift patches. */
-  cloudColor: GlRgb;
-  /** Cloud highlight — mixed into brighter drift patches. */
-  cloudHighlightColor: GlRgb;
-
-  // ── Blend strength ──────────────────────────────────────────────
-  /** Cloud body visibility (0–1). */
-  cloudStrength: number;
-  /** Cloud highlight visibility (0–1). */
-  cloudHighlightStrength: number;
-  /** Film grain (0 = off, ~0.02 = subtle). */
-  grain: number;
-
-  // ── Cloud shape ─────────────────────────────────────────────────
-  /** Blob scale (1 = default). Higher = larger clouds. */
+  /** Cloud area: 0 = sparse sky, 1 = heavy cover. */
+  cloudCoverage: number;
+  /** Cloud body opacity where clouds exist. */
+  baseAmt: number;
+  /** Warm highlight strength on peaks. */
+  highlightAmt: number;
+  /** Blob scale: 0 = small/busy, 1 = large/soft. */
   cloudSize: number;
-  /** Edge softness multiplier (1 = default smoothstep half-width). */
-  cloudEdgeBlur: number;
+  /** Edge softness: 0 = crisp, 1 = very soft. */
+  edgeBlur: number;
+  /** Swirl / domain warp: 0 = off, 1 = strong. */
+  warp: number;
 }
 
 export const DEFAULT_SKY_SHADER_CONFIG: SkyShaderConfig = {
-  animationSpeed: 0.75,
-  driftSpeedSlow: 0.05,
-  driftSpeedFast: 0.15,
-  driftDirectionX: 1,
-  driftDirectionY: 0.6,
-  baseColor: SKY_SHADER_COLORS.baseColor,
-  cloudColor: SKY_SHADER_COLORS.cloudColor,
-  cloudHighlightColor: SKY_SHADER_COLORS.cloudHighlightColor,
-  cloudStrength: 0.4,
-  cloudHighlightStrength: 0.5,
-  grain: 0.08,
-  cloudSize: 1.2,
-  cloudEdgeBlur: 1.8,
+  cloudCoverage: 0.3,
+  baseAmt: 0.9,
+  highlightAmt: 0.5,
+  cloudSize: .85,
+  edgeBlur: .8,
+  warp: 0.5,
 };
+
+function clamp01(value: number): number {
+  return Math.min(1, Math.max(0, value));
+}
 
 type SkyShaderProps = {
   config?: Partial<SkyShaderConfig>;
@@ -121,14 +105,14 @@ export function SkyShader({
       uniform vec3  u_baseColor;
       uniform vec3  u_cloudColor;
       uniform vec3  u_cloudHighlightColor;
-      uniform float u_cloudStrength;
-      uniform float u_cloudHighlightStrength;
+      uniform float u_baseAmt;
+      uniform float u_highlightAmt;
       uniform float u_grain;
+      uniform float u_cloudCoverage;
       uniform float u_cloudSize;
-      uniform float u_cloudEdgeBlur;
+      uniform float u_edgeBlur;
+      uniform float u_warp;
 
-      // Hash + noise: use a Hoskins-style hash to avoid lattice/diagonal artifacts.
-      // Value noise is still "soft" but we rotate/warp between octaves to break grid alignment.
       float hash12(vec2 p) {
         vec3 p3 = fract(vec3(p.xyx) * 0.1031);
         p3 += dot(p3, p3.yzx + 33.33);
@@ -138,7 +122,6 @@ export function SkyShader({
       float noise(vec2 p) {
         vec2 i = floor(p);
         vec2 f = fract(p);
-        // Quintic curve (smoother than cubic) reduces interpolation line visibility.
         vec2 u = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
         float a = hash12(i);
         float b = hash12(i + vec2(1.0, 0.0));
@@ -155,7 +138,6 @@ export function SkyShader({
       float fbm(vec2 p) {
         float v = 0.0;
         float a = 0.55;
-        // Rotate each octave so the underlying grid doesn't show up at any one scale.
         mat2 r = rot2(0.65);
         for (int i = 0; i < 6; i++) {
           v += a * noise(p);
@@ -165,7 +147,6 @@ export function SkyShader({
         return v;
       }
 
-      // Tiny domain warp for more organic, cloud-like diffusion.
       vec2 warp(vec2 p) {
         float w1 = fbm(p * 0.85 + vec2(8.2, 1.3));
         float w2 = fbm(p * 0.85 + vec2(2.7, 9.2));
@@ -183,28 +164,47 @@ export function SkyShader({
         vec2 flowSlow = st + dir * t * u_driftSpeedSlow;
         vec2 flowFast = st + dir * t * u_driftSpeedFast;
 
-        float size = max(u_cloudSize, 0.5);
+        float cloudSize01 = clamp(u_cloudSize, 0.0, 1.0);
+        float edgeBlur01 = clamp(u_edgeBlur, 0.0, 1.0);
+        float warp01 = clamp(u_warp, 0.0, 1.0);
+        float size = mix(0.4, 2.0, cloudSize01);
+        float warpAmt = mix(0.0, 0.45, warp01);
+
         vec2 slowP = flowSlow * (2.2 / size) + vec2(t * 0.05, t * 0.03);
         vec2 fastP = flowFast * (4.5 / size) + vec2(t * 0.02, t * 0.08);
 
-        slowP += 0.22 * warp(slowP);
-        fastP += 0.18 * warp(fastP + 3.1);
+        slowP += warpAmt * warp(slowP);
+        fastP += warpAmt * 0.818181818 * warp(fastP + 3.1);
 
         float blobSlow = fbm(slowP);
         float blobFast = fbm(fastP + vec2(fbm(flowFast * (1.1 / size)) * 1.1, 0.0));
         float bloom = blobSlow * 0.5 + blobFast * 0.5;
 
-        float blur = max(u_cloudEdgeBlur, 0.01);
-        float cloudHighlightMask = smoothstep(0.515 - 0.135 * blur, 0.515 + 0.135 * blur, blobSlow)
-                                 * smoothstep(0.475 + 0.125 * blur, 0.475 - 0.125 * blur, blobFast);
-        float cloudMask = smoothstep(0.52 - 0.10 * blur, 0.52 + 0.10 * blur, bloom);
+        float coverage = clamp(u_cloudCoverage, 0.0, 1.0);
+        float baseAmt = clamp(u_baseAmt, 0.0, 1.0);
+        float highlightAmt = clamp(u_highlightAmt, 0.0, 1.0);
+        // High center = sparse clouds (sky shows); low center = more coverage.
+        float cloudCenter = mix(0.68, 0.44, coverage);
+        float presenceEdge = mix(0.025, 0.28, edgeBlur01);
+        float hiHalfSlow = mix(0.03, 0.34, edgeBlur01);
+        float hiHalfFast = mix(0.025, 0.3, edgeBlur01);
+        float hiOffset = mix(0.12, -0.12, coverage);
+
+        float rawPresence = smoothstep(cloudCenter - presenceEdge, cloudCenter + presenceEdge, bloom);
+        // Crush weak values so noise valleys stay sky blue, not a uniform haze.
+        float presence = pow(rawPresence, mix(2.4, 1.35, coverage));
+
+        float highlightField = smoothstep(0.515 + hiOffset - hiHalfSlow, 0.515 + hiOffset + hiHalfSlow, blobSlow)
+                             * smoothstep(0.475 + hiOffset + hiHalfFast, 0.475 + hiOffset - hiHalfFast, blobFast);
+        highlightField = pow(clamp(highlightField, 0.0, 1.0), 1.4);
 
         vec3 col = u_baseColor;
-        col = mix(col, u_cloudColor, cloudMask * u_cloudStrength);
-        col = mix(col, u_cloudHighlightColor, cloudHighlightMask * u_cloudHighlightStrength);
+        float baseLayer = clamp(presence * baseAmt, 0.0, 1.0);
+        col = mix(col, u_cloudColor, baseLayer);
+        // Highlights only on strong peaks — not scaled by full presence (was washing the whole sky).
+        float hiLayer = clamp(highlightField * highlightAmt, 0.0, 0.72);
+        col = mix(col, u_cloudHighlightColor, hiLayer);
 
-        // Screen-space grain + dithering: helps hide 8-bit gradient banding without revealing a grid.
-        // Use pixel coords (not uv) so grain doesn't "swim" with resizes.
         float g = hash12(gl_FragCoord.xy + vec2(t * 60.0, t * 17.0)) - 0.5;
         col += u_grain * g;
 
@@ -252,11 +252,13 @@ export function SkyShader({
       baseColor: ctx.getUniformLocation(prog, "u_baseColor"),
       cloudColor: ctx.getUniformLocation(prog, "u_cloudColor"),
       cloudHighlightColor: ctx.getUniformLocation(prog, "u_cloudHighlightColor"),
-      cloudStrength: ctx.getUniformLocation(prog, "u_cloudStrength"),
-      cloudHighlightStrength: ctx.getUniformLocation(prog, "u_cloudHighlightStrength"),
+      baseAmt: ctx.getUniformLocation(prog, "u_baseAmt"),
+      highlightAmt: ctx.getUniformLocation(prog, "u_highlightAmt"),
       grain: ctx.getUniformLocation(prog, "u_grain"),
+      cloudCoverage: ctx.getUniformLocation(prog, "u_cloudCoverage"),
       cloudSize: ctx.getUniformLocation(prog, "u_cloudSize"),
-      cloudEdgeBlur: ctx.getUniformLocation(prog, "u_cloudEdgeBlur"),
+      edgeBlur: ctx.getUniformLocation(prog, "u_edgeBlur"),
+      warp: ctx.getUniformLocation(prog, "u_warp"),
     };
 
     let startTime: number | null = null;
@@ -275,18 +277,24 @@ export function SkyShader({
       ctx.viewport(0, 0, W, H);
       ctx.uniform2f(u.res, W, H);
       ctx.uniform1f(u.time, elapsed);
-      ctx.uniform1f(u.animationSpeed, cfg.animationSpeed);
-      ctx.uniform1f(u.driftSpeedSlow, cfg.driftSpeedSlow);
-      ctx.uniform1f(u.driftSpeedFast, cfg.driftSpeedFast);
-      ctx.uniform2f(u.driftDirection, cfg.driftDirectionX, cfg.driftDirectionY);
-      ctx.uniform3fv(u.baseColor, cfg.baseColor);
-      ctx.uniform3fv(u.cloudColor, cfg.cloudColor);
-      ctx.uniform3fv(u.cloudHighlightColor, cfg.cloudHighlightColor);
-      ctx.uniform1f(u.cloudStrength, cfg.cloudStrength);
-      ctx.uniform1f(u.cloudHighlightStrength, cfg.cloudHighlightStrength);
-      ctx.uniform1f(u.grain, cfg.grain);
-      ctx.uniform1f(u.cloudSize, cfg.cloudSize);
-      ctx.uniform1f(u.cloudEdgeBlur, cfg.cloudEdgeBlur);
+      ctx.uniform1f(u.animationSpeed, SKY_SHADER_MOTION.animationSpeed);
+      ctx.uniform1f(u.driftSpeedSlow, SKY_SHADER_MOTION.driftSpeedSlow);
+      ctx.uniform1f(u.driftSpeedFast, SKY_SHADER_MOTION.driftSpeedFast);
+      ctx.uniform2f(
+        u.driftDirection,
+        SKY_SHADER_MOTION.driftDirectionX,
+        SKY_SHADER_MOTION.driftDirectionY,
+      );
+      ctx.uniform3fv(u.baseColor, SKY_SHADER_COLORS.baseColor);
+      ctx.uniform3fv(u.cloudColor, SKY_SHADER_COLORS.cloudColor);
+      ctx.uniform3fv(u.cloudHighlightColor, SKY_SHADER_COLORS.cloudHighlightColor);
+      ctx.uniform1f(u.baseAmt, clamp01(cfg.baseAmt));
+      ctx.uniform1f(u.highlightAmt, clamp01(cfg.highlightAmt));
+      ctx.uniform1f(u.grain, SKY_SHADER_MOTION.grain);
+      ctx.uniform1f(u.cloudCoverage, clamp01(cfg.cloudCoverage));
+      ctx.uniform1f(u.cloudSize, clamp01(cfg.cloudSize));
+      ctx.uniform1f(u.edgeBlur, clamp01(cfg.edgeBlur));
+      ctx.uniform1f(u.warp, clamp01(cfg.warp));
 
       ctx.drawArrays(ctx.TRIANGLE_STRIP, 0, 4);
     }

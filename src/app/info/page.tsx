@@ -35,9 +35,9 @@ export default function InfoPage() {
       </div>
 
       <main className="relative z-[1] flex min-h-screen w-full flex-col items-center justify-center py-xl">
-        <div className="pg-w-80 flex flex-col gap-12 rounded-3xl sm:px-[3vw]">
+        <div className="pg-w-90 flex flex-col gap-12 rounded-3xl sm:px-[3vw]">
           <h1 className="type-display text-pretty text-text-default">
-            Nice to meet you, I&apos;m Jennie
+            Nice to meet you, I&apos;m Jennie!
           </h1>
 
           <div className="flex flex-col gap-12 max-lg:flex-col-reverse lg:flex-row lg:gap-lg">

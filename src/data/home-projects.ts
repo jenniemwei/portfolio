@@ -106,37 +106,45 @@ export const homeProjects = {
           },
           {
             index: 1,
-            id: "intouch",
-            heading: "InTouch",
-            subheading: "Spring 2025",
-            subheadDesc: "Voted winning product pitch by real investors",
-            img: "/thumbnails/intouch-thumb-backup.png",
-            imgAlt: "InTouch",
-            video:
-              "https://res.cloudinary.com/dlaz3infq/video/upload/v1767846803/intouch-short_bqnv1v.mp4",
-          },
-        ],
-      },
-      {
-        tracks: [1, 2],
-        projects: [
-          {
-            index: 1,
             heading: "HCII 30",
             subheading: "Summer 2024",
             subheadDesc: "Celebrating 30 years of HCII",
             img: "/thumbnails/HCII-thumb.jpeg",
             imgAlt: "HCII",
           },
-          {
-            index: 0,
-            heading: "Meeting of the Minds",
-            subheading: "Spring 2025",
-            subheadDesc: "Event identity & collateral",
-            img: "/thumbnails/MOM-thumb.png",
-          },
+          // {
+          //   index: 1,
+          //   id: "intouch",
+          //   heading: "InTouch",
+          //   subheading: "Spring 2025",
+          //   subheadDesc: "Voted winning product pitch by real investors",
+          //   img: "/thumbnails/intouch-thumb-backup.png",
+          //   imgAlt: "InTouch",
+          //   video:
+          //     "https://res.cloudinary.com/dlaz3infq/video/upload/v1767846803/intouch-short_bqnv1v.mp4",
+          // },
         ],
       },
+      // {
+      //   tracks: [1, 2],
+      //   projects: [
+      //     {
+      //       index: 1,
+      //       heading: "HCII 30",
+      //       subheading: "Summer 2024",
+      //       subheadDesc: "Celebrating 30 years of HCII",
+      //       img: "/thumbnails/HCII-thumb.jpeg",
+      //       imgAlt: "HCII",
+      //     },
+      //     {
+      //       index: 0,
+      //       heading: "Meeting of the Minds",
+      //       subheading: "Spring 2025",
+      //       subheadDesc: "Event identity & collateral",
+      //       img: "/thumbnails/MOM-thumb.png",
+      //     },
+      //   ],
+      // },
     ],
   },
   visual: {

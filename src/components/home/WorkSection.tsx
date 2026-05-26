@@ -12,7 +12,7 @@ import { resolveProjectCardHref } from "@/data/project-pages";
 export function WorkSection() {
   return (
     <section id="work" className="w-full py-md">
-      <div className="pg-w-xl">
+      <div className="pg-w-90">
         <div
           className={`${gallerySectionStyles.sectionReveal} flex w-full min-w-0 flex-col gap-md`}
         >
