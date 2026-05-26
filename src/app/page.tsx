@@ -13,7 +13,7 @@ export default function HomePage() {
     >
       <div
         id="home-sky"
-        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[50vh]"
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[40vh]"
         aria-hidden
       >
         <PageSkyBackground variant="band" />
