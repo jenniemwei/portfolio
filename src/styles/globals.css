@@ -32,7 +32,7 @@
   --content-w-80: 80%;
 
   /* Hero Rive dog column — single source; see min-width breakpoints below */
-  --hero-visual-width: 200px;
+  --hero-visual-width: 240px;
 }
 
 /* ─── @theme (inline: tokens reference :root ramp via var()) ─── */
@@ -102,7 +102,7 @@
   --border-width-sm: 0.5px;
 
   /* Hero text + dog row — fixed height from display type metrics (typewriter must not shift layout) */
-  --hero-text-dog-height: calc(5 * var(--font-size-display) * var(--line-height-title));
+  --hero-text-dog-height: calc(6 * var(--font-size-display) * var(--line-height-title));
 
   /* SPECIAL  not used often*/
 
@@ -118,13 +118,13 @@
 @media (min-width: 640px) {
   :root {
     --pg-w-80-width: 80%;
-    --hero-visual-width: 240px;
+    --hero-visual-width: 200px;
   }
 }
 
 @media (min-width: 1280px) {
   :root {
-    --hero-visual-width: 300px;
+    --hero-visual-width: 240px;
   }
 }
 

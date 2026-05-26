@@ -63,26 +63,28 @@ export function Hero() {
   return (
     <section
       id="hero-container"
-      className="relative z-[60] flex w-full shrink-0 flex-col items-center justify-center pt-[80px] h-auto lg:h-[60vh]"
+      className="relative z-[60] flex w-full shrink-0 flex-col justify-center pt-[80px] h-auto "
     >
         <section
           id="hero-box"
-          className="relative pg-w-90 flex flex-col gap-md overflow-visible rounded-3xl p-md"
+          className="relative pg-w-90 flex flex-col gap-md overflow-visible rounded-3xl p-md "
           aria-label="Hero"
         >
               <HeroCursorZone>
               <div
               id="text-dog"
-              className="h-[var(--hero-text-dog-height)] flex flex-row justify-between w-full shrink-0 overflow-visible"
+              className="h-auto flex flex-row max-md:flex-col min-gap-lg justify-between w-full overflow-visible"
             >
-                <header className="type-display max-w-[800px] flex flex-1 flex-col items-start justify-start text-left pt-lg">
-                  <span className="text-text-default">Jennie Wei is a product designer </span>
-                  <HeroTypewriterTagline className="text-left text-text-subtle" />
+                <header className="type-display min-w-0 max-w-[800px] flex-1 pt-xl text-pretty text-left">
+                  <span className="text-text-default">
+                    Jennie Wei is a product designer{" "}
+                  </span>
+                  <HeroTypewriterTagline className="text-text-subtle" />
                 </header>
                 <HeroRiveDog />
                 </div>
               </HeroCursorZone>
-          <div className="relative z-[1] flex min-h-0 w-full flex-row overflow-visible max-lg:flex-none ">
+          <div className="relative z-[1] flex min-h-0 w-full flex-row overflow-visible max-lg:flex-none max-md:justify-end max-md:pt-xl">
                   <HeroSocialLinks />
           </div>
           <hr className="bottom-hr" aria-hidden />
