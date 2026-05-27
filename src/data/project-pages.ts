@@ -12,28 +12,28 @@ export type ProjectPage = {
 const projectPages: readonly ProjectPage[] = [
   {
     id: "g2-search",
-    href: "/work/",
+    href: "/#work/",
     pageTitle: "G2 Search",
     altText: "G2 Search case study",
     heroImage: null,
   },
   {
     id: "g2-ai",
-    href: "/work/",
+    href: "/#work/",
     pageTitle: "G2 AI",
     altText: "G2 AI case study",
     heroImage: "/thumbnails/g2ai-home-img.png",
   },
   {
     id: "mclubs",
-    href: "/work/",
+    href: "/#work/",
     pageTitle: "Mclubs",
     altText: "Mclubs case study",
     heroImage: "/thumbnails/Mclubs-home-img.png",
   },
   {
     id: "intouch",
-    href: "/work/",
+    href: "/#work/",
     pageTitle: "InTouch",
     altText: "InTouch case study",
     heroImage: "/thumbnails/intouch-thumb-backup.png",
