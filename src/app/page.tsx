@@ -2,7 +2,6 @@ import { Hero } from "@/components/home/Hero";
 import { PageSkyBackground } from "@/components/sky/PageSkyBackground";
 import { HomeScrollToSection } from "@/components/nav/HomeScrollToSection";
 import { SpacerSection } from "@/components/sections/SpacerSection";
-import { VisualSection } from "@/components/home/VisualSection";
 import { WorkSection } from "@/components/home/WorkSection";
 
 export default function HomePage() {

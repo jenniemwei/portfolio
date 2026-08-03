@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { cn } from "@/lib/cn";
+
 type PageSurfaceProps = {
   children: ReactNode;
   className?: string;
@@ -9,7 +11,7 @@ type PageSurfaceProps = {
 export function PageSurface({ children, className }: PageSurfaceProps) {
   return (
     <div
-      className={["min-h-screen w-full bg-fill-default", className].filter(Boolean).join(" ")}
+      className={cn("min-h-screen w-full bg-fill-default", className)}
     >
       {children}
     </div>

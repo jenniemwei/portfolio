@@ -10,7 +10,8 @@ type WorkLayoutProps = {
 export default function WorkLayout({ children }: WorkLayoutProps) {
   return (
     <PageSurface>
-      <SubNav />
+      {/* Temporarily hidden; keep the work nav implementation available for later. */}
+      {false && <SubNav />}
       {children}
     </PageSurface>
   );

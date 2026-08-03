@@ -1,0 +1,25 @@
+.rail {
+  position: sticky;
+  top: calc(var(--nav-scroll-margin) + var(--spacing-md));
+}
+
+.railContent {
+  width: min(100%, var(--page-rail-content-max));
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity 200ms ease-out,
+    transform var(--transition-project-card);
+  pointer-events: none;
+}
+
+.railContentActive {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .railContent {
+    transition: none;
+  }
+}

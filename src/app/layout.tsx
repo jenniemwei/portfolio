@@ -64,7 +64,8 @@ export default function RootLayout({
         className="min-h-screen bg-fill-default text-text-default antialiased"
         suppressHydrationWarning
       >
-        <Nav />
+        {/* Temporarily hidden; keep the nav implementation available for later. */}
+        {false && <Nav />}
         {children}
       </body>
     </html>

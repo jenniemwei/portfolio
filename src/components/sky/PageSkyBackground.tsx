@@ -18,7 +18,10 @@ export function PageSkyBackground({ variant = "band" }: PageSkyBackgroundProps) 
       className={variant === "page" ? styles.pageShell : styles.bandShell}
       aria-hidden
     >
-      <SkyShader className="absolute inset-0 h-full w-full" paused={reduceMotion} />
+      {/* Temporarily hidden; keep the shader implementation available for later. */}
+      {false && (
+        <SkyShader className="absolute inset-0 h-full w-full" paused={reduceMotion} />
+      )}
       <div className={variant === "page" ? styles.pageFade : styles.bandFade} />
     </div>
   );

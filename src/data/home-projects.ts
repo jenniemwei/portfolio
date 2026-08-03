@@ -4,9 +4,11 @@ export type HomeProjectItem = {
   /** Gallery sort order within a row (ascending). */
   index: number;
   id?: string;
+  /** Case-study route. Omit while a project has no published page. */
+  href?: `/work/${string}`;
   heading: string;
   subheading: string;
-  /** Shown on card hover (subtitle scrambles from `subheading` → this, then back). */
+  /** Contextual helper copy shown in the project detail rail. */
   subheadDesc?: string;
   img: string | null;
   imgAlt?: string;
@@ -40,6 +42,7 @@ export const homeProjects = {
           {
             index: 0,
             id: "g2-search",
+            href: "/work/g2-search",
             heading: "G2 Search",
             subheading: "Summer 2025",
             subheadDesc: "Smart search AI interaction patterns",
@@ -60,7 +63,7 @@ export const homeProjects = {
         ],
       },
       {
-        tracks: [3, 4],
+        tracks: [1, 1],
         projects: [
           {
             index: 0,
@@ -75,7 +78,6 @@ export const homeProjects = {
             videoThumbBg: "var(--color-fill-default)",
           },
           {
-            
             index: 1,
             id: "folding-at-home",
             heading: "Folding@Home",
@@ -89,68 +91,12 @@ export const homeProjects = {
           },
         ],
       },
-      {
-        tracks: [3, 2],
-        
-        projects: [
-          {
-            index: 0,
-            id: "dhero",
-            heading: "The Designers Republic",
-            subheading: "Spring 2025",
-            subheadDesc: "Multimedia tribute to my design hero",
-            img: "/thumbnails/dhero-thumb-backup.webp",
-            imgAlt: "The Designers Republic",
-            video:
-              "https://res.cloudinary.com/dlaz3infq/video/upload/v1767847688/ian_anderson_video_nzysfl.mp4",
-          },
-          {
-            index: 1,
-            heading: "HCII 30",
-            subheading: "Summer 2024",
-            subheadDesc: "Celebrating 30 years of HCII",
-            img: "/thumbnails/HCII-thumb.jpeg",
-            imgAlt: "HCII",
-          },
-          // {
-          //   index: 1,
-          //   id: "intouch",
-          //   heading: "InTouch",
-          //   subheading: "Spring 2025",
-          //   subheadDesc: "Voted winning product pitch by real investors",
-          //   img: "/thumbnails/intouch-thumb-backup.png",
-          //   imgAlt: "InTouch",
-          //   video:
-          //     "https://res.cloudinary.com/dlaz3infq/video/upload/v1767846803/intouch-short_bqnv1v.mp4",
-          // },
-        ],
-      },
-      // {
-      //   tracks: [1, 2],
-      //   projects: [
-      //     {
-      //       index: 1,
-      //       heading: "HCII 30",
-      //       subheading: "Summer 2024",
-      //       subheadDesc: "Celebrating 30 years of HCII",
-      //       img: "/thumbnails/HCII-thumb.jpeg",
-      //       imgAlt: "HCII",
-      //     },
-      //     {
-      //       index: 0,
-      //       heading: "Meeting of the Minds",
-      //       subheading: "Spring 2025",
-      //       subheadDesc: "Event identity & collateral",
-      //       img: "/thumbnails/MOM-thumb.png",
-      //     },
-      //   ],
-      // },
     ],
   },
   visual: {
     rows: [
       {
-        tracks: [6, 4],
+        tracks: [1, 1],
         projects: [
           {
             index: 0,
@@ -162,13 +108,6 @@ export const homeProjects = {
             imgAlt: "The Designers Republic",
             video:
               "https://res.cloudinary.com/dlaz3infq/video/upload/v1767847688/ian_anderson_video_nzysfl.mp4",
-          },
-          {
-            index: 1,
-            heading: "Meeting of the Minds",
-            subheading: "Spring 2025",
-            subheadDesc: "Event identity & collateral",
-            img: "/thumbnails/MOM-thumb.png",
           },
         ],
       },
@@ -182,6 +121,13 @@ export const homeProjects = {
             subheadDesc: "Celebrating 30 years of HCII",
             img: "/thumbnails/HCII-thumb.jpeg",
             imgAlt: "HCII",
+          },
+          {
+            index: 1,
+            heading: "Meeting of the Minds",
+            subheading: "Spring 2025",
+            subheadDesc: "Event identity & collateral",
+            img: "/thumbnails/MOM-thumb.png",
           },
         ],
       },

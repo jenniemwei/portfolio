@@ -26,7 +26,7 @@ export const HOME_NAV_LINKS: readonly NavLinkItem[] = [
     containerId: "visual-button",
     sectionId: "visual",
   },
-  { href: "/else", label: "ELSE", containerId: "else-button" },
+  { href: "/info", label: "ELSE", containerId: "else-button" },
 ] as const;
 
 export const WORK_SUBNAV_LINKS: readonly NavLinkItem[] = [
@@ -42,7 +42,7 @@ export const WORK_SUBNAV_LINKS: readonly NavLinkItem[] = [
     containerId: "subnav-visual-button",
     sectionId: "visual",
   },
-  { href: "/else", label: "ELSE", containerId: "subnav-else-button" },
+  { href: "/info", label: "ELSE", containerId: "subnav-else-button" },
 ] as const;
 
 export const NAV_TEXT_LINK_CLASS =

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { Row } from "./Row";
+import { Row } from "@/components/layout/Row";
 import { Spacer } from "./Spacer";
 import { SpacerSection } from "../sections/SpacerSection";
 

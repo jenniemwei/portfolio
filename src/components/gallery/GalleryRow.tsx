@@ -29,7 +29,7 @@ type GalleryRowProps = {
   tracksCompact?: GalleryRowTracks;
   children: ReactNode;
   /**
-   * `gallery` = aspect-ratio strip; `viewport` = fixed `--gallery-row-height` (home);
+   * `gallery` = row aspect-ratio strip; `viewport` = card-sized media rows (home);
    * `content` = height from children (hero / intro).
    */
   measure?: "gallery" | "viewport" | "content";

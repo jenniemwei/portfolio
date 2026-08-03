@@ -1,10 +1,77 @@
 .cardLink {
   display: flex;
   box-sizing: border-box;
-  height: 100%;
   width: 100%;
   min-width: 0;
-  min-height: max(var(--gallery-row-min-height), var(--gallery-row-height));
-  flex: 1 1 auto;
   flex-direction: column;
+}
+
+.card {
+  transition: opacity 200ms ease-out;
+}
+
+.mediaFrame {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  flex: 0 0 auto;
+}
+
+.caption {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-top: var(--spacing-md);
+}
+
+.cardSubheader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+@media (min-width: 72.001rem) and (hover: hover) {
+  .cardSubheader {
+    display: none;
+  }
+
+  .caption {
+    min-height: 0;
+    flex-basis: 0;
+    overflow: hidden;
+    padding-top: 0;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      flex-basis var(--transition-project-card),
+      padding-top var(--transition-project-card),
+      opacity 240ms ease-out,
+      transform var(--transition-project-card);
+    /* Preserve row height briefly while the pointer moves between sibling cards. */
+    transition-delay: 120ms, 120ms, 0ms, 0ms;
+  }
+
+  .cardActive .caption {
+    flex-basis: calc(1.5rem + var(--spacing-md));
+    padding-top: var(--spacing-md);
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0ms, 0ms, 50ms, 0ms;
+  }
+
+  .cardDimmed {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .caption {
+    transition: none;
+  }
+
 }

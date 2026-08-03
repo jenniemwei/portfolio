@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { PageColumns } from "@/components/layout/PageColumns";
 import { PageSkyBackground } from "@/components/sky/PageSkyBackground";
 
 const INFO_PHOTOS = [
@@ -35,7 +36,7 @@ export default function InfoPage() {
       </div>
 
       <main className="relative z-[1] flex min-h-screen w-full flex-col items-center justify-center py-xl">
-        <div className="pg-w-90 flex flex-col gap-12 rounded-3xl sm:px-[3vw]">
+        <PageColumns centerClassName="flex flex-col gap-12 rounded-3xl px-md sm:px-[3vw]">
           <h1 className="type-display text-pretty text-text-default">
             Nice to meet you, I&apos;m Jennie!
           </h1>
@@ -118,7 +119,7 @@ export default function InfoPage() {
               ))}
             </div>
           </div>
-        </div>
+        </PageColumns>
       </main>
     </div>
   );

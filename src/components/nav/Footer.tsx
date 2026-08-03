@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { cn } from "@/lib/cn";
+
 type FooterProps = {
   className?: string;
 };
@@ -7,12 +9,10 @@ type FooterProps = {
 export function Footer({ className }: FooterProps) {
   return (
     <footer
-      className={[
+      className={cn(
         "box-border h-[var(--footer-reveal-height)] w-full overflow-hidden bg-fill-dark",
         className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      )}
     >
       <div className="absolute inset-0 z-0 hidden overflow-hidden" aria-hidden>
         <Image
@@ -25,6 +25,7 @@ export function Footer({ className }: FooterProps) {
         />
       </div>
       {/* Native img so height % + width:auto track footer without Next/Image intrinsic box fighting layout */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/dog-laying.png"
         alt=""

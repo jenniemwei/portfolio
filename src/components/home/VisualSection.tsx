@@ -1,57 +1,26 @@
-import {
-  homeProjects,
-  sortProjectsByIndex,
-  type HomeProjectItem,
-} from "@/data/home-projects";
-import { GalleryRow } from "@/components/gallery/GalleryRow";
-import { HomeProjectVisual } from "@/components/gallery/HomeProjectVisual";
+import { homeProjects } from "@/data/home-projects";
 import gallerySectionStyles from "@/components/gallery/GallerySectionReveal.module.css";
-import { ProjectCard } from "@/components/cards/ProjectCard";
-import { resolveProjectCardHref } from "@/data/project-pages";
+import { PageColumns } from "@/components/layout/PageColumns";
+import { ProjectGallery } from "@/components/projects/ProjectGallery";
 
 export function VisualSection() {
   return (
     <section id="visual" className="w-full py-xl">
-      <div className="pg-w-90 px-md sm:px-[3vw]">
-        <div className="layout-fluid">
+      <PageColumns centerClassName="px-md sm:px-[3vw]">
+        <div className="layout-fluid pb-md">
           <div className="grid w-full grid-cols-6 gap-x-sm gap-y-sm border-line border-y border-solid py-xl">
             <p className="type-display col-span-6 text-text-default md:col-span-4">
               who also loves visual design...
             </p>
           </div>
-          <div
-            className={`${gallerySectionStyles.sectionReveal} flex flex-col gap-3 py-md`}
-          >
-            {homeProjects.visual.rows.map((row, rowIndex) => (
-              <GalleryRow
-                key={`visual-${row.tracks.join("-")}-${rowIndex}`}
-                tracks={row.tracks}
-                measure="viewport"
-                gap="sm"
-              >
-                {sortProjectsByIndex(row.projects as readonly HomeProjectItem[]).map(
-                  (project, i) => (
-                    <ProjectCard
-                      key={project.id ?? `visual-${rowIndex}-${i}`}
-                      id={project.id}
-                      href={resolveProjectCardHref(project)}
-                      projTitle={project.heading}
-                      projSub={project.subheading}
-                      projSubDesc={project.subheadDesc}
-                      visual={
-                        <HomeProjectVisual
-                          project={project}
-                          sizes="(max-width: 1023px) 100vw, 50vw"
-                        />
-                      }
-                    />
-                  ),
-                )}
-              </GalleryRow>
-            ))}
-          </div>
         </div>
-      </div>
+      </PageColumns>
+      <ProjectGallery
+        rows={homeProjects.visual.rows}
+        gap="sm"
+        sizes="(max-width: 1023px) 100vw, 50vw"
+        className={gallerySectionStyles.sectionReveal}
+      />
     </section>
   );
 }

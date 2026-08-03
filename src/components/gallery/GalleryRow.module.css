@@ -1,5 +1,3 @@
-@reference "../../styles/globals.css";
-
 /* Scroll-scale per row (enter + exit) — not per card; see ProjectCard for hover only */
 @keyframes galleryRowScrollScale {
   0% {
@@ -53,26 +51,22 @@
 }
 
 /*
- * `.rowViewport` — `measure="viewport"` (home work / visual strips).
- * Fixed band: `--gallery-row-height` with `--gallery-row-min-height` floor.
+ * `.rowViewport` — `measure="viewport"` (home work / visual rows).
+ * Height follows each card's media frame; shorter cards anchor to the row top.
  */
 .rowViewport {
   display: grid;
   width: 100%;
   min-width: 0;
-  height: var(--gallery-row-height);
-  min-height: var(--gallery-row-min-height);
   grid-template-columns: var(--gallery-tracks, 1fr);
-  align-items: stretch;
+  align-items: start;
+  transition: grid-template-columns var(--transition-project-card-grow);
 }
 
-/* Stretch with parent row; card brings its own min-height so stacked `height:auto` rows still read tall. */
-.cellViewport {
-  min-width: 0;
-  min-height: 0;
-  width: 100%;
-  align-self: stretch;
-  height: 100%;
+@media (prefers-reduced-motion: reduce) {
+  .rowViewport {
+    transition: none;
+  }
 }
 
 /*
@@ -123,7 +117,13 @@
   height: 100%;
 }
 
-/* Must follow `.cell` so `height: auto` wins — otherwise `height: 100%` fills the row and copy sits at the top. */
+/* Must follow `.cell` so intrinsic-height cells can align within their grid row. */
+.cellViewport {
+  width: 100%;
+  height: auto;
+  align-self: start;
+}
+
 .cellIntrinsic {
   height: auto;
 }
@@ -158,16 +158,6 @@
    */
   .row {
     aspect-ratio: unset;
-  }
-
-  /* Stacked home strips: row grows with stacked cells (each cell keeps the band floor). */
-  .rowViewport {
-    height: auto;
-    min-height: 0;
-  }
-
-  .rowViewport .cell {
-    height: auto;
   }
 
   /*

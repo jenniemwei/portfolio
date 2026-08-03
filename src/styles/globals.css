@@ -29,7 +29,11 @@
   --content-w-80: 80%;
 
   /* Hero Rive dog column — single source; see min-width breakpoints below */
-  --hero-visual-width: 240px;
+  --hero-visual-width: 200px;
+
+  /* Shared motion for the project-card interaction system. */
+  --transition-project-card: 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-project-card-grow: 400ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ─── @theme (inline: tokens reference :root ramp via var()) ─── */
@@ -68,10 +72,14 @@
 
   /* Layout widths + gutter (`max-w-*`) */
   --max-width-sm: 800px;
-  --max-width-md: 1000px;
+  --max-width-md: 800px;
   --max-width-lg: 1200px;
   --max-width-xl: 1440px;
- 
+
+  /* Centered page content + contextual side rail */
+  --page-content-max: 1000px;
+  --page-rail-gap: clamp(1.25rem, 3vw, 3rem);
+  --page-rail-content-max: 15rem;
 
   /* Horizontal page inset — `px-gutter` / `mx-gutter` clamp from ~20px to 80px with viewport */
   --spacing-gutter: clamp(1.25rem, 5.55vw, 5rem);
@@ -84,10 +92,6 @@
   /** Above hero sky (`z-0`); below hero box (`z-60`). */
   --nav-z: 55;
 
-  /* Home work / visual gallery strips (`GalleryRow` measure="viewport") */
-  --gallery-row-height: 45vh;
-  --gallery-row-min-height: 400px;
-
   --spacer-section-height: 200px;
 
   /** Fixed reveal footer — pair with `RevealFooterLayout` margin-bottom. */
@@ -97,9 +101,6 @@
   --transition-fast: 150ms ease;
 
   --border-width-sm: 0.5px;
-
-  /* Hero text + dog row — fixed height from display type metrics (typewriter must not shift layout) */
-  --hero-text-dog-height: calc(6 * var(--font-size-display) * var(--line-height-title));
 
   /* SPECIAL  not used often*/
 
@@ -115,13 +116,13 @@
 @media (min-width: 640px) {
   :root {
     --pg-w-80-width: 80%;
-    --hero-visual-width: 220px;
+    --hero-visual-width: 200px;
   }
 }
 
 @media (min-width: 1280px) {
   :root {
-    --hero-visual-width: 240px;
+    --hero-visual-width: 220px;
   }
 }
 
@@ -131,9 +132,6 @@
     --spacing-sm: 12px;
     --spacing-md: 20px;
     --spacing-lg: 32px;
-    /* --font-size-display: 36px;
-    --tracking-serif-display: -1.5px; */
-    --hero-text-dog-height: calc(6 * var(--font-size-display) * var(--line-height-title));
   }
 }
 
@@ -141,6 +139,12 @@
 @utility type-display {
   font: var(--font-weight-light) var(--font-size-display) / var(--line-height-title) var(--font-serif);
   letter-spacing: var(--tracking-serif-display);
+}
+
+/* Home hero headline. */
+@utility type-hero-name {
+  font: var(--font-weight-normal) var(--text-xl) / var(--line-height-base) var(--font-sans);
+  letter-spacing: 0;
 }
 
 /* case study page title h2 sans */
@@ -252,8 +256,9 @@
 @utility content-w-80 {
   box-sizing: border-box;
   margin-inline: auto;
-  width: var(--max-width-md);
+  width: 100%;
   min-width: 0;
+  max-width: var(--max-width-md);
 }
 
 @utility layout-fluid {
@@ -266,6 +271,7 @@
   html,
   body {
     background-color: var(--color-fill-default);
+    overflow-x: clip;
     /* No rubber-band / scroll chaining past the top (or bottom) of the page. */
     overscroll-behavior-y: none;
   }
