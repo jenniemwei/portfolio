@@ -42,7 +42,6 @@ export function VisualSection() {
       </PageColumns>
       <ProjectGallery
         rows={homeProjects.visual.rows}
-        gap="sm"
         sizes="(max-width: 1023px) 100vw, 50vw"
         className={gallerySectionStyles.sectionReveal}
       />
