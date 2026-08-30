@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 const HERO_CURSOR_HAND_SRC = "/icons/hand-cursor.svg";
 const HERO_CURSOR_SCRATCH_SRC = "/icons/hand-scratching.gif";
 const DOG_TARGET_SELECTOR = "[data-hero-dog-target]";
+const HERO_CONTAINER_SELECTOR = "#hero-container";
+const CURSOR_DISABLED_SELECTOR = "#hero-icon-row";
 
 const HERO_ZONE_LAYOUT =
   "flex h-full min-h-0 w-full flex-row items-stretch gap-md";
@@ -32,11 +34,28 @@ export function HeroCursorZone({ children }: HeroCursorZoneProps) {
   useEffect(() => {
     if (!useCustomCursor) return;
 
+    const hero = document.querySelector(HERO_CONTAINER_SELECTOR);
+    if (!(hero instanceof HTMLElement)) return;
+    hero.classList.add("cursor-none");
+
+    return () => hero.classList.remove("cursor-none");
+  }, [useCustomCursor]);
+
+  useEffect(() => {
+    if (!useCustomCursor) return;
+
     const handleMove = (e: MouseEvent) => {
-      const root = zoneRef.current;
+      const root = document.querySelector(HERO_CONTAINER_SELECTOR);
       if (!root) return;
       const t = e.target;
       if (t instanceof Node && root.contains(t)) {
+        const cursorDisabledArea = root.querySelector(CURSOR_DISABLED_SELECTOR);
+        if (cursorDisabledArea?.contains(t)) {
+          setInsideHero(false);
+          setScratching(false);
+          return;
+        }
+
         setInsideHero(true);
         setCoords({ x: e.clientX, y: e.clientY });
         const dog = root.querySelector(DOG_TARGET_SELECTOR);
@@ -63,7 +82,7 @@ export function HeroCursorZone({ children }: HeroCursorZoneProps) {
 
   useEffect(() => {
     if (!useCustomCursor) return;
-    const el = zoneRef.current;
+    const el = document.querySelector(HERO_CONTAINER_SELECTOR);
     if (!el) return;
 
     const io = new IntersectionObserver(

@@ -1,0 +1,73 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.doodle {
+  position: absolute;
+}
+
+.leftFlower {
+  bottom: 38%;
+  left: max(var(--spacing-gutter), calc(50% - 44rem));
+}
+
+.smallUpperLeft {
+  top: 18%;
+  left: clamp(2rem, 12vw, 11rem);
+}
+
+.smallUpperRight {
+  top: 12%;
+  right: clamp(4rem, 22vw, 20rem);
+}
+
+.middleGrass {
+  right: clamp(8rem, 32vw, 30rem);
+  bottom: 18%;
+}
+
+.patchLowerCenter {
+  right: 43%;
+  bottom: 7%;
+}
+
+.rightFlower {
+  right: clamp(3rem, 10vw, 12rem);
+  bottom: 6%;
+}
+
+@media (max-width: 72rem) {
+  .rightFlower {
+    right: var(--spacing-gutter);
+  }
+}
+
+@media (max-width: 48rem) {
+  .leftFlower,
+  .smallUpperRight {
+    display: none;
+  }
+
+  .patchLowerCenter {
+    display: none;
+  }
+
+  .smallUpperLeft {
+    top: 12%;
+    left: calc(var(--spacing-gutter) * 0.5);
+  }
+
+  .middleGrass {
+    right: calc(var(--spacing-gutter) * 0.75);
+    bottom: 28%;
+  }
+
+  .rightFlower {
+    right: calc(var(--spacing-gutter) * 0.5);
+    bottom: 5%;
+  }
+}

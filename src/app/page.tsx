@@ -2,6 +2,7 @@ import { Hero } from "@/components/home/Hero";
 import { PageSkyBackground } from "@/components/sky/PageSkyBackground";
 import { HomeScrollToSection } from "@/components/nav/HomeScrollToSection";
 import { SpacerSection } from "@/components/sections/SpacerSection";
+import { VisualSection } from "@/components/home/VisualSection";
 import { WorkSection } from "@/components/home/WorkSection";
 
 export default function HomePage() {
@@ -21,6 +22,7 @@ export default function HomePage() {
       <main className="relative z-[1] w-full flex-col items-center pb-12">
         <Hero />
         <WorkSection />
+        <VisualSection />
         <SpacerSection />
       </main>
     </div>

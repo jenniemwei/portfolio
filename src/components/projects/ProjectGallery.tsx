@@ -9,7 +9,6 @@ import {
 } from "@/components/gallery/GalleryRow";
 import { HomeProjectVisual } from "@/components/gallery/HomeProjectVisual";
 import { PageColumns } from "@/components/layout/PageColumns";
-import { ProjectDetailRail } from "@/components/projects/ProjectDetailRail";
 import {
   sortProjectsByIndex,
   type HomeGalleryRow,
@@ -33,10 +32,23 @@ export function ProjectGallery({
 }: ProjectGalleryProps) {
   const [emphasizedProject, setEmphasizedProject] =
     useState<HomeProjectItem | null>(null);
+  const [sameRowHandoff, setSameRowHandoff] = useState(false);
+
+  const activateProject = (project: HomeProjectItem, rowIndex: number) => {
+    const currentRowIndex = emphasizedProject
+      ? rows.findIndex((row) => row.projects.includes(emphasizedProject))
+      : -1;
+
+    setSameRowHandoff(
+      currentRowIndex >= 0 && currentRowIndex === rowIndex,
+    );
+    setEmphasizedProject(project);
+  };
 
   const clearWhenFocusLeaves = (event: FocusEvent<HTMLDivElement>) => {
     const next = event.relatedTarget;
     if (next instanceof Node && event.currentTarget.contains(next)) return;
+    setSameRowHandoff(false);
     setEmphasizedProject(null);
   };
 
@@ -45,6 +57,7 @@ export function ProjectGallery({
         className={cn("w-full min-w-0", className)}
         onMouseLeave={(event) => {
           if (event.currentTarget.contains(document.activeElement)) return;
+          setSameRowHandoff(false);
           setEmphasizedProject(null);
         }}
         onBlurCapture={clearWhenFocusLeaves}
@@ -61,22 +74,14 @@ export function ProjectGallery({
             );
 
             return (
-              <PageColumns
-                key={`${row.tracks.join("-")}-${rowIndex}`}
-                rightRail={
-                  <ProjectDetailRail
-                    project={
-                      emphasizedIndex >= 0 ? emphasizedProject : null
-                    }
-                  />
-                }
-              >
+              <PageColumns key={`${row.tracks.join("-")}-${rowIndex}`}>
                 <div
                   className="min-w-0"
                   onMouseLeave={(event) => {
                     if (event.currentTarget.contains(document.activeElement)) {
                       return;
                     }
+                    setSameRowHandoff(false);
                     setEmphasizedProject(null);
                   }}
                 >
@@ -93,8 +98,11 @@ export function ProjectGallery({
                           emphasizedProject !== null &&
                           emphasizedProject !== project
                         }
+                        delayCaptionCollapse={
+                          sameRowHandoff && emphasizedProject !== project
+                        }
                         onActivate={() => {
-                          setEmphasizedProject(project);
+                          activateProject(project, rowIndex);
                         }}
                         visual={
                           <HomeProjectVisual project={project} sizes={sizes} />

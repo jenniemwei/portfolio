@@ -1,9 +1,11 @@
+import type { StaticImageData } from "next/image";
+
 import { GalleryThumbImage } from "@/components/gallery/GalleryThumbImage";
 import { GalleryVideoThumb } from "@/components/gallery/GalleryVideoThumb";
 
 type GalleryProjectVisualProps = {
   video?: string;
-  img?: string | null;
+  img?: string | StaticImageData | null;
   label: string;
   sizes: string;
   fill?: string;

@@ -17,6 +17,7 @@ type ProjectCardProps = {
   visual?: ReactNode;
   active?: boolean;
   dimmed?: boolean;
+  delayCaptionCollapse?: boolean;
   onActivate?: () => void;
 };
 
@@ -34,6 +35,7 @@ export function ProjectCard({
   visual,
   active = false,
   dimmed = false,
+  delayCaptionCollapse = false,
   onActivate,
 }: ProjectCardProps) {
   const article = (
@@ -59,20 +61,20 @@ export function ProjectCard({
           )}
         </div>
       </div>
-      <div className={styles.caption}>
+      <div
+        className={cn(
+          styles.caption,
+          delayCaptionCollapse && styles.captionCollapseDelayed,
+        )}
+      >
         <p className="type-body-bold m-0 text-text-default">
           {title}
         </p>
-        <div className={styles.cardSubheader}>
-          {date ? (
-            <p className="type-body-sm m-0 text-text-subtle">{date}</p>
-          ) : null}
-          {description ? (
-            <p className="type-body-sm m-0 text-pretty text-text-subtle">
-              {description}
-            </p>
-          ) : null}
-        </div>
+        {description || date ? (
+          <p className="type-body-sm m-0 text-pretty text-text-subtle">
+            {[description, date].filter(Boolean).join(" ")}
+          </p>
+        ) : null}
       </div>
     </article>
   );

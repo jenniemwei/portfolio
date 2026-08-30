@@ -1,0 +1,27 @@
+.doodleField {
+  position: relative;
+  display: none;
+  min-height: 7rem;
+  grid-column: span 2 / span 2;
+  pointer-events: none;
+}
+
+.doodle {
+  position: absolute;
+}
+
+.grassUpper {
+  top: 0;
+  right: 4%;
+}
+
+.flowerLower {
+  bottom: 0;
+  left: 7%;
+}
+
+@media (min-width: 48rem) {
+  .doodleField {
+    display: block;
+  }
+}

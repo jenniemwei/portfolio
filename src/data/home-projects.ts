@@ -1,3 +1,8 @@
+import type { StaticImageData } from "next/image";
+
+import g2AiThumb from "../../public/thumbnails/g2-ai-thumb.png";
+import widgetsThumb from "../../public/thumbnails/widgets-thumb.png";
+
 /** Home page work / visual gallery content — edit here. */
 
 export type HomeProjectItem = {
@@ -8,9 +13,9 @@ export type HomeProjectItem = {
   href?: `/work/${string}`;
   heading: string;
   subheading: string;
-  /** Contextual helper copy shown in the project detail rail. */
+  /** Contextual helper copy shown beneath the active project title. */
   subheadDesc?: string;
-  img: string | null;
+  img: string | StaticImageData | null;
   imgAlt?: string;
   /** MP4 URL (e.g. Cloudinary). Default card visual; `img` shows on hover when both are set. */
   video?: string;
@@ -41,6 +46,15 @@ export const homeProjects = {
         projects: [
           {
             index: 0,
+            id: "grammarly-editor",
+            heading: "Grammarly editor",
+            subheading: "Summer 2026",
+            subheadDesc: "Design patterns for Grammarly editor agents,",
+            img: "/thumbnails/grammarly-blankpg-thumb.png",
+            imgAlt: "Grammarly editor agents",
+          },
+          {
+            index: 1,
             id: "g2-search",
             href: "/work/g2-search",
             heading: "G2 Search",
@@ -51,15 +65,6 @@ export const homeProjects = {
             video:
               "https://res.cloudinary.com/dlaz3infq/video/upload/v1779490718/g2-search_qc2aoo.mp4",
           },
-          {
-            index: 1,
-            id: "g2-ai",
-            heading: "G2 AI",
-            subheading: "Fall 2025",
-            subheadDesc: "Conversational software search",
-            img: "/thumbnails/g2-ai-thumb.png",
-            imgAlt: "G2 AI",
-          },
         ],
       },
       {
@@ -67,27 +72,21 @@ export const homeProjects = {
         projects: [
           {
             index: 0,
-            id: "mclubs",
-            heading: "Mclubs",
-            subheading: "Summer 2024",
-            subheadDesc: "Club discovery and engagement platform",
-            img: "/thumbnails/mclubs-thumb-backup.png",
-            imgAlt: "Mclubs",
-            video:
-              "https://res.cloudinary.com/dlaz3infq/video/upload/v1776166382/Mobile-Screens-Grid-remix_1_flex5t.webm",
-            videoThumbBg: "var(--color-fill-default)",
+            id: "docs-ai-widgets",
+            heading: "Docs AI widgets",
+            subheading: "Summer 2026",
+            subheadDesc: "Prototyping AI widgets in Superhuman docs,",
+            img: widgetsThumb,
+            imgAlt: "AI widgets in Superhuman docs",
           },
           {
             index: 1,
-            id: "folding-at-home",
-            heading: "Folding@Home",
-            subheading: "Spring 2026",
-            subheadDesc: "Dynamic brand for a citizen science supercomputer",
-            img: "/thumbnails/fah-thumb-backup.jpg",
-            imgAlt: "Folding@Home",
-            video:
-              "https://res.cloudinary.com/dlaz3infq/video/upload/v1776208966/logoanilight_rklxrq.webm",
-            videoThumbBg: "var(--color-fill-default)",
+            id: "g2-ai",
+            heading: "G2 AI",
+            subheading: "Fall 2025",
+            subheadDesc: "Conversational software search",
+            img: g2AiThumb,
+            imgAlt: "G2 AI",
           },
         ],
       },
@@ -108,6 +107,18 @@ export const homeProjects = {
             imgAlt: "The Designers Republic",
             video:
               "https://res.cloudinary.com/dlaz3infq/video/upload/v1767847688/ian_anderson_video_nzysfl.mp4",
+          },
+          {
+            index: 1,
+            id: "folding-at-home",
+            heading: "Folding@Home",
+            subheading: "Spring 2026",
+            subheadDesc: "Dynamic brand for a citizen science supercomputer",
+            img: "/thumbnails/fah-thumb-backup.jpg",
+            imgAlt: "Folding@Home",
+            video:
+              "https://res.cloudinary.com/dlaz3infq/video/upload/v1776208966/logoanilight_rklxrq.webm",
+            videoThumbBg: "var(--color-fill-default)",
           },
         ],
       },

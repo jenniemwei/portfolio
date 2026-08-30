@@ -1,4 +1,5 @@
 import { HeroCursorZone } from "@/components/home/HeroCursorZone";
+import { HeroDoodles } from "@/components/home/HeroDoodles";
 import { HeroRiveDog } from "@/components/home/HeroRiveDog";
 import { HeroTypewriterTagline } from "@/components/home/HeroTypewriterTagline";
 import { PageColumns } from "@/components/layout/PageColumns";
@@ -14,7 +15,8 @@ export function Hero() {
       id="hero-container"
       className="relative z-[60] flex min-h-[40vh] w-full flex-col justify-center pt-xl"
     >
-      <PageColumns centerClassName="px-md">
+      <HeroDoodles />
+      <PageColumns className="relative z-[1]" centerClassName="px-md">
         <section
           id="hero-box"
           className="relative flex flex-col overflow-visible"
@@ -26,7 +28,7 @@ export function Hero() {
           >
             <HeroCursorZone>
               <header className="flex min-w-0 flex-1 flex-col items-start justify-between text-left">
-                <h1 className="type-hero-name grid min-w-0 text-pretty">
+                <h1 className="type-display grid min-w-0 text-pretty">
                   <span
                     className="invisible col-start-1 row-start-1 block min-w-0"
                     aria-hidden
@@ -39,10 +41,12 @@ export function Hero() {
                     <HeroTypewriterTagline className="text-text-subtle" />
                   </span>
                 </h1>
-                <SocialLinks
-                  id="hero-icon-row"
-                  className="flex w-fit flex-row items-start gap-8"
-                />
+                <div className="flex flex-col items-start gap-md">
+                  <SocialLinks
+                    id="hero-icon-row"
+                    className="flex w-fit flex-row items-start gap-8"
+                  />
+                </div>
               </header>
               <div className="flex shrink-0 items-start justify-end max-md:justify-center">
                 <HeroRiveDog />

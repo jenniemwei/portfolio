@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 
 function sourceTypeForVideoUrl(src: string): string {
@@ -17,7 +17,7 @@ type GalleryVideoThumbProps = {
   /** `cover` = same as thumb images (fill + crop). `contain` = letterbox / width-first fit. */
   fit?: "contain" | "cover";
   /** Optional image fallback if video fails to load/decode. */
-  fallbackSrc?: string;
+  fallbackSrc?: string | StaticImageData;
   /** `sizes` for fallback `<Image>` when video errors. */
   sizes?: string;
 };

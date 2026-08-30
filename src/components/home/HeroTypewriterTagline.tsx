@@ -22,6 +22,7 @@ export function HeroTypewriterTagline({ className }: { className?: string }) {
   const reduceMotion = usePrefersReducedMotion();
   const displayRef = useRef<string>(HERO_TAGLINES[0]);
   const [text, setText] = useState<string>(HERO_TAGLINES[0]);
+  const [layoutText, setLayoutText] = useState<string>(HERO_TAGLINES[0]);
 
   useEffect(() => {
     if (reduceMotion) {
@@ -30,6 +31,7 @@ export function HeroTypewriterTagline({ className }: { className?: string }) {
         index = (index + 1) % HERO_TAGLINES.length;
         const next = HERO_TAGLINES[index]!;
         displayRef.current = next;
+        setLayoutText(next);
         setText(next);
       }, HOLD_MS);
       return () => window.clearInterval(id);
@@ -51,6 +53,9 @@ export function HeroTypewriterTagline({ className }: { className?: string }) {
         from,
         next,
         (value) => {
+          // Keep the complete phrase in the inline layout while its visible
+          // prefix changes. Swap layouts only while the typewriter is empty.
+          if (value.length === 0) setLayoutText(next);
           displayRef.current = value;
           setText(value);
         },
@@ -78,9 +83,22 @@ export function HeroTypewriterTagline({ className }: { className?: string }) {
     };
   }, [reduceMotion]);
 
+  const layoutWords = layoutText.split(" ");
+  const visibleWordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+
   return (
-    <span className={className} aria-live="polite">
-      {text}
+    <span className={className} aria-label={text} aria-live="polite">
+      <span aria-hidden="true">
+        {layoutWords.map((word, index) => (
+          <span
+            className={index < visibleWordCount ? undefined : "invisible"}
+            key={`${layoutText}-${index}`}
+          >
+            {word}
+            {index < layoutWords.length - 1 ? " " : ""}
+          </span>
+        ))}
+      </span>
     </span>
   );
 }
