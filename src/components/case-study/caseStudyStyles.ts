@@ -7,6 +7,9 @@ export const CASE_STUDY_CONTAINER =
 export const CASE_NOTE =
   "font-[family-name:var(--font-case-label)] text-sm font-medium leading-[1.32] tracking-[0.14px] uppercase";
 
+export const CASE_META_VALUE =
+  "font-[family-name:var(--font-noto-sans-mono)] text-sm font-medium leading-[1.32] tracking-[0.14px] uppercase";
+
 /** Figma `h1`: section-level sans heading, rendered as an HTML h2. */
 export const CASE_H2_SANS =
   "font-[family-name:var(--font-case-heading)] text-[28px] font-semibold leading-[normal] text-balance";
