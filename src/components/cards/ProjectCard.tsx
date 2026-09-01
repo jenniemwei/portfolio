@@ -38,6 +38,7 @@ export function ProjectCard({
   delayCaptionCollapse = false,
   onActivate,
 }: ProjectCardProps) {
+  const isExternal = href?.startsWith("http://") || href?.startsWith("https://");
   const article = (
     <article
       id={id}
@@ -89,6 +90,8 @@ export function ProjectCard({
         "rounded-xl text-inherit no-underline outline-none focus-visible:ring-2 focus-visible:ring-text-default focus-visible:ring-offset-2 focus-visible:ring-offset-fill-default",
       )}
       aria-label={`View ${title}`}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
       onMouseEnter={onActivate}
       onFocus={onActivate}
     >

@@ -9,8 +9,8 @@ export type HomeProjectItem = {
   /** Gallery sort order within a row (ascending). */
   index: number;
   id?: string;
-  /** Case-study route. Omit while a project has no published page. */
-  href?: `/work/${string}`;
+  /** Internal case-study route or external project URL. */
+  href?: string;
   heading: string;
   subheading: string;
   /** Contextual helper copy shown beneath the active project title. */
@@ -57,6 +57,7 @@ export const homeProjects = {
           {
             index: 1,
             id: "g2-search",
+            href: "https://www.figma.com/deck/IOmNiw3cmBlR7PvVa4Ur9z/G2-deck?node-id=1-32183&t=iJ4FLGm73ierOf6L-1",
             heading: "G2 Search",
             subheading: "Summer 2025",
             subheadDesc: "Smart search AI interaction patterns",
@@ -111,6 +112,7 @@ export const homeProjects = {
           {
             index: 1,
             id: "folding-at-home",
+            href: "https://www.figma.com/deck/EkFeEVcLIn79PKESBb9QZ8",
             heading: "Folding@Home",
             subheading: "Spring 2026",
             subheadDesc: "Dynamic brand for a citizen science supercomputer",
