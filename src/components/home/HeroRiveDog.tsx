@@ -42,7 +42,7 @@ export function HeroRiveDog() {
   return (
     <div
       id="dog-column"
-      className="hero-visual-column relative z-[61] flex items-start justify-center mr-xl"
+      className="hero-visual-column relative z-[61] mr-xl flex items-start justify-center max-md:mr-0"
     >
       <div
         id="dog-layout-slot"

@@ -10,7 +10,7 @@ const HERO_CONTAINER_SELECTOR = "#hero-container";
 const CURSOR_DISABLED_SELECTOR = "#hero-icon-row";
 
 const HERO_ZONE_LAYOUT =
-  "flex h-full min-h-0 w-full flex-row items-stretch gap-md";
+  "flex h-full min-h-0 w-full flex-row items-stretch gap-md max-md:flex-col";
 
 type HeroCursorZoneProps = {
   children: React.ReactNode;

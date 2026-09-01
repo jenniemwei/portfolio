@@ -31,6 +31,9 @@
   --pg-w-90-width: 90%;
   --content-w-80: 80%;
 
+  /* Shared display type: 28px at 320px, 36px from 768px upward. */
+  --display-size-fluid: clamp(1.75rem, calc(1.393rem + 1.786vw), 2.25rem);
+
   /* Hero Rive dog column — single source; see min-width breakpoints below */
   --hero-visual-width: 200px;
 
@@ -68,7 +71,7 @@
   /* Type — sizes use Tailwind `--text-*` / `--font-weight-*` except display + 28px step */
   --font-weight-light: 350;
   --font-size-2xl: 28px;
-  --font-size-display: 36px;
+  --font-size-display: var(--display-size-fluid);
 
   /* Named rhythm — responsive via `:root` @media; use `gap-md`, `px-lg`, … */
   --spacing-xs: 8px;

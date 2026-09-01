@@ -11,13 +11,6 @@ import styles from "./HeroDoodles.module.css";
 export function HeroDoodles() {
   return (
     <div className={styles.layer} aria-hidden="true">
-      <FlowerDoodle
-        className={cn(styles.doodle, styles.leftFlower)}
-        frameInterval={820}
-        swayDelay={-3200}
-        swayDuration={13200}
-      />
-
       <SmallGrassDoodle
         className={cn(styles.doodle, styles.smallUpperLeft)}
         frameInterval={720}
@@ -51,5 +44,16 @@ export function HeroDoodles() {
         swayDuration={10200}
       />
     </div>
+  );
+}
+
+export function HeroTextFlower() {
+  return (
+    <FlowerDoodle
+      className={cn(styles.doodle, styles.leftFlower)}
+      frameInterval={820}
+      swayDelay={-3200}
+      swayDuration={13200}
+    />
   );
 }

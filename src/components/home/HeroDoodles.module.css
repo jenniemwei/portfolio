@@ -12,7 +12,7 @@
 
 .leftFlower {
   bottom: 38%;
-  left: max(var(--spacing-gutter), calc(50% - 44rem));
+  left: calc(-48px - var(--doodle-width));
 }
 
 .smallUpperLeft {
@@ -47,7 +47,6 @@
 }
 
 @media (max-width: 48rem) {
-  .leftFlower,
   .smallUpperRight {
     display: none;
   }
@@ -57,8 +56,8 @@
   }
 
   .smallUpperLeft {
-    top: 12%;
-    left: calc(var(--spacing-gutter) * 0.5);
+    top: 80%;
+    left: 20%;
   }
 
   .middleGrass {

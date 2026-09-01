@@ -1,5 +1,5 @@
 import { HeroCursorZone } from "@/components/home/HeroCursorZone";
-import { HeroDoodles } from "@/components/home/HeroDoodles";
+import { HeroDoodles, HeroTextFlower } from "@/components/home/HeroDoodles";
 import { HeroRiveDog } from "@/components/home/HeroRiveDog";
 import { HeroTypewriterTagline } from "@/components/home/HeroTypewriterTagline";
 import { PageColumns } from "@/components/layout/PageColumns";
@@ -22,12 +22,13 @@ export function Hero() {
           className="relative flex flex-col overflow-visible"
           aria-label="Hero"
         >
+          <HeroTextFlower />
           <div
             id="text-dog"
             className="flex w-full shrink-0 flex-row gap-xl overflow-visible max-md:flex-col"
           >
             <HeroCursorZone>
-              <header className="flex min-w-0 flex-1 flex-col items-start justify-between text-left">
+              <header className="flex min-w-0 flex-1 flex-col items-start justify-between text-left max-md:gap-md">
                 <h1 className="type-display grid min-w-0 text-pretty">
                   <span
                     className="invisible col-start-1 row-start-1 block min-w-0"
