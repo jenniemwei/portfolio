@@ -15,7 +15,7 @@ const projectPages: readonly ProjectPage[] = [
     href: "/work/grammarly-editor",
     pageTitle: "Grammarly Editor",
     altText: "Grammarly Editor blank-state case study",
-    heroImage: "/editor/1-hero.png",
+    heroImage: "/editor/1-hero.webp",
   },
   {
     id: "g2-search",

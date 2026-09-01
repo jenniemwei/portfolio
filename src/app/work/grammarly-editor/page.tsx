@@ -25,7 +25,7 @@ export default function GrammarlyEditorPage() {
           eyebrow="Case study in progress"
           title="Leading with value on Grammarly's blank state"
           media={{
-            src: "/editor/1-hero.png",
+            src: "/editor/1-hero.webp",
             alt: "Grammarly Editor blank state showing suggested ways to begin writing",
             width: 3200,
             height: 1680,
@@ -48,7 +48,7 @@ export default function GrammarlyEditorPage() {
           />
           <ImgBlock heading="Proofreader is useful with text on the page, the blank state shows no immediate value or clear place to start.">
             <CaseStudyMedia
-              src="/editor/2-context.png"
+              src="/editor/2-context.webp"
               alt="Comparison of Grammarly Editor with writing present and on a blank page"
               width={3200}
               height={1600}
@@ -66,7 +66,7 @@ export default function GrammarlyEditorPage() {
 
           <ImgBlock heading="I started exploring designs placements for the quickstarts, limited to the main canvas area (no side panel)">
             <CaseStudyMedia
-              src="/editor/3-design-1.png"
+              src="/editor/3-design-1.webp"
               alt="Early placement explorations for quick-start actions"
               width={800}
               height={410}
@@ -85,13 +85,13 @@ export default function GrammarlyEditorPage() {
           >
             <div className="flex flex-col gap-6">
               <CaseStudyMedia
-                src="/editor/4-design-2a.png"
+                src="/editor/4-design-2a.webp"
                 alt="Exploration of Grammarly blank-state quick-start chips"
                 width={3200}
                 height={860}
               />
               <CaseStudyMedia
-                src="/editor/5-design-2b.png"
+                src="/editor/5-design-2b.webp"
                 alt="Additional quick-start chip concepts and annotations"
                 width={3200}
                 height={1200}
@@ -111,7 +111,7 @@ export default function GrammarlyEditorPage() {
             body="Instead of a vague “Help me write” that leads you to a blank chat, I created two starter prompt chips that redirect you to AI chat with a prompt in action, so people are immediately aware of AI Chat’s composition ability."
           >
             <CaseStudyMedia
-              src="/editor/6-design-3.png"
+              src="/editor/6-design-3.webp"
               alt="Use-case-led AI entry point in Grammarly Editor"
               width={3200}
               height={1592}
@@ -123,7 +123,7 @@ export default function GrammarlyEditorPage() {
             body="Demo text quickly lets new users see Proofreader in action, but “Demo text” as a CTA isn’t very motivating. After exploring variations in chip copy, I decided to place Demo text in context of the empty panel for clearer value."
           >
             <CaseStudyMedia
-              src="/editor/7-design-4.png"
+              src="/editor/7-design-4.webp"
               alt="Demo text starter actions with clearer value propositions"
               width={3204}
               height={1320}
@@ -144,7 +144,7 @@ export default function GrammarlyEditorPage() {
               tone="inverse"
             >
               <CaseStudyMedia
-                src="/editor/8-exp.png"
+                src="/editor/8-exp.webp"
                 alt="Shipped Grammarly Editor experiment comparing control and test blank states"
                 width={3200}
                 height={1998}
@@ -161,7 +161,7 @@ export default function GrammarlyEditorPage() {
 
             <ImgBlock heading="I brought design patterns from Superhuman Docs to Grammarly’s blank state to support the future product merge.">
               <CaseStudyMedia
-                src="/editor/9-future-1.png"
+                src="/editor/9-future-1.webp"
                 alt="Shared blank-state design patterns across Grammarly and Superhuman Docs"
                 width={3196}
                 height={1600}
@@ -170,7 +170,7 @@ export default function GrammarlyEditorPage() {
 
             <ImgBlock heading="I scaled the blank state pattern across all Grammarly agents, and created copy that explains each agent’s purpose.">
               <CaseStudyMedia
-                src="/editor/10-future-2.png"
+                src="/editor/10-future-2.webp"
                 alt="Blank-state pattern applied across multiple Grammarly agents"
                 width={3196}
                 height={1600}
@@ -179,7 +179,7 @@ export default function GrammarlyEditorPage() {
 
             <ImgBlock heading="Expanding the starter suggestion design to proactive agent suggestions after the blank state.">
               <CaseStudyMedia
-                src="/editor/11future-3.png"
+                src="/editor/11future-3.webp"
                 alt="Proactive Grammarly agent suggestions following the blank state"
                 width={3196}
                 height={1600}
