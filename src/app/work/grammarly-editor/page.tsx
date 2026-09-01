@@ -16,10 +16,18 @@ export const metadata: Metadata = {
     "Case study: leading with value on Grammarly Editor's blank state.",
 };
 
+const CASE_STUDY_NAV_ITEMS = [
+  { id: "context", label: "context" },
+  { id: "original-brief", label: "original brief" },
+  { id: "reframe", label: "reframe" },
+  { id: "shipped-mvp", label: "shipped mvp" },
+  { id: "final-designs", label: "final designs" },
+] as const;
+
 export default function GrammarlyEditorPage() {
   return (
     <main className="w-full bg-fill-default text-text-default">
-      <CaseStudyNav />
+      <CaseStudyNav items={CASE_STUDY_NAV_ITEMS} />
       <div className={CASE_STUDY_CONTAINER}>
         <HeroSection
           eyebrow="Case study in progress"
@@ -40,7 +48,7 @@ export default function GrammarlyEditorPage() {
       </div>
 
       <div className="mt-50 flex flex-col gap-50">
-        <CaseStudySection className="py-6">
+        <CaseStudySection id="context" className="py-6">
           <NarrativeBlock
             note="Context"
             heading="Grammarly Editor has a blank page problem."
@@ -56,7 +64,7 @@ export default function GrammarlyEditorPage() {
           </ImgBlock>
         </CaseStudySection>
 
-        <CaseStudySection>
+        <CaseStudySection id="original-brief">
           <NarrativeBlock
             note="The given brief"
             heading='“Design these four quick starts to help users get text on the page.”'
@@ -100,7 +108,7 @@ export default function GrammarlyEditorPage() {
           </ImgBlock>
         </CaseStudySection>
 
-        <CaseStudySection>
+        <CaseStudySection id="reframe">
           <NarrativeBlock
             note="Reframing my own brief"
             heading="Quick starts should feel obvious, low-effort, and clearly helpful to someone who isn’t sure where to begin."
@@ -132,7 +140,12 @@ export default function GrammarlyEditorPage() {
         </CaseStudySection>
 
         <div className="flex flex-col">
-          <CaseStudySection fullBleed tone="green" contentGap="related">
+          <CaseStudySection
+            id="shipped-mvp"
+            fullBleed
+            tone="green"
+            contentGap="related"
+          >
             <NarrativeBlock
               note="Shipped experiment"
               heading="Testing the new blank state with 500K+ Grammarly Editor users"
@@ -152,7 +165,7 @@ export default function GrammarlyEditorPage() {
             </ImgBlock>
           </CaseStudySection>
 
-          <CaseStudySection fullBleed>
+          <CaseStudySection id="final-designs" fullBleed>
             <NarrativeBlock
               note="Planning ahead"
               heading="Designing a blank-state pattern that could scale beyond one agent or product."

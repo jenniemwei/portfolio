@@ -19,7 +19,15 @@
   padding-inline: var(--page-rail-gap) var(--spacing-gutter);
 }
 
+.leftRail {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  padding-inline: var(--spacing-gutter) var(--page-rail-gap);
+}
+
 @media (max-width: 72rem) {
+  .leftRail,
   .rightRail {
     display: none;
   }

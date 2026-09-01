@@ -6,6 +6,7 @@ import { CASE_STUDY_CONTAINER } from "./caseStudyStyles";
 
 type CaseStudySectionProps = {
   children: ReactNode;
+  id?: string;
   fullBleed?: boolean;
   tone?: "default" | "green";
   contentGap?: "section" | "related";
@@ -15,6 +16,7 @@ type CaseStudySectionProps = {
 /** A narrative-block followed by img-blocks, with the 120px in-section gap. */
 export function CaseStudySection({
   children,
+  id,
   fullBleed = false,
   tone = "default",
   contentGap = "section",
@@ -36,8 +38,9 @@ export function CaseStudySection({
   if (fullBleed) {
     return (
       <section
+        id={id}
         className={cn(
-          "w-full py-30",
+          "w-full scroll-mt-6 py-30",
           tone === "green" && "bg-fill-green text-white",
           className,
         )}
@@ -49,7 +52,11 @@ export function CaseStudySection({
   }
 
   return (
-    <section className={className} data-case-section="standard">
+    <section
+      id={id}
+      className={cn("scroll-mt-6", className)}
+      data-case-section="standard"
+    >
       {content}
     </section>
   );
