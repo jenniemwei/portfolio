@@ -11,7 +11,7 @@ import {
 import { CASE_STUDY_CONTAINER } from "@/components/case-study/caseStudyStyles";
 
 export const metadata: Metadata = {
-  title: "Grammarly Editor — Jennie Wei",
+  title: "Grammarly Editor | Jennie Wei",
   description:
     "Case study: leading with value on Grammarly Editor's blank state.",
 };
@@ -35,7 +35,7 @@ export default function GrammarlyEditorPage() {
             { label: "Timeline", value: "Summer 2026" },
             { label: "Mentored by", value: "Hiếu Trần, TJ Eby" },
           ]}
-          overview="I redesigned Grammarly Editor's blank state to make the first action feel obvious, useful, and connected to the broader product, without interrupting the core Grammarly Proofreader workflow."
+          overview="I redesigned Grammarly Editor’s blank state to help people get started and see value right away. I added clearer entry points to AI Chat and Proofreader, then built a blank-state system for every Grammarly agent ahead of the Superhuman Docs and Grammarly Editor merge."
         />
       </div>
 
@@ -44,9 +44,9 @@ export default function GrammarlyEditorPage() {
           <NarrativeBlock
             note="Context"
             heading="Grammarly Editor has a blank page problem."
-            body="Many users come to Grammarly as a final stop, pasting in their text and using Proofreader or AI detector for a final review. But for users who come to Grammarly with no text in mind and just looking to explore, the retention isn’t very great. No one uses Grammarly editor as a writing surface."
+            body="Many people come to Grammarly as a final stop: they paste in finished text, then use Proofreader or the AI Detector for a final review. But people who open the Editor without text get little guidance or immediate value, so there’s no clear reason to start or come back."
           />
-          <ImgBlock heading="Proofreader is useful with text on the page, the blank state shows no immediate value or clear place to start.">
+          <ImgBlock heading="Proofreader is useful once there’s text on the page. On a blank page, there’s no clear value or place to start.">
             <CaseStudyMedia
               src="/editor/2-context.webp"
               alt="Comparison of Grammarly Editor with writing present and on a blank page"
@@ -61,10 +61,10 @@ export default function GrammarlyEditorPage() {
             note="The given brief"
             heading='“Design these four quick starts to help users get text on the page.”'
             hangingQuote
-            body="I was given a direct brief on what quick starts to design and what they should say. I explored different variations in placement and design, but the chips themselves still felt unhelpful without context."
+            body="I was given four quick starts and their copy, and asked to figure out how they should appear on the blank canvas. I explored different placements and visual treatments, but the same problem remained: without context, why would someone choose one?"
           />
 
-          <ImgBlock heading="I started exploring designs placements for the quickstarts, limited to the main canvas area (no side panel)">
+          <ImgBlock heading="I explored placements for the four quick starts within the main canvas, without using the side panel.">
             <CaseStudyMedia
               src="/editor/3-design-1.webp"
               alt="Early placement explorations for quick-start actions"
@@ -76,10 +76,10 @@ export default function GrammarlyEditorPage() {
           <ImgBlock
             heading={
               <>
-                But I started questioning the actual chips themselves...
+                But I kept coming back to the chips themselves:
                 <br />
-                Would someone actually click on these? And do the results feel
-                helpful?
+                Would anyone actually click one, and would the result feel
+                useful?
               </>
             }
           >
@@ -103,12 +103,12 @@ export default function GrammarlyEditorPage() {
         <CaseStudySection>
           <NarrativeBlock
             note="Reframing my own brief"
-            heading="Quick starts should be unambiguous, low-effort, and lead with value for an unsure user."
+            heading="Quick starts should feel obvious, low-effort, and clearly helpful to someone who isn’t sure where to begin."
           />
 
           <ImgBlock
-            heading="1. AI Chat entry points that lead with example use cases"
-            body="Instead of a vague “Help me write” that leads you to a blank chat, I created two starter prompt chips that redirect you to AI chat with a prompt in action, so people are immediately aware of AI Chat’s composition ability."
+            heading="1. Showing what AI Chat can do"
+            body="“Help me write” only led to another blank surface. I replaced it with two specific starter prompts that opened AI Chat with an example already in motion, so people could see its value right away."
           >
             <CaseStudyMedia
               src="/editor/6-design-3.webp"
@@ -119,8 +119,8 @@ export default function GrammarlyEditorPage() {
           </ImgBlock>
 
           <ImgBlock
-            heading="2. Moving Demo text for clearer value"
-            body="Demo text quickly lets new users see Proofreader in action, but “Demo text” as a CTA isn’t very motivating. After exploring variations in chip copy, I decided to place Demo text in context of the empty panel for clearer value."
+            heading="2. Giving Demo text a clearer purpose"
+            body="Demo text can show Proofreader in action, but “Demo text” alone isn’t a very motivating CTA. I moved it into the empty Proofreader panel and framed it as a quick way to see Grammarly’s suggestions on a ready-made example."
           >
             <CaseStudyMedia
               src="/editor/7-design-4.webp"
@@ -135,11 +135,11 @@ export default function GrammarlyEditorPage() {
           <CaseStudySection fullBleed tone="green" contentGap="related">
             <NarrativeBlock
               note="Shipped experiment"
-              heading="Putting the experiment to the test on Grammarly Editor to 500k+ users"
+              heading="Testing the new blank state with 500K+ Grammarly Editor users"
               tone="inverse"
             />
             <ImgBlock
-              heading="Control (no CTAs) vs. test (this design) in a 21-day experiment that didn’t conclude by the end of my internship."
+              heading="We compared the existing blank state with the new design in a 21-day experiment. The test was still running when my internship ended, so I don’t have final results to share."
               textStyle="body"
               tone="inverse"
             >
@@ -155,11 +155,11 @@ export default function GrammarlyEditorPage() {
           <CaseStudySection fullBleed>
             <NarrativeBlock
               note="Planning ahead"
-              heading="Designing the future blank state pattern to scale beyond one agent and one product."
-              body="The experiment design was created under constraints of other active experiments and engineering timelines. I wanted to own the future after the experiment, especially in the context of the future merge between Grammarly Editor and Superhuman Docs product surfaces."
+              heading="Designing a blank-state pattern that could scale beyond one agent or product."
+              body="The experiment had to work around other active tests and a tight engineering timeline. So I also looked beyond the immediate launch and designed a blank-state system that could support the Grammarly Editor and Superhuman Docs merge and scale across agents."
             />
 
-            <ImgBlock heading="I brought design patterns from Superhuman Docs to Grammarly’s blank state to support the future product merge.">
+            <ImgBlock heading="I brought patterns from Superhuman Docs into Grammarly’s blank state to support the future merge.">
               <CaseStudyMedia
                 src="/editor/9-future-1.webp"
                 alt="Shared blank-state design patterns across Grammarly and Superhuman Docs"
@@ -168,7 +168,7 @@ export default function GrammarlyEditorPage() {
               />
             </ImgBlock>
 
-            <ImgBlock heading="I scaled the blank state pattern across all Grammarly agents, and created copy that explains each agent’s purpose.">
+            <ImgBlock heading="I expanded the pattern across every Grammarly agent and wrote copy to explain what each one does.">
               <CaseStudyMedia
                 src="/editor/10-future-2.webp"
                 alt="Blank-state pattern applied across multiple Grammarly agents"
@@ -177,7 +177,7 @@ export default function GrammarlyEditorPage() {
               />
             </ImgBlock>
 
-            <ImgBlock heading="Expanding the starter suggestion design to proactive agent suggestions after the blank state.">
+            <ImgBlock heading="I also explored how starter suggestions could become proactive agent suggestions after the blank state.">
               <CaseStudyMedia
                 src="/editor/11future-3.webp"
                 alt="Proactive Grammarly agent suggestions following the blank state"

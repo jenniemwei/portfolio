@@ -35,7 +35,7 @@ export function HeroSection({
         <CaseStudyMedia {...media} />
       </div>
 
-      <div className="grid gap-8 md:grid-cols-[252px_500px] md:gap-12">
+      <div className="grid gap-8 min-[864px]:grid-cols-[252px_500px] min-[864px]:gap-12">
         <div className="flex flex-col gap-6">
           {specs.map((spec) => (
             <div key={spec.label} className="flex flex-col gap-2">
@@ -46,7 +46,7 @@ export function HeroSection({
             </div>
           ))}
         </div>
-        <div className="flex w-full max-w-[600px] flex-col gap-2 md:w-[500px]">
+        <div className="flex w-full max-w-[600px] flex-col gap-2 min-[864px]:w-[500px]">
           <p className={`${CASE_NOTE} m-0 text-text-subtle`}>Overview</p>
           <p className="m-0 font-[family-name:var(--font-case-heading)] text-lg leading-[normal] font-semibold text-pretty text-[#2e2e2e]">
             {overview}
