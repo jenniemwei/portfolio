@@ -74,6 +74,7 @@ export const homeProjects = {
           {
             index: 0,
             id: "docs-ai-widgets",
+            href: "https://www.figma.com/deck/yxuLhkFn8D9ZfAYCD2Bq5R",
             heading: "Docs AI widgets",
             subheading: "Summer 2026",
             subheadDesc: "Prototyping AI widgets in Superhuman docs,",
@@ -83,6 +84,7 @@ export const homeProjects = {
           {
             index: 1,
             id: "g2-ai",
+            href: "https://www.figma.com/deck/NhP5MMr5Kr3Pm7eEq8jCH4",
             heading: "G2 AI",
             subheading: "Fall 2025",
             subheadDesc: "Conversational software search",
