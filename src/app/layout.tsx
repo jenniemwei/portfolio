@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Crimson_Pro } from "next/font/google";
+import { Crimson_Pro, Crimson_Text, DM_Mono, Manrope } from "next/font/google";
 
 import { Nav } from "@/components/nav/Nav";
 import "@/styles/globals.css";
@@ -39,6 +39,27 @@ const crimsonPro = Crimson_Pro({
   weight: "variable",
 });
 
+const crimsonText = Crimson_Text({
+  subsets: ["latin"],
+  variable: "--font-crimson-text",
+  display: "swap",
+  weight: ["400"],
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  display: "swap",
+  weight: ["500", "600"],
+});
+
+const dmMono = DM_Mono({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-dm-mono",
+  display: "swap",
+  weight: ["500"],
+});
+
 export const metadata: Metadata = {
   title: "Jennie Wei",
   description: "Product designer portfolio",
@@ -57,7 +78,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${saans.variable} ${crimsonPro.variable} bg-fill-default`}
+      className={`${saans.variable} ${crimsonPro.variable} ${crimsonText.variable} ${manrope.variable} ${dmMono.variable} bg-fill-default`}
       suppressHydrationWarning
     >
       <body

@@ -1,0 +1,51 @@
+import type { ReactNode } from "react";
+
+import { CASE_BODY, CASE_H2_SANS, CASE_NOTE } from "./caseStudyStyles";
+
+type NarrativeBlockProps = {
+  note: string;
+  heading?: ReactNode;
+  body?: ReactNode;
+  tone?: "default" | "inverse";
+  hangingQuote?: boolean;
+};
+
+/** A case-study narrative block: header (note + h2-sans) followed by body. */
+export function NarrativeBlock({
+  note,
+  heading,
+  body,
+  tone = "default",
+  hangingQuote = false,
+}: NarrativeBlockProps) {
+  const inverse = tone === "inverse";
+
+  return (
+    <div
+      className={`flex w-full flex-col gap-4 border-b py-6 ${inverse ? "border-text-subtle" : "border-line"}`}
+      data-case-block="narrative-block"
+    >
+      <header className="flex w-full max-w-[600px] flex-col gap-2">
+        <p
+          className={`${CASE_NOTE} m-0 ${inverse ? "text-line" : "text-text-subtle"}`}
+        >
+          {note}
+        </p>
+        {heading ? (
+          <h2
+            className={`${CASE_H2_SANS} m-0 ${hangingQuote ? "indent-[-0.45em]" : ""} ${inverse ? "text-white" : "text-text-default"}`}
+          >
+            {heading}
+          </h2>
+        ) : null}
+      </header>
+      {body ? (
+        <p
+          className={`${CASE_BODY} m-0 max-w-[600px] ${inverse ? "text-white" : "text-[#2e2e2e]"}`}
+        >
+          {body}
+        </p>
+      ) : null}
+    </div>
+  );
+}

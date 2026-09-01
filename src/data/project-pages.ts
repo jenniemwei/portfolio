@@ -11,6 +11,13 @@ export type ProjectPage = {
 
 const projectPages: readonly ProjectPage[] = [
   {
+    id: "grammarly-editor",
+    href: "/work/grammarly-editor",
+    pageTitle: "Grammarly Editor",
+    altText: "Grammarly Editor blank-state case study",
+    heroImage: "/editor/1-hero.png",
+  },
+  {
     id: "g2-search",
     href: "/work/g2-search",
     pageTitle: "G2 Search",

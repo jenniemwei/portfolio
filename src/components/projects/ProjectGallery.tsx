@@ -90,6 +90,7 @@ export function ProjectGallery({
                       <ProjectCard
                         key={project.id ?? `${rowIndex}-${projectIndex}`}
                         id={project.id}
+                        href={project.href}
                         title={project.heading}
                         date={project.subheading}
                         description={project.subheadDesc}

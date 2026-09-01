@@ -47,6 +47,7 @@ export const homeProjects = {
           {
             index: 0,
             id: "grammarly-editor",
+            href: "/work/grammarly-editor",
             heading: "Grammarly editor",
             subheading: "Summer 2026",
             subheadDesc: "Design patterns for Grammarly editor agents,",
