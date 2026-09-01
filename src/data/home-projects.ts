@@ -57,7 +57,6 @@ export const homeProjects = {
           {
             index: 1,
             id: "g2-search",
-            href: "/work/g2-search",
             heading: "G2 Search",
             subheading: "Summer 2025",
             subheadDesc: "Smart search AI interaction patterns",
