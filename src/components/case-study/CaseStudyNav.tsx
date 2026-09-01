@@ -1,7 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
+import { useCollapsibleNav } from "@/components/nav/useCollapsibleNav";
+
 export function CaseStudyNav() {
+  const nav = useCollapsibleNav();
+
   return (
     <nav
       aria-label="Case study navigation"
@@ -12,7 +18,12 @@ export function CaseStudyNav() {
         <Link
           href="/"
           aria-label="Back to home"
-          className="group pointer-events-auto relative inline-flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2"
+          className={`group relative inline-flex rounded-full transition-[translate,opacity] duration-300 ease-out motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 ${
+            nav.slideHidden
+              ? "pointer-events-none -translate-y-[calc(100%+2.5rem)] opacity-0"
+              : "pointer-events-auto translate-y-0 opacity-100"
+          }`}
+          {...nav.headerHandlers}
         >
           <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white transition-colors duration-200 group-hover:bg-line group-focus-visible:bg-line">
             <Image
