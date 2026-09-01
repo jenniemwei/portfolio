@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useCollapsibleNav } from "@/components/nav/useCollapsibleNav";
 
 export function CaseStudyNav() {
-  const nav = useCollapsibleNav();
+  const nav = useCollapsibleNav({ showAtBottom: true });
 
   return (
     <nav

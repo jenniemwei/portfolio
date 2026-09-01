@@ -3,17 +3,20 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const SCROLL_TOP_SHOW_PX = 56;
+const SCROLL_BOTTOM_SHOW_PX = 56;
 const SCROLL_DELTA_PX = 6;
 
 type CollapsibleNavOptions = {
   trackHomeHero?: boolean;
   collapsedUntilInteraction?: boolean;
+  showAtBottom?: boolean;
 };
 
 /** Shared scroll, hover, and keyboard state for the global and work navigation. */
 export function useCollapsibleNav({
   trackHomeHero = false,
   collapsedUntilInteraction = false,
+  showAtBottom = false,
 }: CollapsibleNavOptions = {}) {
   const lastScrollY = useRef(0);
   const [atTop, setAtTop] = useState(true);
@@ -35,6 +38,9 @@ export function useCollapsibleNav({
         ticking = false;
         const y = window.scrollY;
         const dy = y - lastScrollY.current;
+        const isAtBottom =
+          document.documentElement.scrollHeight - (y + window.innerHeight) <
+          SCROLL_BOTTOM_SHOW_PX;
         lastScrollY.current = y;
 
         if (collapsedUntilInteraction && Math.abs(dy) > 0) {
@@ -48,7 +54,7 @@ export function useCollapsibleNav({
             : false,
         );
 
-        if (y < SCROLL_TOP_SHOW_PX) {
+        if (y < SCROLL_TOP_SHOW_PX || (showAtBottom && isAtBottom)) {
           setHiddenByScroll(false);
         } else if (dy > SCROLL_DELTA_PX) {
           setHiddenByScroll(true);
@@ -65,7 +71,7 @@ export function useCollapsibleNav({
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [collapsedUntilInteraction, trackHomeHero]);
+  }, [collapsedUntilInteraction, showAtBottom, trackHomeHero]);
 
   const onBlurCapture = useCallback((event: React.FocusEvent<HTMLElement>) => {
     const next = event.relatedTarget;
