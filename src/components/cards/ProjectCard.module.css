@@ -9,7 +9,7 @@
 @media (hover: hover) and (pointer: fine) {
   .cardLink,
   .cardLink * {
-    cursor: url("/icons/hand-point-cursor.svg") 12 4, pointer;
+    cursor: url("/icons/hand-point-cursor.svg") 30 10, pointer;
   }
 }
 
