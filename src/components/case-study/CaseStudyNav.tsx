@@ -25,14 +25,14 @@ function BackToHome({ mobile = false }: { mobile?: boolean }) {
     <Link
       href="/"
       aria-label="Back to home"
-      className={`group relative inline-flex rounded-full transition-[translate,opacity] duration-300 ease-out motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 ${
+      className={`group relative inline-flex -translate-x-3.5 rounded-full transition-[translate,opacity] duration-300 ease-out motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 ${
         nav.slideHidden
           ? "pointer-events-none -translate-y-[calc(100%+2.5rem)] opacity-0"
           : "pointer-events-auto translate-y-0 opacity-100"
       }`}
       {...nav.headerHandlers}
     >
-      <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white transition-colors duration-200 group-hover:bg-line group-focus-visible:bg-line">
+      <span className="flex size-11 shrink-0 items-center justify-center rounded-full">
         <Image
           src="/icons/back-arrow.svg"
           alt=""
@@ -42,9 +42,9 @@ function BackToHome({ mobile = false }: { mobile?: boolean }) {
         />
       </span>
       <span
-        className={`pointer-events-none absolute top-full left-0 mt-2 translate-y-1 whitespace-nowrap text-left text-sm font-medium opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 ${mobile ? "hidden sm:block" : ""}`}
+        className={`pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 translate-y-1 whitespace-nowrap text-center opacity-0 transition-[translate,opacity] duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 ${CASE_NOTE_SERIF} ${mobile ? "hidden sm:block" : ""}`}
       >
-        back to home
+        back
       </span>
     </Link>
   );
