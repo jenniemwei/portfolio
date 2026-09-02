@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { cn } from "@/lib/cn";
+
 import { CASE_STUDY_MEDIA_SIZES } from "./caseStudyStyles";
 
 export type CaseStudyMediaProps = {
@@ -8,6 +10,7 @@ export type CaseStudyMediaProps = {
   width: number;
   height: number;
   priority?: boolean;
+  className?: string;
 };
 
 export function CaseStudyMedia({
@@ -16,6 +19,7 @@ export function CaseStudyMedia({
   width,
   height,
   priority,
+  className,
 }: CaseStudyMediaProps) {
   return (
     <Image
@@ -25,7 +29,11 @@ export function CaseStudyMedia({
       height={height}
       sizes={CASE_STUDY_MEDIA_SIZES}
       priority={priority}
-      className="h-auto w-full rounded-[clamp(12px,1.7vw,24px)] object-contain"
+      unoptimized={src.toLowerCase().endsWith(".gif")}
+      className={cn(
+        "h-auto w-full rounded-[clamp(12px,1.7vw,24px)] object-contain",
+        className,
+      )}
     />
   );
 }

@@ -75,10 +75,11 @@ export default function GrammarlyEditorPage() {
 
           <ImgBlock heading="I explored placements for the four quick starts within the main canvas, without using the side panel.">
             <CaseStudyMedia
-              src="/editor/3-design-1.webp"
+              src="/editor/3-design-1.gif"
               alt="Early placement explorations for quick-start actions"
-              width={800}
-              height={410}
+              width={1920}
+              height={1200}
+              className="border border-line"
             />
           </ImgBlock>
 
