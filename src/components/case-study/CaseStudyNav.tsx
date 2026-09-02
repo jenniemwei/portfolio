@@ -52,6 +52,13 @@ function BackToHome({ mobile = false }: { mobile?: boolean }) {
 
 export function CaseStudyNav({ items }: CaseStudyNavProps) {
   const [activeId, setActiveId] = useState(items[0]?.id ?? "");
+  const [previewId, setPreviewId] = useState<string | null>(null);
+  const displayedId = previewId ?? activeId;
+  const displayedIndex = Math.max(
+    0,
+    items.findIndex((item) => item.id === displayedId),
+  );
+  const displayedLabel = items[displayedIndex]?.label ?? "";
 
   const scrollToSection = (
     event: MouseEvent<HTMLAnchorElement>,
@@ -123,31 +130,54 @@ export function CaseStudyNav({ items }: CaseStudyNavProps) {
               <div className="pointer-events-auto">
                 <BackToHome />
               </div>
-              <ol
-                className={`pointer-events-auto flex flex-col gap-5 whitespace-nowrap ${CASE_NOTE_SERIF}`}
-              >
-                {items.map((item) => {
-                  const active = item.id === activeId;
-                  return (
-                    <li key={item.id}>
-                      <a
-                        href={`#${item.id}`}
-                        aria-current={active ? "location" : undefined}
-                        onClick={(event) => scrollToSection(event, item.id)}
-                        className="group relative flex h-1 w-3 items-center before:absolute before:-inset-x-4 before:-inset-y-2.5 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4"
-                      >
-                        <span
-                          aria-hidden
-                          className={`h-1 w-3 shrink-0 rounded-full transition-[background-color,transform] duration-150 group-hover:translate-x-3 group-focus-visible:translate-x-3 ${active ? "bg-text-case-heading" : "bg-text-subtle group-hover:bg-text-case-heading group-focus-visible:bg-text-case-heading"}`}
-                        />
-                        <span className="pointer-events-none absolute top-1/2 left-8 -translate-y-1/2 text-text-case-heading opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none">
-                          {item.label}
-                        </span>
-                      </a>
-                    </li>
-                  );
-                })}
-              </ol>
+              <div className={`relative ${CASE_NOTE_SERIF}`}>
+                <ol
+                  className="pointer-events-auto flex flex-col gap-5 whitespace-nowrap"
+                  onMouseLeave={() => setPreviewId(null)}
+                  onBlur={(event) => {
+                    if (
+                      !event.currentTarget.contains(
+                        event.relatedTarget as Node | null,
+                      )
+                    ) {
+                      setPreviewId(null);
+                    }
+                  }}
+                >
+                  {items.map((item) => {
+                    const active = item.id === activeId;
+                    const previewed = item.id === previewId;
+                    const slides = previewed && !active;
+                    return (
+                      <li key={item.id}>
+                        <a
+                          href={`#${item.id}`}
+                          aria-label={item.label}
+                          aria-current={active ? "location" : undefined}
+                          onClick={(event) => scrollToSection(event, item.id)}
+                          onMouseEnter={() => setPreviewId(item.id)}
+                          onFocus={() => setPreviewId(item.id)}
+                          className="group relative flex h-0.5 w-4 items-center before:absolute before:-inset-x-4 before:-inset-y-2.5 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4"
+                        >
+                          <span
+                            aria-hidden
+                            className={`h-0.5 w-4 shrink-0 transform-gpu rounded-full transition-[background-color,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform motion-reduce:transition-none ${slides ? "translate-x-3" : "translate-x-0"} ${active || previewed ? "bg-text-case-heading" : "bg-line"}`}
+                          />
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ol>
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute top-0 left-8 flex h-0.5 items-center whitespace-nowrap text-text-case-heading transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform motion-reduce:transition-none"
+                  style={{
+                    transform: `translate3d(0, ${displayedIndex * 22}px, 0)`,
+                  }}
+                >
+                  {displayedLabel}
+                </span>
+              </div>
             </div>
           </div>
         }
