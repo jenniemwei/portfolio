@@ -6,13 +6,6 @@
   flex-direction: column;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .cardLink,
-  .cardLink * {
-    cursor: url("/icons/hand-point-cursor.svg") 23 8, pointer;
-  }
-}
-
 .card {
   transition: opacity 200ms ease-out;
 }
