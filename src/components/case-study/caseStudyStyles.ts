@@ -22,5 +22,9 @@ export const CASE_H2_SANS =
 export const CASE_H3_SANS =
   "font-[family-name:var(--font-case-heading)] text-lg font-semibold leading-[normal] text-pretty";
 
+/** Numbered principle and principle-followup heading. */
+export const CASE_PRINCIPLE_HEADING =
+  "font-[family-name:var(--font-case-heading)] text-xl font-semibold leading-[normal] text-balance";
+
 export const CASE_BODY =
   "font-[family-name:var(--font-case-body)] text-xl font-normal leading-[normal] text-pretty";

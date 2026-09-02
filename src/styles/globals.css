@@ -21,10 +21,12 @@
   --g4: #86868a;
   --g6: #1c1c1c;
   --g8: #121212;
+  --black: #000000;
+  --case-body: #141413;
+  --neutral-10: #f2f0eb;
   --white: #ffffff;
-  /* Figma palette primitives: Semantic/page + Brand/green/90. */
+  /* Figma palette primitive: Semantic/page. */
   --page: #fcfaf7;
-  --green-90: #0c4243;
 
   /* Page / content width utilities (`pg-w-*`, `content-*`) */
   --pg-w-80-width: 90%;
@@ -47,12 +49,14 @@
   --color-fill-white: var(--white);
   --color-fill-default: var(--page);
   --color-fill-dark: var(--g8);
-  --color-fill-green: var(--green-90);
+  --color-fill-neutral: var(--neutral-10);
   --color-text-white: var(--white);
   --color-text-default: var(--g8);
   --color-text-secondary: var(--g6);
   --color-text-subtle: var(--g4);
   --color-text-black: var(--g8);
+  --color-text-case-heading: var(--black);
+  --color-text-case-body: var(--case-body);
   --color-line: var(--g2);
   --color-hero-box: color-mix(in srgb, var(--color-fill-default) 50%, transparent);
   /* Font families */

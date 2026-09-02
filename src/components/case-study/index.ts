@@ -8,3 +8,4 @@ export { CaseStudySection } from "./CaseStudySection";
 export { HeroSection } from "./HeroSection";
 export { ImgBlock } from "./ImgBlock";
 export { NarrativeBlock } from "./NarrativeBlock";
+export { PrincipleBlock } from "./PrincipleBlock";

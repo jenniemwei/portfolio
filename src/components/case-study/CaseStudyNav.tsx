@@ -119,27 +119,35 @@ export function CaseStudyNav({ items }: CaseStudyNavProps) {
         className="h-dvh [--page-content-max:864px]"
         leftRail={
           <div className="relative ml-auto h-dvh w-full max-w-[166px]">
-            <ol
-              className={`pointer-events-auto absolute top-1/2 left-0 flex -translate-y-1/2 flex-col gap-3 whitespace-nowrap ${CASE_NOTE_SERIF}`}
-            >
-              {items.map((item) => {
-                const active = item.id === activeId;
-                return (
-                  <li key={item.id}>
-                    <a
-                      href={`#${item.id}`}
-                      aria-current={active ? "location" : undefined}
-                      onClick={(event) => scrollToSection(event, item.id)}
-                      className={`transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4 ${active ? "text-text-default" : "text-text-subtle hover:text-text-default"}`}
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                );
-              })}
-            </ol>
-            <div className="pointer-events-auto pt-10">
-              <BackToHome />
+            <div className="absolute top-20 left-0 flex flex-col gap-20">
+              <div className="pointer-events-auto">
+                <BackToHome />
+              </div>
+              <ol
+                className={`pointer-events-auto flex flex-col gap-5 whitespace-nowrap ${CASE_NOTE_SERIF}`}
+              >
+                {items.map((item) => {
+                  const active = item.id === activeId;
+                  return (
+                    <li key={item.id}>
+                      <a
+                        href={`#${item.id}`}
+                        aria-current={active ? "location" : undefined}
+                        onClick={(event) => scrollToSection(event, item.id)}
+                        className="group relative flex h-1 w-3 items-center before:absolute before:-inset-x-4 before:-inset-y-2.5 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4"
+                      >
+                        <span
+                          aria-hidden
+                          className={`h-1 w-3 shrink-0 rounded-full transition-[background-color,transform] duration-150 group-hover:translate-x-3 group-focus-visible:translate-x-3 ${active ? "bg-text-case-heading" : "bg-text-subtle group-hover:bg-text-case-heading group-focus-visible:bg-text-case-heading"}`}
+                        />
+                        <span className="pointer-events-none absolute top-1/2 left-8 -translate-y-1/2 text-text-case-heading opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none">
+                          {item.label}
+                        </span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ol>
             </div>
           </div>
         }

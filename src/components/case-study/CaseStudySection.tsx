@@ -8,12 +8,12 @@ type CaseStudySectionProps = {
   children: ReactNode;
   id?: string;
   fullBleed?: boolean;
-  tone?: "default" | "green";
+  tone?: "default" | "neutral";
   contentGap?: "section" | "related";
   className?: string;
 };
 
-/** A narrative-block followed by img-blocks, with the 120px in-section gap. */
+/** A narrative-block followed by img-blocks, with the 80px in-section gap. */
 export function CaseStudySection({
   children,
   id,
@@ -27,7 +27,7 @@ export function CaseStudySection({
       className={cn(
         CASE_STUDY_CONTAINER,
         "flex flex-col",
-        contentGap === "related" ? "gap-12" : "gap-30",
+        contentGap === "related" ? "gap-12" : "gap-20",
       )}
       data-case-section-content
     >
@@ -41,7 +41,7 @@ export function CaseStudySection({
         id={id}
         className={cn(
           "w-full scroll-mt-6 py-30",
-          tone === "green" && "bg-fill-green text-white",
+          tone === "neutral" && "bg-fill-neutral",
           className,
         )}
         data-case-section="full"

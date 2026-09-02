@@ -7,6 +7,7 @@ import {
   HeroSection,
   ImgBlock,
   NarrativeBlock,
+  PrincipleBlock,
 } from "@/components/case-study";
 import { CASE_STUDY_CONTAINER } from "@/components/case-study/caseStudyStyles";
 
@@ -47,7 +48,7 @@ export default function GrammarlyEditorPage() {
         />
       </div>
 
-      <div className="mt-50 flex flex-col gap-50">
+      <div className="mt-30 flex flex-col gap-30">
         <CaseStudySection id="context" className="py-6">
           <NarrativeBlock
             note="Context"
@@ -139,22 +140,22 @@ export default function GrammarlyEditorPage() {
           </ImgBlock>
         </CaseStudySection>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-30">
           <CaseStudySection
             id="shipped-mvp"
             fullBleed
-            tone="green"
+            tone="neutral"
             contentGap="related"
           >
             <NarrativeBlock
               note="Shipped experiment"
               heading="Testing the new blank state with 500K+ Grammarly Editor users"
-              tone="inverse"
+              tone="neutral"
             />
             <ImgBlock
               heading="We compared the existing blank state with the new design in a 21-day experiment. The test was still running when my internship ended, so I don’t have final results to share."
               textStyle="body"
-              tone="inverse"
+              tone="neutral"
             >
               <CaseStudyMedia
                 src="/editor/8-exp.webp"
@@ -168,31 +169,77 @@ export default function GrammarlyEditorPage() {
           <CaseStudySection id="final-designs" fullBleed>
             <NarrativeBlock
               note="Planning ahead"
-              heading="Designing a blank-state pattern that could scale beyond one agent or product."
-              body="The experiment had to work around other active tests and a tight engineering timeline. So I also looked beyond the immediate launch and designed a blank-state system that could support the Grammarly Editor and Superhuman Docs merge and scale across agents."
+              heading="How should the blank page feel in the long term? And scale with the product?"
+              body="The experiment had to work around other active tests and a tight engineering timeline. So I expanded my scope and looked beyond to establish a blank-state roadmap that supports the Grammarly Editor and Superhuman Docs merge as one clear and cohesive product experience."
             />
 
-            <ImgBlock heading="I brought patterns from Superhuman Docs into Grammarly’s blank state to support the future merge.">
+            <PrincipleBlock
+              number={1}
+              heading="“I know where to look”"
+              body="To create one clear place to start, I brought the scattered CTAs into the agent panel and explored visual cues that drew attention there."
+              divider
+            >
               <CaseStudyMedia
-                src="/editor/9-future-1.webp"
-                alt="Shared blank-state design patterns across Grammarly and Superhuman Docs"
-                width={3196}
+                src="/editor/9-design-5.png"
+                alt="Scattered Grammarly Editor calls to action brought into the agent panel"
+                width={3200}
+                height={2000}
+              />
+            </PrincipleBlock>
+
+            <PrincipleBlock
+              number={2}
+              heading="“I see how this could help me”"
+              body="I saw the blank state as an opportunity to explain each agent’s value before users started writing. In partnership with a content designer, I rewrote value-driven blank states for all 12 agents."
+              divider
+            >
+              <CaseStudyMedia
+                src="/editor/10-design6.png"
+                alt="Value-driven blank-state copy before and after"
+                width={3200}
                 height={1600}
               />
-            </ImgBlock>
+            </PrincipleBlock>
 
-            <ImgBlock heading="I expanded the pattern across every Grammarly agent and wrote copy to explain what each one does.">
-              <CaseStudyMedia
-                src="/editor/10-future-2.webp"
-                alt="Blank-state pattern applied across multiple Grammarly agents"
-                width={3196}
-                height={1600}
-              />
-            </ImgBlock>
+            <PrincipleBlock
+              number={3}
+              heading="“This feels like one cohesive experience”"
+              contentGap="related"
+              divider
+            >
+              <ImgBlock
+                heading="I extended the blank state design pattern and copy style across every Grammarly agent panel."
+                textStyle="body"
+              >
+                <CaseStudyMedia
+                  src="/editor/12-future-2.webp"
+                  alt="Blank-state pattern applied across multiple Grammarly agents"
+                  width={3196}
+                  height={1600}
+                />
+              </ImgBlock>
 
-            <ImgBlock heading="I also explored how starter suggestions could become proactive agent suggestions after the blank state.">
+              <ImgBlock
+                heading="I brought design patterns from Superhuman Docs into Grammarly’s blank state suggestions to support the future product merge."
+                textStyle="body"
+              >
+                <CaseStudyMedia
+                  src="/editor/11-future-1.webp"
+                  alt="Shared blank-state design patterns across Grammarly and Superhuman Docs"
+                  width={3196}
+                  height={1600}
+                />
+              </ImgBlock>
+
+            </PrincipleBlock>
+
+            <ImgBlock
+              heading="Extending beyond the blank state"
+              body="I also explored how the starter suggestions could then evolve into proactive agent suggestions after the blank state."
+              captionStyle="principle"
+            >
               <CaseStudyMedia
-                src="/editor/11future-3.webp"
+                src="/editor/13-future-3.webp"
                 alt="Proactive Grammarly agent suggestions following the blank state"
                 width={3196}
                 height={1600}
