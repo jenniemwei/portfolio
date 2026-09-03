@@ -5,10 +5,9 @@ export const CASE_STUDY_CONTAINER =
   "mx-auto w-full max-w-[864px] px-5 sm:px-8";
 
 export const CASE_NOTE =
-  "font-[family-name:var(--font-case-label)] text-sm font-medium leading-[1.32] tracking-[0.14px] uppercase";
+  "font-[family-name:var(--font-case-heading)] text-sm font-semibold leading-[1.32] tracking-[0.5px] uppercase";
 
-export const CASE_META_VALUE =
-  "font-[family-name:var(--font-noto-sans-mono)] text-sm font-medium leading-[1.32] tracking-[0.14px] uppercase";
+export const CASE_META_VALUE = CASE_NOTE;
 
 /** Small serif navigation and annotation text. */
 export const CASE_NOTE_SERIF =

@@ -9,3 +9,4 @@ export { HeroSection } from "./HeroSection";
 export { ImgBlock } from "./ImgBlock";
 export { NarrativeBlock } from "./NarrativeBlock";
 export { PrincipleBlock } from "./PrincipleBlock";
+export { QuoteBlock } from "./QuoteBlock";

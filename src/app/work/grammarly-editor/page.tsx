@@ -8,6 +8,7 @@ import {
   ImgBlock,
   NarrativeBlock,
   PrincipleBlock,
+  QuoteBlock,
 } from "@/components/case-study";
 import { CASE_STUDY_CONTAINER } from "@/components/case-study/caseStudyStyles";
 
@@ -46,6 +47,16 @@ export default function GrammarlyEditorPage() {
           ]}
           overview="I redesigned Grammarly Editor’s blank state to help people get started and see value right away. I added clearer entry points to AI Chat and Proofreader, then built a blank-state system for every Grammarly agent ahead of the Superhuman Docs and Grammarly Editor merge."
         />
+
+        <div className="mt-30">
+          <QuoteBlock
+            note="Feedback"
+            quotes={[
+              "“[Jennie] went beyond scope...to large complex problems, such as how Superhuman Docs and Editor should eventually combine. More complex than a normal internship project.”",
+              "“[She] consistently shows the ability to think outside the box and redefine problem sets to solve user needs more effectively.”",
+            ]}
+          />
+        </div>
       </div>
 
       <div className="mt-30 flex flex-col gap-30">
