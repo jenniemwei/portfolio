@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 };
 
 const CASE_STUDY_NAV_ITEMS = [
+  { id: "overview", label: "overview" },
   { id: "context", label: "context" },
   { id: "original-brief", label: "original brief" },
   { id: "reframe", label: "reframe" },
@@ -30,10 +31,11 @@ export default function GrammarlyEditorPage() {
   return (
     <main className="w-full bg-fill-default text-text-default">
       <CaseStudyNav items={CASE_STUDY_NAV_ITEMS} />
-      <div className={CASE_STUDY_CONTAINER}>
+      <section id="overview" className={CASE_STUDY_CONTAINER}>
         <HeroSection
-          eyebrow="Case study in progress"
-          title="Leading with value on Grammarly's blank state"
+          title="Leading with value on Grammarly’s blank state"
+          detailsFirst
+          serifDetails
           media={{
             src: "/editor/1-hero.webp",
             alt: "Grammarly Editor blank state showing suggested ways to begin writing",
@@ -42,22 +44,22 @@ export default function GrammarlyEditorPage() {
             priority: true,
           }}
           specs={[
-            { label: "Timeline", value: "Summer 2026" },
+            { label: "Tools", value: "Figma, Claude Code" },
             { label: "Mentored by", value: "Hiếu Trần, TJ Eby" },
           ]}
-          overview="I redesigned Grammarly Editor’s blank state to help people get started and see value right away. I added clearer entry points to AI Chat and Proofreader, then built a blank-state system for every Grammarly agent ahead of the Superhuman Docs and Grammarly Editor merge."
+          overview="I redesigned Grammarly Editor’s blank state to make the first action feel obvious, useful, and connected to the broader product, without interrupting the core Grammarly Proofreader workflow."
         />
 
         <div className="mt-30">
           <QuoteBlock
-            note="Feedback"
             quotes={[
               "“[Jennie] went beyond scope...to large complex problems, such as how Superhuman Docs and Editor should eventually combine. More complex than a normal internship project.”",
               "“[She] consistently shows the ability to think outside the box and redefine problem sets to solve user needs more effectively.”",
             ]}
+            attribution="TJ Eby (Head of Design)"
           />
         </div>
-      </div>
+      </section>
 
       <div className="mt-30 flex flex-col gap-30">
         <CaseStudySection id="context" className="py-6">
