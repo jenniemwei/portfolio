@@ -1,5 +1,5 @@
 import { CaseStudyMedia, type CaseStudyMediaProps } from "./CaseStudyMedia";
-import { CASE_BODY, CASE_META_VALUE, CASE_NOTE } from "./caseStudyStyles";
+import { CASE_BODY, CASE_NOTE } from "./caseStudyStyles";
 
 type HeroSpec = {
   label: string;
@@ -12,8 +12,6 @@ type HeroSectionProps = {
   media: CaseStudyMediaProps;
   specs: HeroSpec[];
   overview: string;
-  detailsFirst?: boolean;
-  serifDetails?: boolean;
 };
 
 export function HeroSection({
@@ -22,8 +20,6 @@ export function HeroSection({
   media,
   specs,
   overview,
-  detailsFirst = false,
-  serifDetails = false,
 }: HeroSectionProps) {
   const details = (
     <div className="grid gap-8 min-[864px]:grid-cols-[252px_500px] min-[864px]:gap-12">
@@ -32,7 +28,7 @@ export function HeroSection({
           <div key={spec.label} className="flex flex-col gap-2">
             <p className={`${CASE_NOTE} m-0 text-text-subtle`}>{spec.label}</p>
             <p
-              className={`${serifDetails ? CASE_BODY : CASE_META_VALUE} m-0 whitespace-pre-line text-text-default ${serifDetails ? "tracking-[-0.15px]" : ""}`}
+              className={`${CASE_BODY} m-0 whitespace-pre-line tracking-[-0.15px] text-text-default`}
             >
               {spec.value}
             </p>
@@ -42,11 +38,7 @@ export function HeroSection({
       <div className="flex w-full max-w-[600px] flex-col gap-2 min-[864px]:w-[500px]">
         <p className={`${CASE_NOTE} m-0 text-text-subtle`}>Overview</p>
         <p
-          className={
-            serifDetails
-              ? `${CASE_BODY} m-0 tracking-[-0.15px] text-[#2e2e2e]`
-              : "m-0 font-[family-name:var(--font-case-heading)] text-lg leading-[normal] font-semibold text-pretty text-[#2e2e2e]"
-          }
+          className={`${CASE_BODY} m-0 whitespace-pre-line tracking-[-0.15px] text-[#2e2e2e]`}
         >
           {overview}
         </p>
@@ -65,8 +57,8 @@ export function HeroSection({
         </h1>
       </div>
 
-      {detailsFirst ? details : <CaseStudyMedia {...media} />}
-      {detailsFirst ? <CaseStudyMedia {...media} /> : details}
+      {details}
+      <CaseStudyMedia {...media} />
     </header>
   );
 }

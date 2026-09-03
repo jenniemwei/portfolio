@@ -34,8 +34,6 @@ export default function GrammarlyEditorPage() {
       <section id="overview" className={CASE_STUDY_CONTAINER}>
         <HeroSection
           title="Leading with value on Grammarly’s blank state"
-          detailsFirst
-          serifDetails
           media={{
             src: "/editor/1-hero.webp",
             alt: "Grammarly Editor blank state showing suggested ways to begin writing",
