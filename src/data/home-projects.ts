@@ -57,7 +57,7 @@ export const homeProjects = {
           {
             index: 1,
             id: "g2-search",
-            href: "https://www.figma.com/deck/IOmNiw3cmBlR7PvVa4Ur9z",
+            href: "/work/g2-search",
             heading: "G2 Search",
             subheading: "Summer 2025",
             subheadDesc: "Smart search AI interaction patterns",

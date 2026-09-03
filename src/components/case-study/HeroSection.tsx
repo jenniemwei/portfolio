@@ -40,7 +40,9 @@ export function HeroSection({
           {specs.map((spec) => (
             <div key={spec.label} className="flex flex-col gap-2">
               <p className={`${CASE_NOTE} m-0 text-text-subtle`}>{spec.label}</p>
-              <p className={`${CASE_META_VALUE} m-0 text-text-default`}>
+              <p
+                className={`${CASE_META_VALUE} m-0 whitespace-pre-line text-text-default`}
+              >
                 {spec.value}
               </p>
             </div>

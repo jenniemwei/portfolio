@@ -22,7 +22,7 @@ const projectPages: readonly ProjectPage[] = [
     href: "/work/g2-search",
     pageTitle: "G2 Search",
     altText: "G2 Search case study",
-    heroImage: null,
+    heroImage: "/g2-search/1-hero.png",
   },
 ];
 
