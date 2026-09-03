@@ -55,8 +55,8 @@ export default function G2SearchPage() {
         <CaseStudySection id="context" className="py-6">
           <NarrativeBlock
             note="Context"
-            heading="Engagement on G2.com search pages are low, losing buyer intent data for G2 sellers"
-            body="G2 is a software marketplace where buyers discover and compare products, while sellers pay for market insights and buyer-intent data. However, the user engagement that drives buyer intent data was declining: 48% of buyers searching on G2 left without clicking a single result."
+            heading="Engagement on G2.com search pages is low, resulting in lost buyer-intent data for G2 sellers"
+            body="G2 is a software marketplace where buyers discover and compare products, while sellers pay for market insights and buyer-intent data. However, user engagement—which drives buyer-intent data—was declining: 48% of buyers searching on G2 left without clicking a single result."
           />
         </CaseStudySection>
 
@@ -64,12 +64,12 @@ export default function G2SearchPage() {
           <NarrativeBlock
             note="Research"
             heading="G2 has the answers, but search doesn’t surface them, so buyers leave."
-            body="I started out by evaluating the existing experience, looking at competitors, and most importantly hearing from real software buyers through a preliminary user test I conducted to truly understand the buyer perspective."
+            body="I started out by evaluating the existing experience, looking at competitors, and, most importantly, hearing from real software buyers through a preliminary user test I conducted to truly understand the buyer perspective."
           />
 
           <ImgBlock
-            heading="The search page was still optimized for SEO, not buyer needs, and tacking on AI won’t fix it"
-            body="The buyer side of G2 has been long neglected: The legacy search page had hidden and limited filters, massive product cards filled with jargon, and an AI sparkle that provided no reason to click."
+            heading="The search page was still optimized for SEO, not buyer needs, and tacking on AI wouldn’t fix it"
+            body="The buyer side of G2 had long been neglected: the legacy search page had hidden and limited filters, massive product cards filled with jargon, and an AI sparkle that provided no reason to click."
           >
             <CaseStudyMedia
               src="/g2-search/2-oldpg.png"
@@ -81,7 +81,7 @@ export default function G2SearchPage() {
 
           <ImgBlock
             heading="Software buyers search for specific needs, but filters on G2 don’t meet them there."
-            body="In my usability testing with six buyer-persona participants, everyone described specific requirements they needed and prioritized shortlisting results immediately, but user analytics show that the current filters fall short."
+            body="In my usability testing with six buyer-persona participants, everyone described the specific requirements they had and prioritized shortlisting results immediately, but user analytics showed that the current filters fell short."
           >
             <CaseStudyMedia
               src="/g2-search/3-researchdata.png"
@@ -95,10 +95,10 @@ export default function G2SearchPage() {
         <CaseStudySection id="problem">
           <NarrativeBlock
             note="The problem"
-            heading="How might we bridge the gap between each buyer’s software needs and right G2 data?"
+            heading="How might we bridge the gap between each buyer’s software needs and the right G2 data?"
           />
 
-          <ImgBlock heading="I led a HMW brainstorm with my team to explore possibilities and limitations of G2’s search data from the people who know it best.">
+          <ImgBlock heading="I led an HMW brainstorm with my team to explore the possibilities and limitations of G2’s search data with the people who know it best.">
             <CaseStudyMedia
               src="/g2-search/4-brainstorm.png"
               alt="How-might-we workshop with engineers, a data analyst, and a product design mentor"
@@ -120,11 +120,11 @@ export default function G2SearchPage() {
         <CaseStudySection id="design" className="pb-30">
           <NarrativeBlock
             note="Context"
-            heading="How far can we personalize a search results page reflect specific needs?"
-            body="After exploring different intervention points from the search bar to the category pages, I decided to focus in on the search result page. I designed a personalized smarter search experience built on G2’s existing data infrastructure and pointing users to G2.ai only when helpful."
+            heading="How far can we personalize a search results page to reflect specific needs?"
+            body="After exploring different intervention points from the search bar to the category pages, I decided to focus on the search results page. I designed a smarter, personalized search experience that builds on G2’s existing data infrastructure and points users to G2 AI only when helpful."
           />
 
-          <ImgBlock heading="1. Buyers describe their needs, G2 surfaces the right filters">
+          <ImgBlock heading="1. Buyers describe their needs; G2 surfaces the right filters">
             <CaseStudyMedia
               src="/g2-search/6-design1.png"
               alt="Search Assistant translating a buyer’s written needs into active and suggested filters"
@@ -133,7 +133,7 @@ export default function G2SearchPage() {
             />
           </ImgBlock>
 
-          <ImgBlock heading="2. Showing the right information in the right amount on product card results">
+          <ImgBlock heading="2. Showing the right amount of relevant information on product result cards">
             <CaseStudyMedia
               src="/g2-search/7-design2.png"
               alt="Personalized G2 product cards showing how each result matches the buyer’s needs"
@@ -143,7 +143,7 @@ export default function G2SearchPage() {
           </ImgBlock>
 
           <div className="flex flex-col gap-6">
-            <ImgBlock heading="3. G2 AI entry points appear when someone would actually want it instead of all the time">
+            <ImgBlock heading="3. G2 AI entry points appear only when buyers would actually want them">
               <CaseStudyMedia
                 src="/g2-search/8-design3.png"
                 alt="Contextual G2 AI entry points shown within product cards and empty search results"
