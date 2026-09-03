@@ -60,10 +60,10 @@
   --color-line: var(--g2);
   --color-hero-box: color-mix(in srgb, var(--color-fill-default) 50%, transparent);
   /* Font families */
-  --font-sans: var(--font-saans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-crimson), ui-serif, Georgia, serif;
   --font-case-body: var(--font-crimson-text), var(--font-crimson), ui-serif, Georgia, serif;
-  --font-case-heading: var(--font-manrope), var(--font-saans), ui-sans-serif, system-ui, sans-serif;
+  --font-case-heading: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-case-label: var(--font-dm-mono), ui-monospace, SFMono-Regular, monospace;
 
   --line-height-base: 1.3;

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import {
   Crimson_Pro,
   Crimson_Text,
@@ -10,33 +9,6 @@ import {
 
 import { Nav } from "@/components/nav/Nav";
 import "@/styles/globals.css";
-
-const saans = localFont({
-  src: [
-    {
-      path: "../../public/Saans/Saans-TRIAL-Light.woff2",
-      weight: "350",
-      style: "normal",
-    },
-    {
-      path: "../../public/Saans/Saans-TRIAL-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/Saans/Saans-TRIAL-Medium.woff2",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../../public/Saans/Saans-TRIAL-SemiBold.woff2",
-      weight: "600",
-      style: "normal",
-    },
-  ],
-  variable: "--font-saans",
-  display: "swap",
-});
 
 const crimsonPro = Crimson_Pro({
   subsets: ["latin"],
@@ -91,7 +63,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${saans.variable} ${crimsonPro.variable} ${crimsonText.variable} ${manrope.variable} ${dmMono.variable} ${notoSansMono.variable} bg-fill-default`}
+      className={`${crimsonPro.variable} ${crimsonText.variable} ${manrope.variable} ${dmMono.variable} ${notoSansMono.variable} bg-fill-default`}
       suppressHydrationWarning
     >
       <body
