@@ -51,7 +51,7 @@ export default function G2SearchPage() {
         />
       </section>
 
-      <div className="mt-30 flex flex-col gap-30">
+      <div className="mt-case-between-section flex flex-col gap-case-between-section">
         <CaseStudySection id="context" className="py-6">
           <NarrativeBlock
             note="Context"
@@ -110,7 +110,7 @@ export default function G2SearchPage() {
           </ImgBlock>
         </CaseStudySection>
 
-        <CaseStudySection id="design" className="pb-30">
+        <CaseStudySection id="design" className="pb-case-between-section">
           <NarrativeBlock
             note="Initial Design"
             heading="How far can we personalize a search results page to each buyer’s needs?"

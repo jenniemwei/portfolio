@@ -83,6 +83,8 @@
   --spacing-md: 24px;
   --spacing-lg: 48px;
   --spacing-xl: 64px;
+  --spacing-case-section: 80px;
+  --spacing-case-between-section: 120px;
 
   /* Layout widths + gutter (`max-w-*`) */
   --max-width-sm: 800px;

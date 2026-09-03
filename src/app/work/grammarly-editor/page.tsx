@@ -48,7 +48,7 @@ export default function GrammarlyEditorPage() {
           overview="I redesigned Grammarly Editor’s blank state to make the first action feel obvious, useful, and connected to the broader product, without interrupting the core Grammarly Proofreader workflow."
         />
 
-        <div className="mt-30">
+        <div className="mt-case-between-section">
           <QuoteBlock
             quotes={[
               "“[Jennie] went beyond scope...to large complex problems, such as how Superhuman Docs and Editor should eventually combine. More complex than a normal internship project.”",
@@ -59,7 +59,7 @@ export default function GrammarlyEditorPage() {
         </div>
       </section>
 
-      <div className="mt-30 flex flex-col gap-30">
+      <div className="mt-case-between-section flex flex-col gap-case-between-section">
         <CaseStudySection id="context" className="py-6">
           <NarrativeBlock
             note="Context"
@@ -152,7 +152,7 @@ export default function GrammarlyEditorPage() {
           </ImgBlock>
         </CaseStudySection>
 
-        <div className="flex flex-col gap-30">
+        <div className="flex flex-col gap-case-between-section">
           <CaseStudySection
             id="shipped-mvp"
             fullBleed

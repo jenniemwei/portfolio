@@ -27,7 +27,7 @@ export function CaseStudySection({
       className={cn(
         CASE_STUDY_CONTAINER,
         "flex flex-col",
-        contentGap === "related" ? "gap-12" : "gap-20",
+        contentGap === "related" ? "gap-12" : "gap-case-section",
       )}
       data-case-section-content
     >
@@ -40,7 +40,7 @@ export function CaseStudySection({
       <section
         id={id}
         className={cn(
-          "w-full scroll-mt-6 py-30",
+          "w-full scroll-mt-6 py-case-between-section",
           tone === "neutral" && "bg-fill-neutral",
           className,
         )}
