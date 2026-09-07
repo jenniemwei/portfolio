@@ -28,7 +28,7 @@ const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-manrope",
   display: "swap",
-  weight: ["500", "600"],
+  weight: "variable",
 });
 
 const dmMono = DM_Mono({
