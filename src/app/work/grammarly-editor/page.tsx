@@ -161,7 +161,7 @@ export default function GrammarlyEditorPage() {
           >
             <NarrativeBlock
               note="Shipped experiment"
-              heading="Testing the new blank state with 500K+ Grammarly Editor users"
+              heading="Testing the new blank state with 500K+ Grammarly Editor users."
               tone="neutral"
             />
             <ImgBlock
@@ -187,7 +187,7 @@ export default function GrammarlyEditorPage() {
 
             <PrincipleBlock
               number={1}
-              heading="“I know where to look”"
+              heading="“I know where to look.”"
               body="To create one clear place to start, I brought the scattered CTAs into the agent panel and explored visual cues that drew attention there."
               divider
             >
@@ -201,7 +201,7 @@ export default function GrammarlyEditorPage() {
 
             <PrincipleBlock
               number={2}
-              heading="“I see how this could help me”"
+              heading="“I see how this could help me.”"
               body="I saw the blank state as an opportunity to explain each agent’s value before users started writing. In partnership with a content designer, I rewrote value-driven blank states for all 12 agents."
               divider
             >
@@ -215,7 +215,7 @@ export default function GrammarlyEditorPage() {
 
             <PrincipleBlock
               number={3}
-              heading="“This feels like one cohesive experience”"
+              heading="“This feels like one cohesive experience.”"
               contentGap="related"
               divider
             >

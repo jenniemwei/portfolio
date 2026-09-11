@@ -55,7 +55,7 @@ export default function G2SearchPage() {
         <CaseStudySection id="context" className="py-6">
           <NarrativeBlock
             note="Context"
-            heading="G2 is a software marketplace platform that connects sellers with buyer insights"
+            heading="G2 is a software marketplace platform that connects sellers with buyer insights."
             body="Buyers discover and compare products, while sellers pay for market insights and buyer-intent data. However, the user engagement that drives buyer-intent data was declining: 48% of buyers searching on G2 left without clicking a single result."
           />
         </CaseStudySection>
