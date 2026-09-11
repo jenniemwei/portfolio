@@ -6,6 +6,7 @@ import {
   Manrope,
   Noto_Sans_Mono,
 } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
 import { Nav } from "@/components/nav/Nav";
 import "@/styles/globals.css";
@@ -73,6 +74,7 @@ export default function RootLayout({
         {/* Temporarily hidden; keep the nav implementation available for later. */}
         {false && <Nav />}
         {children}
+        <Analytics />
       </body>
     </html>
   );
