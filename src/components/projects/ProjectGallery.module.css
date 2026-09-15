@@ -1,0 +1,64 @@
+.gallery {
+  box-sizing: border-box;
+  width: 80%;
+  max-width: 1000px;
+  min-width: 0;
+  margin-inline: auto;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.row {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--gallery-gap);
+  min-width: 0;
+}
+
+.cell {
+  flex: var(--project-width-weight, 1) 1 0;
+  min-width: 0;
+}
+
+@media (max-width: 48rem) {
+  .row {
+    flex-direction: column;
+  }
+
+  .cell {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+
+@media (min-width: 48.001rem) and (hover: hover) {
+  .cell {
+    flex-grow: var(--project-hover-weight, 1);
+    transition: flex-grow var(--transition-project-card-grow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell {
+    transition: none;
+  }
+}
+
+.rowBaseline {
+  position: absolute;
+  width: 0;
+  height: calc(var(--gallery-visual-height) + 12px);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* One animation controller updates all row offsets together. */
+@media (min-width: 72.001rem) and (hover: hover) {
+  .row {
+    height: calc(var(--gallery-visual-height) + 12px + var(--row-height-offset, 0px));
+  }
+}

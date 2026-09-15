@@ -26,7 +26,7 @@
   --neutral-10: #f2f0eb;
   --white: #ffffff;
   /* Figma palette primitive: Semantic/page. */
-  --page: #fcfaf7;
+  --page: #f7f7f7;
 
   /* Page / content width utilities (`pg-w-*`, `content-*`) */
   --pg-w-80-width: 90%;
@@ -192,8 +192,8 @@
 }
 
 @utility type-body-bold {
-  font: var(--font-weight-medium) var(--text-base) / var(--line-height-base) var(--font-sans);
-  letter-spacing: 0;
+  font: var(--font-weight-semibold) var(--text-base) / var(--line-height-base) var(--font-sans);
+  letter-spacing: -0.025em;
 }
 
 @utility type-body-sm {

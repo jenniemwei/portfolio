@@ -6,6 +6,12 @@ import widgetsThumb from "../../public/thumbnails/widgets-thumb.png";
 /** Home page work / visual gallery content — edit here. */
 
 export type HomeProjectItem = {
+  /** Keep the card's layout space without displaying it. */
+  hidden?: boolean;
+  /** Relative width within a filled desktop row; defaults to 1. */
+  widthWeight?: number;
+  /** Visual width / height; used to calculate each row’s resting height. */
+  visualAspectRatio?: readonly [number, number];
   /** Gallery sort order within a row (ascending). */
   index: number;
   id?: string;
@@ -26,8 +32,6 @@ export type HomeProjectItem = {
 };
 
 export type HomeGalleryRow = {
-  /** `fr` weights per column (e.g. `[1, 1]` = 50/50). */
-  tracks: readonly number[];
   projects: readonly HomeProjectItem[];
 };
 
@@ -42,21 +46,24 @@ export const homeProjects = {
   work: {
     rows: [
       {
-        tracks: [1, 1],
         projects: [
           {
+            visualAspectRatio: [8, 5],
             index: 0,
             id: "grammarly-editor",
+            widthWeight: 1,
             href: "/work/grammarly-editor",
-            heading: "Grammarly editor",
+            heading: "Grammarly Editor",
             subheading: "Summer 2026",
-            subheadDesc: "Design patterns for Grammarly editor agents,",
+            subheadDesc: "Design patterns for Grammarly editor agents",
             img: "/thumbnails/grammarly-blankpg-thumb.png",
             imgAlt: "Grammarly editor agents",
           },
           {
+            visualAspectRatio: [16, 15],
             index: 1,
             id: "g2-search",
+            widthWeight: 1,
             href: "/work/g2-search",
             heading: "G2 Search",
             subheading: "Summer 2025",
@@ -69,19 +76,20 @@ export const homeProjects = {
         ],
       },
       {
-        tracks: [1, 1],
         projects: [
           {
+            visualAspectRatio: [4, 3],
             index: 0,
             id: "docs-ai-widgets",
             href: "https://www.figma.com/deck/yxuLhkFn8D9ZfAYCD2Bq5R",
             heading: "Docs AI widgets",
             subheading: "Summer 2026",
-            subheadDesc: "Prototyping AI widgets in Superhuman docs,",
+            subheadDesc: "Prototyping AI widgets in Superhuman docs",
             img: widgetsThumb,
             imgAlt: "AI widgets in Superhuman docs",
           },
           {
+            visualAspectRatio: [4, 3],
             index: 1,
             id: "g2-ai",
             href: "https://www.figma.com/deck/NhP5MMr5Kr3Pm7eEq8jCH4",
@@ -93,14 +101,40 @@ export const homeProjects = {
           },
         ],
       },
+      {
+        projects: [
+          {
+            visualAspectRatio: [4, 3],
+            widthWeight: 1,
+            index: 0,
+            id: "go-for-students",
+            heading: "Go for students",
+            subheading: "2026",
+            subheadDesc: "Northstar sprint concept prototype",
+            img: null,
+            imgAlt: "Go for students concept prototype",
+            video: "https://res.cloudinary.com/dlaz3infq/video/upload/v1789339361/Scene-1_1_j3t0k9.mp4",
+          },
+          {
+            visualAspectRatio: [4, 3],
+            widthWeight: 1,
+            index: 1,
+            id: "work-placeholder-2",
+            hidden: true,
+            heading: "Upcoming project 2",
+            subheading: "Coming soon",
+            img: null,
+          },
+        ],
+      },
     ],
   },
   visual: {
     rows: [
       {
-        tracks: [1, 1],
         projects: [
           {
+            visualAspectRatio: [4, 3],
             index: 0,
             id: "dhero",
             heading: "The Designers Republic",
@@ -112,6 +146,7 @@ export const homeProjects = {
               "https://res.cloudinary.com/dlaz3infq/video/upload/v1767847688/ian_anderson_video_nzysfl.mp4",
           },
           {
+            visualAspectRatio: [4, 3],
             index: 1,
             id: "folding-at-home",
             href: "https://www.figma.com/deck/EkFeEVcLIn79PKESBb9QZ8",
@@ -127,9 +162,9 @@ export const homeProjects = {
         ],
       },
       {
-        tracks: [1, 1],
         projects: [
           {
+            visualAspectRatio: [4, 3],
             index: 0,
             heading: "HCII 30",
             subheading: "Summer 2024",
@@ -138,6 +173,7 @@ export const homeProjects = {
             imgAlt: "HCII",
           },
           {
+            visualAspectRatio: [4, 3],
             index: 1,
             heading: "Meeting of the Minds",
             subheading: "Spring 2025",
@@ -152,3 +188,10 @@ export const homeProjects = {
   work: { rows: readonly HomeGalleryRow[] };
   visual: { rows: readonly HomeGalleryRow[] };
 };
+
+export function visualAspectRatio(project: HomeProjectItem): number {
+  const [width, height] = project.visualAspectRatio ?? [4, 3];
+  return Number.isFinite(width) && Number.isFinite(height) && width > 0 && height > 0
+    ? width / height
+    : 4 / 3;
+}

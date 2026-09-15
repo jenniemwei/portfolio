@@ -7,58 +7,61 @@
 }
 
 .card {
-  transition: opacity 200ms ease-out;
+  transition: opacity var(--transition-project-card-grow);
 }
 
 .mediaFrame {
   position: relative;
   width: 100%;
   min-width: 0;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: var(--project-visual-ratio, 1.3333333333);
   flex: 0 0 auto;
 }
 
 .caption {
-  display: flex;
+  display: grid;
+  grid-template-rows: 1fr;
   width: 100%;
   min-width: 0;
   flex: 0 0 auto;
+  padding-top: var(--spacing-md);
+}
+
+.captionContent {
+  display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  padding-top: var(--spacing-md);
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Keep home captions at 14px when the shared type utility sets a font shorthand. */
+.captionContent p {
+  font-size: 14px;
 }
 
 @media (min-width: 72.001rem) and (hover: hover) {
   .caption {
-    min-height: 0;
-    flex-basis: 0;
-    overflow: hidden;
-    padding-top: 0;
+    grid-template-rows: 0fr;
+    padding-top: 12px;
     opacity: 0;
     transform: translateY(-8px);
     transition:
-      flex-basis var(--transition-project-card),
-      padding-top var(--transition-project-card),
-      opacity 240ms ease-out,
-      transform var(--transition-project-card);
-    transition-delay: 0ms, 0ms, 0ms, 0ms;
-  }
-
-  /* Preserve row height briefly only while moving between sibling cards. */
-  .captionCollapseDelayed {
-    transition-delay: 120ms, 120ms, 0ms, 0ms;
+      grid-template-rows var(--transition-project-card-grow),
+      padding-top var(--transition-project-card-grow),
+      opacity var(--transition-project-card-grow),
+      transform var(--transition-project-card-grow);
   }
 
   .cardActive .caption {
-    flex-basis: calc(3rem + var(--spacing-md));
-    padding-top: var(--spacing-md);
+    grid-template-rows: 1fr;
+    padding-top: 12px;
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0ms, 0ms, 50ms, 0ms;
   }
 
   .cardDimmed {
-    opacity: 0.45;
+    opacity: 0.6;
   }
 }
 
@@ -68,4 +71,31 @@
     transition: none;
   }
 
+}
+
+@media (min-width: 48.001rem) {
+  .mediaFrame {
+    height: var(--gallery-visual-height, auto);
+  }
+}
+
+@media (min-width: 48.001rem) and (hover: hover) {
+  .mediaFrame {
+    height: calc(var(--gallery-visual-height) * var(--project-hover-scale, 1));
+    transition: height var(--transition-project-card-grow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mediaFrame {
+    transition: none;
+  }
+}
+
+/* Media and row geometry share a single animation clock on desktop. */
+@media (min-width: 72.001rem) and (hover: hover) {
+  .mediaFrame {
+    height: var(--animated-media-height, var(--gallery-visual-height));
+    transition: none;
+  }
 }

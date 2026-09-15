@@ -17,7 +17,6 @@ type ProjectCardProps = {
   visual?: ReactNode;
   active?: boolean;
   dimmed?: boolean;
-  delayCaptionCollapse?: boolean;
   onActivate?: () => void;
 };
 
@@ -35,10 +34,10 @@ export function ProjectCard({
   visual,
   active = false,
   dimmed = false,
-  delayCaptionCollapse = false,
   onActivate,
 }: ProjectCardProps) {
   const isExternal = href?.startsWith("http://") || href?.startsWith("https://");
+  const year = date.match(/\b\d{4}\b/)?.[0];
   const article = (
     <article
       id={id}
@@ -62,20 +61,24 @@ export function ProjectCard({
           )}
         </div>
       </div>
-      <div
-        className={cn(
-          styles.caption,
-          delayCaptionCollapse && styles.captionCollapseDelayed,
-        )}
-      >
-        <p className="type-body-bold m-0 text-text-default">
-          {title}
-        </p>
-        {description || date ? (
-          <p className="type-body-sm m-0 text-pretty text-text-subtle">
-            {[description, date].filter(Boolean).join(" ")}
+      <div className={styles.caption}>
+        <div data-caption-content className={styles.captionContent}>
+        <div className="flex w-full items-baseline justify-between gap-3">
+          <p className="type-body-bold m-0 min-w-0 text-[14px] text-text-default">
+            {title}
+          </p>
+          {year ? (
+            <p className="type-body m-0 shrink-0 text-[14px] text-text-subtle">
+              {year}
+            </p>
+          ) : null}
+        </div>
+        {description || (!year && date) ? (
+          <p className="type-body m-0 text-[14px] text-pretty text-text-subtle">
+            {[description, !year && date].filter(Boolean).join(" ")}
           </p>
         ) : null}
+        </div>
       </div>
     </article>
   );
