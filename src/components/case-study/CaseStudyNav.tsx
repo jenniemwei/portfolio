@@ -42,7 +42,7 @@ function BackToHome({ mobile = false }: { mobile?: boolean }) {
         />
       </span>
       <span
-        className={`pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 translate-y-1 whitespace-nowrap text-center opacity-0 transition-[translate,opacity] duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 ${CASE_NOTE_SERIF} ${mobile ? "hidden sm:block" : ""}`}
+        className={`pointer-events-none absolute top-1/2 left-11.5 -translate-y-1/2 whitespace-nowrap text-left opacity-0 transition-opacity duration-200 motion-reduce:transition-none group-hover:opacity-100 group-focus-visible:opacity-100 ${CASE_NOTE_SERIF} ${mobile ? "hidden sm:block" : ""}`}
       >
         back
       </span>
