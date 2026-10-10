@@ -119,7 +119,6 @@ export const homeProjects = {
             widthWeight: 1,
             index: 0,
             id: "go-for-students",
-            hidden: true,
             heading: "Go for students",
             subheading: "2026",
             subheadDesc: "Northstar sprint concept prototype",
