@@ -24,6 +24,8 @@ type GalleryVideoThumbProps = {
   label: string;
   /** Only the expanded accordion item is eligible to play. */
   active?: boolean;
+  /** Change to restart an already-active visual on pointer re-entry. */
+  playbackKey?: number;
   /** Background behind letterboxing. */
   fill?: string;
   /** Preserve the existing width-first layout for contain thumbnails. */
@@ -32,11 +34,12 @@ type GalleryVideoThumbProps = {
   sizes?: string;
 };
 
-/** Lazily load on first playback; keep the player mounted to resume in place. */
+/** Lazily load on first playback and retain buffered media between activations. */
 export function GalleryVideoThumb({
   src,
   label,
   active = true,
+  playbackKey = 0,
   fill,
   fit = "cover",
   fallbackSrc,
@@ -57,6 +60,9 @@ export function GalleryVideoThumb({
     const container = containerRef.current;
     if (!video || !container || videoFailed) return;
 
+    // Restart on selection/re-hover without reloading the buffered source.
+    if (active && video.getAttribute("src")) video.currentTime = 0;
+
     let inView = false;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const syncPlayback = () => {
@@ -67,7 +73,7 @@ export function GalleryVideoThumb({
       }
 
       // No video request before the first visible, active playback. Never clear
-      // the source on collapse: buffered data and the playback position survive.
+      // the source on collapse so buffered data survives.
       if (!video.getAttribute("src")) video.src = src;
       if (video.paused) {
         void video.play().catch(() => {
@@ -91,7 +97,7 @@ export function GalleryVideoThumb({
       reducedMotion.removeEventListener("change", syncPlayback);
       video.pause();
     };
-  }, [active, src, videoFailed]);
+  }, [active, playbackKey, src, videoFailed]);
 
   useEffect(() => {
     if (fit !== "contain") return;

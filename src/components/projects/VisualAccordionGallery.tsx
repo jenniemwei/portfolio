@@ -24,6 +24,7 @@ export type VisualGalleryProject = {
 
 function VisualAccordionRow({ project }: { project: VisualGalleryProject }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [playbackKey, setPlaybackKey] = useState(0);
   const activeSubtitle = project.visuals[activeIndex]?.subtitle?.trim() ?? "";
   const hasSubtitles = project.visuals.some((visual) => visual.subtitle?.trim());
 
@@ -46,6 +47,7 @@ function VisualAccordionRow({ project }: { project: VisualGalleryProject }) {
             onPointerEnter={(event) => {
               if (event.pointerType !== "touch" && window.matchMedia("(min-width: 48.001rem)").matches) {
                 setActiveIndex(index);
+                setPlaybackKey((key) => key + 1);
               }
             }}
             onFocus={() => setActiveIndex(index)}
@@ -56,6 +58,7 @@ function VisualAccordionRow({ project }: { project: VisualGalleryProject }) {
                 img={visual.src}
                 video={visual.video}
                 active={index === activeIndex}
+                playbackKey={index === activeIndex ? playbackKey : 0}
                 label={visual.alt}
                 fill={visual.fill}
                 fit={visual.fit}

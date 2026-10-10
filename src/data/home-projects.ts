@@ -193,7 +193,7 @@ export const homeProjects = {
             subheading: "Spring 2026",
             subheadDesc: "Dynamic brand for a citizen science supercomputer",
             visualSubtitle: "Branding a citizen science research project",
-            img: "/thumbnails/visual/fah-thumb-backup.jpg",
+            img: "/thumbnails/visual/f@h/fah-thumb-backup.jpg",
             imgAlt: "Folding@Home",
             video:
               "https://res.cloudinary.com/tzvupd7g/video/upload/v1791579179/FAH-reel.mp4",
@@ -210,6 +210,12 @@ export const homeProjects = {
                 subtitle: "Logotype process",
                 alt: "Folding@Home logo reel",
                 video: "https://res.cloudinary.com/tzvupd7g/video/upload/v1791591017/logo-reel.mov",
+              },
+              {
+                id: "folding-at-home-brand-mocks",
+                subtitle: "Brand applications",
+                alt: "Folding@Home brand application mockups",
+                src: "/thumbnails/visual/f@h/f@h-brand-mocks.png",
               },
             ],
           },
