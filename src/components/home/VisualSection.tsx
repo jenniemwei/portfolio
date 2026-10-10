@@ -1,14 +1,33 @@
-import { homeProjects } from "@/data/home-projects";
+import { homeProjects, type HomeProjectItem } from "@/data/home-projects";
 import {
   FlowerDoodle,
   GrassDoodle,
 } from "@/components/doodles";
-import gallerySectionStyles from "@/components/gallery/GallerySectionReveal.module.css";
 import { PageColumns } from "@/components/layout/PageColumns";
-import { ProjectGallery } from "@/components/projects/ProjectGallery";
+import { VisualAccordionGallery } from "@/components/projects/VisualAccordionGallery";
 import { cn } from "@/lib/cn";
 
 import styles from "./VisualSection.module.css";
+
+const visualProjects = homeProjects.visual.rows.flatMap((row) =>
+  row.projects.map((project: HomeProjectItem) => ({
+    id: project.id ?? project.heading,
+    heading: project.heading,
+    href: project.href,
+    visuals: [
+      ...(project.video || project.img ? [{
+          id: `${project.id ?? project.heading}-primary`,
+          alt: project.video ? `${project.heading} reel` : project.imgAlt ?? project.heading,
+          subtitle: project.visualSubtitle,
+          video: project.video,
+          src: project.img ?? undefined,
+          fill: project.videoThumbBg,
+          fit: project.videoThumbFit,
+      }] : []),
+      ...(project.additionalVisuals ?? []),
+    ].filter((visual) => visual.src || visual.video),
+  })),
+);
 
 export function VisualSection() {
   return (
@@ -40,11 +59,7 @@ export function VisualSection() {
           </div>
         </div>
       </PageColumns>
-      <ProjectGallery
-        rows={homeProjects.visual.rows}
-        sizes="(max-width: 1023px) 100vw, 50vw"
-        className={gallerySectionStyles.sectionReveal}
-      />
+      <VisualAccordionGallery projects={visualProjects} />
     </section>
   );
 }

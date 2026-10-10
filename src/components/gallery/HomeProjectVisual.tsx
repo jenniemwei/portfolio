@@ -9,6 +9,8 @@ type HomeProjectVisualProps = {
 
 /** Shared card media for home gallery rows. */
 export function HomeProjectVisual({ project, sizes }: HomeProjectVisualProps) {
+  if (project.hidden) return null;
+
   if (!project.video && !project.img) {
     return (
       <div

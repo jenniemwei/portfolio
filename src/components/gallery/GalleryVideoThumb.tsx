@@ -1,90 +1,127 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-function sourceTypeForVideoUrl(src: string): string {
-  const lower = src.split("?")[0]?.toLowerCase() ?? "";
-  if (lower.endsWith(".webm")) return "video/webm";
-  return "video/mp4";
+/** A lightweight still for Cloudinary clips without a supplied thumbnail. */
+function cloudinaryPoster(src: string): string | undefined {
+  try {
+    const url = new URL(src);
+    if (url.hostname !== "res.cloudinary.com" || !url.pathname.includes("/video/upload/")) {
+      return undefined;
+    }
+    url.pathname = url.pathname
+      .replace("/video/upload/", "/video/upload/so_0,w_1000,q_auto,f_jpg/")
+      .replace(/\.(mp4|webm|mov)$/i, ".jpg");
+    return url.toString();
+  } catch {
+    return undefined;
+  }
 }
 
 type GalleryVideoThumbProps = {
   src: string;
   label: string;
-  /** Background behind letterboxing; `white` maps to `var(--color-fill-default)`, or pass any CSS color. */
+  /** Only the expanded accordion item is eligible to play. */
+  active?: boolean;
+  /** Background behind letterboxing. */
   fill?: string;
-  /** `cover` = same as thumb images (fill + crop). `contain` = letterbox / width-first fit. */
+  /** Preserve the existing width-first layout for contain thumbnails. */
   fit?: "contain" | "cover";
-  /** Optional image fallback if video fails to load/decode. */
   fallbackSrc?: string | StaticImageData;
-  /** `sizes` for fallback `<Image>` when video errors. */
   sizes?: string;
 };
 
-/**
- * Width-first layout when `fit !== "cover"`:
- * - Video wider than the card slot (relative aspect): 100% width, height from aspect ratio, vertical letterboxing.
- * - Video taller than the slot: still 100% width, scale height with aspect, clip top/bottom (centered).
- */
-function WidthFirstVideoThumb({
+/** Lazily load on first playback; keep the player mounted to resume in place. */
+export function GalleryVideoThumb({
   src,
   label,
-  fillStyle,
-  onError,
-}: {
-  src: string;
-  label: string;
-  fillStyle?: CSSProperties;
-  onError: () => void;
-}) {
+  active = true,
+  fill,
+  fit = "cover",
+  fallbackSrc,
+  sizes = "(max-width: 1023px) 100vw, 60vw",
+}: GalleryVideoThumbProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  const applyLayout = useCallback(() => {
-    const container = containerRef.current;
-    const video = videoRef.current;
-    if (!container || !video) return;
-
-    const vw = video.videoWidth;
-    const vh = video.videoHeight;
-    const cw = container.clientWidth;
-    const ch = container.clientHeight;
-    if (!vw || !vh || !cw || !ch) return;
-
-    const arV = vw / vh;
-    const arC = cw / ch;
-
-    if (arV > arC) {
-      video.style.width = "100%";
-      video.style.height = "auto";
-      video.style.maxHeight = "100%";
-      video.style.objectFit = "contain";
-    } else {
-      const scaledH = (cw * vh) / vw;
-      video.style.width = "100%";
-      video.style.height = `${scaledH}px`;
-      video.style.maxHeight = "none";
-      video.style.objectFit = "contain";
-    }
-  }, []);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const [hasFrame, setHasFrame] = useState(false);
+  const poster = fallbackSrc ?? cloudinaryPoster(src);
+  const showPoster = !active || !hasFrame || videoFailed;
+  const fillStyle: CSSProperties | undefined = fill
+    ? { backgroundColor: fill === "white" ? "var(--color-fill-default)" : fill }
+    : undefined;
 
   useEffect(() => {
     const video = videoRef.current;
     const container = containerRef.current;
-    if (!video || !container) return;
+    if (!video || !container || videoFailed) return;
 
-    video.addEventListener("loadedmetadata", applyLayout);
-    const ro = new ResizeObserver(() => {
-      requestAnimationFrame(applyLayout);
-    });
-    ro.observe(container);
+    let inView = false;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncPlayback = () => {
+      const shouldPlay = active && inView && !document.hidden && !reducedMotion.matches;
+      if (!shouldPlay) {
+        video.pause();
+        return;
+      }
+
+      // No video request before the first visible, active playback. Never clear
+      // the source on collapse: buffered data and the playback position survive.
+      if (!video.getAttribute("src")) video.src = src;
+      if (video.paused) {
+        void video.play().catch(() => {
+          // Rapid switching can abort play(), and browsers may block autoplay.
+          // Keep the still visible until playback actually starts.
+        });
+      }
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting && entry.intersectionRatio >= 0.15;
+      syncPlayback();
+    }, { threshold: [0, 0.15] });
+    observer.observe(container);
+    document.addEventListener("visibilitychange", syncPlayback);
+    reducedMotion.addEventListener("change", syncPlayback);
 
     return () => {
-      video.removeEventListener("loadedmetadata", applyLayout);
-      ro.disconnect();
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", syncPlayback);
+      reducedMotion.removeEventListener("change", syncPlayback);
+      video.pause();
     };
-  }, [applyLayout, src]);
+  }, [active, src, videoFailed]);
+
+  useEffect(() => {
+    if (fit !== "contain") return;
+    const video = videoRef.current;
+    const container = containerRef.current;
+    if (!video || !container) return;
+    let frame = 0;
+
+    const applyLayout = () => {
+      const { videoWidth: vw, videoHeight: vh } = video;
+      const { clientWidth: cw, clientHeight: ch } = container;
+      if (!vw || !vh || !cw || !ch) return;
+      const isWider = vw / vh > cw / ch;
+      video.style.width = "100%";
+      video.style.height = isWider ? "auto" : `${cw * vh / vw}px`;
+      video.style.maxHeight = isWider ? "100%" : "none";
+    };
+    const observer = new ResizeObserver(() => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(applyLayout);
+    });
+    observer.observe(container);
+    video.addEventListener("loadedmetadata", applyLayout);
+    applyLayout();
+    return () => {
+      observer.disconnect();
+      video.removeEventListener("loadedmetadata", applyLayout);
+      cancelAnimationFrame(frame);
+    };
+  }, [fit]);
 
   return (
     <div
@@ -92,79 +129,32 @@ function WidthFirstVideoThumb({
       className="absolute inset-0 flex min-h-0 items-center justify-center overflow-hidden"
       style={fillStyle}
     >
-      <video
-        ref={videoRef}
-        className="block shrink-0"
-        autoPlay
-        muted
-        playsInline
-        loop
-        onError={onError}
-        aria-label={label}
-      >
-        <source src={src} type={sourceTypeForVideoUrl(src)} />
-      </video>
-    </div>
-  );
-}
-
-/** Muted + `playsInline` for autoplay; no controls. */
-export function GalleryVideoThumb({
-  src,
-  label,
-  fill,
-  fit = "cover",
-  fallbackSrc,
-  sizes = "(max-width: 1023px) 100vw, 60vw",
-}: GalleryVideoThumbProps) {
-  const [videoFailed, setVideoFailed] = useState(false);
-  const fillStyle: CSSProperties | undefined = fill
-    ? {
-        backgroundColor: fill === "white" ? "var(--color-fill-default)" : fill,
-      }
-    : undefined;
-
-  if (videoFailed && fallbackSrc) {
-    return (
-      <div
-        className="absolute inset-0 overflow-hidden"
-        style={fillStyle}
-      >
+      {poster ? (
         <Image
-          src={fallbackSrc}
+          src={poster}
           alt={label}
           fill
           className="object-cover"
           sizes={sizes}
+          unoptimized={!fallbackSrc}
+          style={{ visibility: showPoster ? "visible" : "hidden" }}
         />
-      </div>
-    );
-  }
-
-  if (fit === "cover") {
-    return (
-      <div className="absolute inset-0 overflow-hidden" style={fillStyle}>
-        <video
-          className="absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          muted
-          playsInline
-          loop
-          onError={() => setVideoFailed(true)}
-          aria-label={label}
-        >
-          <source src={src} type={sourceTypeForVideoUrl(src)} />
-        </video>
-      </div>
-    );
-  }
-
-  return (
-    <WidthFirstVideoThumb
-      src={src}
-      label={label}
-      fillStyle={fillStyle}
-      onError={() => setVideoFailed(true)}
-    />
+      ) : null}
+      <video
+        ref={videoRef}
+        className={fit === "cover"
+          ? "absolute inset-0 h-full w-full object-cover"
+          : "block shrink-0 object-contain"}
+        style={{ visibility: showPoster && poster ? "hidden" : "visible" }}
+        preload="none"
+        muted
+        playsInline
+        loop
+        onPlaying={() => setHasFrame(true)}
+        onError={() => setVideoFailed(true)}
+        aria-label={label}
+        aria-hidden={showPoster && !!poster}
+      />
+    </div>
   );
 }

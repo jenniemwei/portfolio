@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image";
 
-import g2AiThumb from "../../public/thumbnails/g2-ai-thumb.png";
-import widgetsThumb from "../../public/thumbnails/widgets-thumb.png";
+import g2AiThumb from "../../public/thumbnails/work/g2-ai-thumb.png";
+import widgetsThumb from "../../public/thumbnails/work/widgets-thumb.png";
 
 /** Home page work / visual gallery content — edit here. */
 
@@ -21,6 +21,8 @@ export type HomeProjectItem = {
   subheading: string;
   /** Contextual helper copy shown beneath the active project title. */
   subheadDesc?: string;
+  /** Subtitle for the first visual in the accordion gallery. */
+  visualSubtitle?: string;
   img: string | StaticImageData | null;
   imgAlt?: string;
   /** MP4 URL (e.g. Cloudinary). Default card visual; `img` shows on hover when both are set. */
@@ -29,6 +31,15 @@ export type HomeProjectItem = {
   videoThumbBg?: string;
   /** Default is cover (like images). Set `contain` for letterboxed / width-first video. */
   videoThumbFit?: "contain" | "cover";
+  /** Ordered assets after the default visual in the accordion gallery. */
+  additionalVisuals?: readonly {
+    id: string;
+    alt: string;
+    /** Subtitle displayed when this visual is expanded. */
+    subtitle?: string;
+    src?: string | StaticImageData;
+    video?: string;
+  }[];
 };
 
 export type HomeGalleryRow = {
@@ -56,7 +67,7 @@ export const homeProjects = {
             heading: "Grammarly Editor",
             subheading: "Summer 2026",
             subheadDesc: "Design patterns for Grammarly editor agents",
-            img: "/thumbnails/grammarly-blankpg-thumb.png",
+            img: "/thumbnails/work/grammarly-blankpg-thumb.png",
             imgAlt: "Grammarly editor agents",
           },
           {
@@ -68,10 +79,10 @@ export const homeProjects = {
             heading: "G2 Search",
             subheading: "Summer 2025",
             subheadDesc: "Smart search AI interaction patterns",
-            img: "/thumbnails/g2-search-thumb.png",
+            img: "/thumbnails/work/g2-search-thumb.png",
             imgAlt: "G2 Search",
             video:
-              "https://res.cloudinary.com/dlaz3infq/video/upload/v1779490718/g2-search_qc2aoo.mp4",
+              "https://res.cloudinary.com/tzvupd7g/video/upload/v1791579163/G2-search-reel.mp4",
           },
         ],
       },
@@ -81,7 +92,7 @@ export const homeProjects = {
             visualAspectRatio: [4, 3],
             index: 0,
             id: "docs-ai-widgets",
-            href: "https://www.figma.com/deck/yxuLhkFn8D9ZfAYCD2Bq5R",
+            href: "https://widgets-lab-mu.vercel.app/?tab=examples",
             heading: "Docs AI widgets",
             subheading: "Summer 2026",
             subheadDesc: "Prototyping AI widgets in Superhuman docs",
@@ -108,6 +119,7 @@ export const homeProjects = {
             widthWeight: 1,
             index: 0,
             id: "go-for-students",
+            hidden: true,
             heading: "Go for students",
             subheading: "2026",
             subheadDesc: "Northstar sprint concept prototype",
@@ -140,10 +152,37 @@ export const homeProjects = {
             heading: "The Designers Republic",
             subheading: "Spring 2025",
             subheadDesc: "Multimedia tribute to my design hero",
-            img: "/thumbnails/dhero-thumb-backup.webp",
+            visualSubtitle: "a multimedia tribute to Ian Anderson and The Designers Republic",
+            img: "/thumbnails/visual/dhero/dhero-thumb-backup.webp",
             imgAlt: "The Designers Republic",
             video:
               "https://res.cloudinary.com/dlaz3infq/video/upload/v1767847688/ian_anderson_video_nzysfl.mp4",
+            additionalVisuals: [
+              {
+                id: "dhero-video-reel",
+                subtitle: "Anderson's design philosophy in motion",
+                alt: "The Designers Republic video reel",
+                video: "https://res.cloudinary.com/tzvupd7g/video/upload/v1791590904/dhero-video-reel.mov",
+              },
+              {
+                id: "dhero-site-video",
+                subtitle: "Mobile and Desktop digital experiences",
+                alt: "The Designers Republic website video",
+                video: "https://res.cloudinary.com/tzvupd7g/video/upload/v1791585789/dhero-site-vid.mp4",
+              },
+              {
+                id: "dhero-book",
+                subtitle: "Ian Anderson's story & work in a 16-page booklet",
+                alt: "The Designers Republic book",
+                src: "/thumbnails/visual/dhero/dhero-book.webp",
+              },
+              {
+                id: "dhero-posters",
+                subtitle: 'Print poster for "...the bullshit"',
+                alt: "The Designers Republic posters",
+                src: "/thumbnails/visual/dhero/posters final.png",
+              },
+            ],
           },
           {
             visualAspectRatio: [4, 3],
@@ -153,32 +192,26 @@ export const homeProjects = {
             heading: "Folding@Home",
             subheading: "Spring 2026",
             subheadDesc: "Dynamic brand for a citizen science supercomputer",
-            img: "/thumbnails/fah-thumb-backup.jpg",
+            visualSubtitle: "Branding a citizen science research project",
+            img: "/thumbnails/visual/fah-thumb-backup.jpg",
             imgAlt: "Folding@Home",
             video:
-              "https://res.cloudinary.com/dlaz3infq/video/upload/v1776208966/logoanilight_rklxrq.webm",
+              "https://res.cloudinary.com/tzvupd7g/video/upload/v1791579179/FAH-reel.mp4",
             videoThumbBg: "var(--color-fill-default)",
-          },
-        ],
-      },
-      {
-        projects: [
-          {
-            visualAspectRatio: [4, 3],
-            index: 0,
-            heading: "HCII 30",
-            subheading: "Summer 2024",
-            subheadDesc: "Celebrating 30 years of HCII",
-            img: "/thumbnails/HCII-thumb.jpeg",
-            imgAlt: "HCII",
-          },
-          {
-            visualAspectRatio: [4, 3],
-            index: 1,
-            heading: "Meeting of the Minds",
-            subheading: "Spring 2025",
-            subheadDesc: "Event identity & collateral",
-            img: "/thumbnails/MOM-thumb.png",
+            additionalVisuals: [
+              {
+                id: "folding-at-home-scene-1",
+                subtitle: "Brand applications",
+                alt: "Folding@Home scene 1",
+                video: "https://res.cloudinary.com/tzvupd7g/video/upload/v1791593894/Scene-1_3.mp4",
+              },
+              {
+                id: "folding-at-home-logo-reel",
+                subtitle: "Logotype process",
+                alt: "Folding@Home logo reel",
+                video: "https://res.cloudinary.com/tzvupd7g/video/upload/v1791591017/logo-reel.mov",
+              },
+            ],
           },
         ],
       },

@@ -5,6 +5,7 @@ import { GalleryVideoThumb } from "@/components/gallery/GalleryVideoThumb";
 
 type GalleryProjectVisualProps = {
   video?: string;
+  active?: boolean;
   img?: string | StaticImageData | null;
   label: string;
   sizes: string;
@@ -14,6 +15,7 @@ type GalleryProjectVisualProps = {
 
 export function GalleryProjectVisual({
   video,
+  active = true,
   img,
   label,
   sizes,
@@ -23,7 +25,9 @@ export function GalleryProjectVisual({
   if (video) {
     return (
       <GalleryVideoThumb
+        key={video}
         src={video}
+        active={active}
         label={label}
         fill={fill}
         fit={fit}
