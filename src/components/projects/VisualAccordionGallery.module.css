@@ -47,6 +47,12 @@
   opacity: 1;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .visual {
+    cursor: url("/assets/icons/side-arrows.svg") 20 20, ew-resize;
+  }
+}
+
 /* The outer button reveals this fixed-size frame without rescaling its media. */
 .media {
   position: absolute;
