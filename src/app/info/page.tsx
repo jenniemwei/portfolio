@@ -43,8 +43,8 @@ export default function InfoPage() {
 
           <div className="flex flex-col gap-12 max-lg:flex-col-reverse lg:flex-row lg:gap-lg">
             <div className="flex min-w-0 flex-1 flex-col justify-center">
-              <dl className="m-0 grid grid-cols-[minmax(0,auto)_1fr] gap-x-md gap-y-lg text-text-default">
-                <dt className="type-body-sm font-normal lowercase text-text-subtle">
+              <dl className="m-0 grid grid-cols-[minmax(0,auto)_1fr] gap-x-md gap-y-lg text-text-default [&_dd]:leading-6">
+                <dt className="type-body-sm font-normal lowercase text-text-muted">
                   who
                 </dt>
                 <dd className="type-body m-0 min-w-0 space-y-md text-pretty">
@@ -63,7 +63,7 @@ export default function InfoPage() {
                   </p>
                 </dd>
 
-                <dt className="type-body-sm font-normal lowercase text-text-subtle">
+                <dt className="type-body-sm font-normal lowercase text-text-muted">
                   what
                 </dt>
                 <dd className="type-body m-0 min-w-0 space-y-md text-pretty">
@@ -75,7 +75,7 @@ export default function InfoPage() {
                   </p>
                 </dd>
 
-                <dt className="type-body-sm font-normal lowercase text-text-subtle">
+                <dt className="type-body-sm font-normal lowercase text-text-muted">
                   why
                 </dt>
                 <dd className="type-body m-0 min-w-0 space-y-md text-pretty">
@@ -86,7 +86,7 @@ export default function InfoPage() {
                   </p>
                 </dd>
 
-                <dt className="type-body-sm font-normal lowercase text-text-subtle">
+                <dt className="type-body-sm font-normal lowercase text-text-muted">
                   for
                 </dt>
                 <dd className="type-body m-0 min-w-0 text-pretty">

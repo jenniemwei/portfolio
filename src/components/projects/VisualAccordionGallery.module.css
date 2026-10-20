@@ -98,7 +98,7 @@
   align-items: baseline;
   gap: 8px;
   min-width: 0;
-  color: var(--color-text-subtle);
+  color: var(--color-text-muted);
   font-weight: 400;
   letter-spacing: 0;
 }

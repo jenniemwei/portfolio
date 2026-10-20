@@ -64,17 +64,17 @@ export function ProjectCard({
       <div className={styles.caption}>
         <div data-caption-content className={styles.captionContent}>
         <div className="flex w-full items-baseline justify-between gap-3">
-          <p className="type-body-bold m-0 min-w-0 text-[14px] text-text-default">
+          <p className="type-body-bold m-0 min-w-0 text-text-default">
             {title}
           </p>
           {year ? (
-            <p className="type-body m-0 shrink-0 text-[14px] text-text-subtle">
+            <p className="type-body m-0 shrink-0 text-text-muted">
               {year}
             </p>
           ) : null}
         </div>
         {description || (!year && date) ? (
-          <p className="type-body m-0 text-[14px] text-pretty text-text-subtle">
+          <p className="type-body m-0 text-pretty text-text-muted">
             {[description, !year && date].filter(Boolean).join(" ")}
           </p>
         ) : null}

@@ -19,6 +19,7 @@
   --g2: #d7d7d9;
   --g3: #EFEFF1;
   --g4: #86868a;
+  --g5: #6e6e73;
   --g6: #1c1c1c;
   --g8: #121212;
   --black: #000000;
@@ -54,6 +55,7 @@
   --color-text-default: var(--g8);
   --color-text-secondary: var(--g6);
   --color-text-subtle: var(--g4);
+  --color-text-muted: var(--g5);
   --color-text-black: var(--g8);
   --color-text-case-heading: var(--black);
   --color-text-case-body: var(--case-body);
