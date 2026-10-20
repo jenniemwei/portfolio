@@ -8,7 +8,7 @@ import {
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
-import { Nav } from "@/components/nav/Nav";
+import { BottomNav } from "@/components/nav/BottomNav";
 import "@/styles/globals.css";
 
 const crimsonPro = Crimson_Pro({
@@ -50,9 +50,9 @@ export const metadata: Metadata = {
   title: "Jennie Wei",
   description: "Product designer portfolio",
   icons: {
-    icon: "/icons/favicon-1.png",
-    shortcut: "/icons/favicon-1.png",
-    apple: "/icons/favicon-1.png",
+    icon: "/assets/icons/favicon-1.png",
+    shortcut: "/assets/icons/favicon-1.png",
+    apple: "/assets/icons/favicon-1.png",
   },
 };
 
@@ -71,8 +71,7 @@ export default function RootLayout({
         className="min-h-screen bg-fill-default text-text-default antialiased"
         suppressHydrationWarning
       >
-        {/* Temporarily hidden; keep the nav implementation available for later. */}
-        {false && <Nav />}
+        <BottomNav />
         {children}
         <Analytics />
       </body>
