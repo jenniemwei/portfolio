@@ -21,7 +21,6 @@ const PLAY_COLUMNS = [
   [
     { src: "/play/IMG_5117.webp", width: 1555, height: 2400, alt: "Creative work by Jennie Wei" },
     { src: "/play/IMG_5985.JPG", width: 5712, height: 4284, alt: "Creative work by Jennie Wei" },
-    { src: "/play/dog1.jpeg", width: 3024, height: 4032, alt: "Dog illustration" },
     { src: "/play/jumpcar.webp", width: 800, height: 1149, alt: "Jump car project" },
     { src: "/play/mindfulsensing.webp", width: 1692, height: 2400, alt: "Mindful sensing project" },
     { src: "/play/paint1.jpeg", width: 1280, height: 1274, alt: "Painting study" },
